@@ -49,7 +49,7 @@ llms:
 | [DeprecatedCurrentDate](DeprecatedCurrentDate.md) | Ошибка | Важный | [#std643, п. 2.1: Работа в разных часовых поясах](../../std/643.md#21)<br>[#std643, п. 3.1: Работа в разных часовых поясах](../../std/643.md#31) |
 | [DeprecatedFind](DeprecatedFind.md) | Дефект кода | Незначительный | — |
 | [DeprecatedMessage](DeprecatedMessage.md) | Дефект кода | Незначительный | [#std418: Ограничение на использование метода Сообщить](../../std/418.md#std418) |
-| [DeprecatedMethodCall](DeprecatedMethodCall.md) | Дефект кода | Незначительный | [#std453, п. 5.7: Описание процедур и функций](../../std/453.md#57) |
+| [DeprecatedMethodCall](DeprecatedMethodCall.md) | Дефект кода | Незначительный | [#std453, п. 5.8: Описание процедур и функций](../../std/453.md#58) |
 | [DeprecatedTypeManagedForm](DeprecatedTypeManagedForm.md) | Дефект кода | Информационный | — |
 | [DisableSafeMode](DisableSafeMode.md) | Уязвимость | Важный | [#std669, п. 3.2: Ограничение на выполнение внешнего кода](../../std/669.md#32) |
 | [DoubleNegatives](DoubleNegatives.md) | Дефект кода | Важный | — |

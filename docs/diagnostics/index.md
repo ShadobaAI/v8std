@@ -997,8 +997,12 @@ llms:
         <h2 class="diagnostics-clause__title"><a href="../std/453.md#55">п. 5.5 — В редких случаях, когда сразу несколько параметров имеют дополнительные типы, добавляйте секцию // Варианты вызова:</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 5.6 — в любом месте документирующего комментария можно добавить переход к другим объектам конфигурации, процедурам и функциям (в том числе к функциям-конструкторам структур) acc:403 acc:404 acc:1381 acc:1382 acc:1402">
-        <h2 class="diagnostics-clause__title"><a href="../std/453.md#56">п. 5.6 — В любом месте документирующего комментария можно добавить переход к другим объектам конфигурации, процедурам и функциям (в том числе к функциям-конструкторам структур)</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 5.6 — в объявляемых секциях текст комментария пишите с отступом относительно заголовка секции, начиная с первой строки" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/453.md#56">п. 5.6 — В объявляемых секциях текст комментария пишите с отступом относительно заголовка секции, начиная с первой строки</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 5.7 — в любом месте документирующего комментария можно добавить переход к другим объектам конфигурации, процедурам и функциям (в том числе к функциям-конструкторам структур) acc:403 acc:404 acc:1381 acc:1382 acc:1402">
+        <h2 class="diagnostics-clause__title"><a href="../std/453.md#57">п. 5.7 — В любом месте документирующего комментария можно добавить переход к другим объектам конфигурации, процедурам и функциям (в том числе к функциям-конструкторам структур)</a></h2>
         <div class="diagnostics-clause__links diagnostic-links">
           <a class="diagnostic-chip" href="acc/403.md">acc:403</a>
           <a class="diagnostic-chip" href="acc/404.md">acc:404</a>
@@ -1007,8 +1011,8 @@ llms:
           <a class="diagnostic-chip" href="acc/1402.md">acc:1402</a>
         </div>
       </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 5.7 — если нужно пометить процедуру (функцию) как устаревшую, в первой строке описания используйте слово // устарела acc:222 acc:223 acc:288 acc:289 acc:1334 acc:1335 acc:1336 bslls:deprecatedmethodcall">
-        <h2 class="diagnostics-clause__title"><a href="../std/453.md#57">п. 5.7 — Если нужно пометить процедуру (функцию) как устаревшую, в первой строке описания используйте слово // Устарела</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 5.8 — если нужно пометить процедуру (функцию) как устаревшую, в первой строке описания используйте слово // устарела acc:222 acc:223 acc:288 acc:289 acc:1334 acc:1335 acc:1336 bslls:deprecatedmethodcall">
+        <h2 class="diagnostics-clause__title"><a href="../std/453.md#58">п. 5.8 — Если нужно пометить процедуру (функцию) как устаревшую, в первой строке описания используйте слово // Устарела</a></h2>
         <div class="diagnostics-clause__links diagnostic-links">
           <a class="diagnostic-chip" href="acc/222.md">acc:222</a>
           <a class="diagnostic-chip" href="acc/223.md">acc:223</a>

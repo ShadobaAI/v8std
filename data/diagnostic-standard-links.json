@@ -406,14 +406,14 @@
     {
       "diagnostic": "bslls:DeprecatedMethodCall",
       "standard": "std453",
-      "clause": "5.7",
-      "anchor": "57",
+      "clause": "5.8",
+      "anchor": "58",
       "evidence": [
         "https://github.com/1c-syntax/bsl-language-server/blob/f4616cda8a216789ee40529ed857e614b9e2ea25/docs/diagnostics/DeprecatedMethodCall.md"
       ],
-      "reason": "Диагностика «Устаревшие методы не должны использоваться (DeprecatedMethodCall)» проверяет условие пункта 5.7 стандарта std453.",
+      "reason": "Диагностика «Устаревшие методы не должны использоваться (DeprecatedMethodCall)» проверяет условие пункта 5.8 стандарта std453.",
       "review": "confirmed",
-      "notes": "Пункт 5.7 задаёт конвенцию Устарела/Deprecated; запрет вызова является защитным расширением диагностики."
+      "notes": "Пункт 5.8 задаёт конвенцию Устарела/Deprecated; запрет вызова является защитным расширением диагностики. До редакции от мая 2026 года это был пункт 5.7."
     },
     {
       "diagnostic": "bslls:DisableSafeMode",

@@ -873,7 +873,7 @@ class BsllsSemanticReviewTests(unittest.TestCase):
             ("bslls:BeginTransactionBeforeTryCatch", "std783"): {"1.3"},
             ("bslls:CodeBlockBeforeSub", "std455"): {"1.1"},
             ("bslls:CommandModuleExportMethods", "std544"): {"std544"},
-            ("bslls:DeprecatedMethodCall", "std453"): {"5.7"},
+            ("bslls:DeprecatedMethodCall", "std453"): {"5.8"},
             ("bslls:GetFormMethod", "std404"): {"1"},
             ("bslls:IncorrectUseLikeInQuery", "std726"): {"1"},
             ("bslls:QueryNestedFieldsByDot", "std654"): {"1.2"},
