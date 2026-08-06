@@ -68,7 +68,7 @@ llms:
 | [ExternalAppStarting](ExternalAppStarting.md) | Потенциальная уязвимость | Важный | [#std774, п. 1: Безопасность запуска приложений](../../std/774.md#1) |
 | [ExtraCommas](ExtraCommas.md) | Дефект кода | Важный | [#std640, п. 7: Параметры процедур и функций](../../std/640.md#7) |
 | [FieldsFromJoinsWithoutIsNull](FieldsFromJoinsWithoutIsNull.md) | Ошибка | Критичный | — |
-| [FileSystemAccess](FileSystemAccess.md) | Уязвимость | Важный | [#std542, п. 1: Доступ к файловой системе из кода конфигурации](../../std/542.md#1) |
+| [FileSystemAccess](FileSystemAccess.md) | Уязвимость | Важный | [#std542, п. 6: Доступ к файловой системе из кода конфигурации](../../std/542.md#6) |
 | [ForbiddenMetadataName](ForbiddenMetadataName.md) | Ошибка | Блокирующий | [#std474, п. 2.5: Имя, синоним, комментарий](../../std/474.md#25) |
 | [FormDataToValue](FormDataToValue.md) | Дефект кода | Информационный | [#std409, п. 1: Использование РеквизитФормыВЗначение и ДанныеФормыВЗначение](../../std/409.md#1) |
 | [FullOuterJoinQuery](FullOuterJoinQuery.md) | Дефект кода | Важный | [#std435, п. 1.1: Ограничение на использование конструкции "ПОЛНОЕ ВНЕШНЕЕ СОЕДИНЕНИЕ" в запросах](../../std/435.md#11) |
@@ -106,7 +106,7 @@ llms:
 | [MissingParameterDescription](MissingParameterDescription.md) | Дефект кода | Важный | [#std453, п. 5.2: Описание процедур и функций](../../std/453.md#52) |
 | [MissingReturnedValueDescription](MissingReturnedValueDescription.md) | Дефект кода | Важный | [#std453, п. 5.3: Описание процедур и функций](../../std/453.md#53) |
 | [MissingSpace](MissingSpace.md) | Дефект кода | Информационный | — |
-| [MissingTemporaryFileDeletion](MissingTemporaryFileDeletion.md) | Ошибка | Важный | [#std542, п. 4: Доступ к файловой системе из кода конфигурации](../../std/542.md#4) |
+| [MissingTemporaryFileDeletion](MissingTemporaryFileDeletion.md) | Ошибка | Важный | [#std542, п. 1.4: Доступ к файловой системе из кода конфигурации](../../std/542.md#14) |
 | [MissingTempStorageDeletion](MissingTempStorageDeletion.md) | Дефект кода | Критичный | [#std487, п. 8.3: Минимизация количества серверных вызовов и трафика](../../std/487.md#83)<br>[#std642, п. 3.1: Длительные операции на сервере](../../std/642.md#31) |
 | [MissingVariablesDescription](MissingVariablesDescription.md) | Дефект кода | Незначительный | [#std455, п. 2.2: Структура модуля](../../std/455.md#22) |
 | [MultilineStringInQuery](MultilineStringInQuery.md) | Ошибка | Критичный | — |
@@ -151,7 +151,7 @@ llms:
 | [SeveralCompilerDirectives](SeveralCompilerDirectives.md) | Ошибка | Критичный | — |
 | [SpaceAtStartComment](SpaceAtStartComment.md) | Дефект кода | Информационный | [#std456, п. 7.3: Тексты модулей](../../std/456.md#73) |
 | [StyleElementConstructors](StyleElementConstructors.md) | Ошибка | Незначительный | [#std667, п. 1: Элементы стиля](../../std/667.md#1) |
-| [TempFilesDir](TempFilesDir.md) | Дефект кода | Важный | [#std542, п. 1: Доступ к файловой системе из кода конфигурации](../../std/542.md#1_1) |
+| [TempFilesDir](TempFilesDir.md) | Дефект кода | Важный | [#std542, п. 1.1: Доступ к файловой системе из кода конфигурации](../../std/542.md#11) |
 | [TernaryOperatorUsage](TernaryOperatorUsage.md) | Дефект кода | Незначительный | — |
 | [ThisObjectAssign](ThisObjectAssign.md) | Ошибка | Блокирующий | — |
 | [TimeoutsInExternalResources](TimeoutsInExternalResources.md) | Ошибка | Критичный | [#std748, п. 1: Таймауты при работе с внешними ресурсами](../../std/748.md#1) |

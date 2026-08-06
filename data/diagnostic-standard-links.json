@@ -684,12 +684,12 @@
     {
       "diagnostic": "bslls:FileSystemAccess",
       "standard": "std542",
-      "clause": "1",
-      "anchor": "1",
+      "clause": "6",
+      "anchor": "6",
       "evidence": [
         "https://github.com/1c-syntax/bsl-language-server/blob/f4616cda8a216789ee40529ed857e614b9e2ea25/docs/diagnostics/FileSystemAccess.md"
       ],
-      "reason": "Диагностика «Доступ к файловой системе (FileSystemAccess)» проверяет условие пункта 1 стандарта std542.",
+      "reason": "Диагностика «Доступ к файловой системе (FileSystemAccess)» проверяет условие пункта 6 стандарта std542.",
       "review": "confirmed"
     },
     {
@@ -1121,12 +1121,12 @@
     {
       "diagnostic": "bslls:MissingTemporaryFileDeletion",
       "standard": "std542",
-      "clause": "4",
-      "anchor": "4",
+      "clause": "1.4",
+      "anchor": "14",
       "evidence": [
         "https://github.com/1c-syntax/bsl-language-server/blob/f4616cda8a216789ee40529ed857e614b9e2ea25/docs/diagnostics/MissingTemporaryFileDeletion.md"
       ],
-      "reason": "Диагностика «Отсутствует удаление временного файла после использования (MissingTemporaryFileDeletion)» проверяет условие пункта 4 стандарта std542.",
+      "reason": "Диагностика «Отсутствует удаление временного файла после использования (MissingTemporaryFileDeletion)» проверяет условие пункта 1.4 стандарта std542.",
       "review": "confirmed"
     },
     {
@@ -1610,12 +1610,12 @@
     {
       "diagnostic": "bslls:TempFilesDir",
       "standard": "std542",
-      "clause": "1",
-      "anchor": "1_1",
+      "clause": "1.1",
+      "anchor": "11",
       "evidence": [
         "https://github.com/1c-syntax/bsl-language-server/blob/f4616cda8a216789ee40529ed857e614b9e2ea25/docs/diagnostics/TempFilesDir.md"
       ],
-      "reason": "Диагностика «Вызов функции КаталогВременныхФайлов() (TempFilesDir)» проверяет условие пункта 1 стандарта std542.",
+      "reason": "Диагностика «Вызов функции КаталогВременныхФайлов() (TempFilesDir)» проверяет условие пункта 1.1 стандарта std542.",
       "review": "confirmed"
     },
     {
@@ -2702,13 +2702,13 @@
     {
       "diagnostic": "v8cs:missing-temporary-file-deletion",
       "standard": "std542",
-      "clause": "4",
-      "anchor": "4",
+      "clause": "1.4",
+      "anchor": "14",
       "evidence": [
         "https://github.com/1C-Company/v8-code-style/blob/c8fe7932babf718c0ace3cf836a99d6a3b98d098/bundles/com.e1c.v8codestyle.bsl/markdown/ru/missing-temporary-file-deletion.md",
-        "local:docs/std/542.md#4"
+        "local:docs/std/542.md#14"
       ],
-      "reason": "Диагностика v8cs:missing-temporary-file-deletion проверяет требование пункта 4 стандарта std542.",
+      "reason": "Диагностика v8cs:missing-temporary-file-deletion проверяет требование пункта 1.4 стандарта std542.",
       "review": "confirmed"
     },
     {

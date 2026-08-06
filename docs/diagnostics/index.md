@@ -239,6 +239,22 @@ llms:
         <h2 class="diagnostics-clause__title"><a href="../std/411.md#2">п. 2 — В отдельных сценариях ограничения выбора зависят от конкретной формы</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 3 — параметры выбора из метаданных объектов учитываются при выборе значений в отборах отчетов и динамических списков" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/411.md#3">п. 3 — Параметры выбора из метаданных объектов учитываются при выборе значений в отборах отчетов и динамических списков</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 4 — не задавайте в связях параметров выбора режим изменения связанного значения = очищать" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/411.md#4">п. 4 — Не задавайте в связях параметров выбора Режим изменения связанного значения = Очищать</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 4.1 — безусловная очистка (режим изменения связанного значения = очищать) допустима, если одновременно выполняются условия:" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/411.md#41">п. 4.1 — Безусловная очистка (Режим изменения связанного значения = Очищать) допустима, если одновременно выполняются условия:</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 5 — новый объект может создаваться из поля выбора или формы выбора с установленными отборами" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/411.md#5">п. 5 — Новый объект может создаваться из поля выбора или формы выбора с установленными отборами</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
     </div>
   </details>
   <details class="diagnostics-standard" data-standard data-search="std412 упорядочивание результатов запроса acc:540 bslls:selecttopwithoutorderby">
@@ -3499,93 +3515,132 @@ llms:
   <details class="diagnostics-standard" data-standard data-search="std542 доступ к файловой системе из кода конфигурации acc:441 acc:495 bslls:filesystemaccess bslls:missingtemporaryfiledeletion bslls:tempfilesdir v8cs:missing-temporary-file-deletion">
     <summary class="diagnostics-standard__summary">
       <span class="diagnostics-standard__title">#std542: Доступ к файловой системе из кода конфигурации</span>
-      <span class="diagnostics-standard__counts">6 проверок · 4 пункта · 0 исправлений</span>
+      <span class="diagnostics-standard__counts">6 проверок · 3 пункта · 0 исправлений</span>
     </summary>
     <div class="diagnostics-standard__clauses">
-      <section class="diagnostics-clause" data-clause data-search="п. 1 — при обращении к файлам и каталогам из кода конфигурации учитывайте права пользователя ос, от имени которого запущено приложение acc:441 acc:495 bslls:filesystemaccess bslls:tempfilesdir">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#1">п. 1 — При обращении к файлам и каталогам из кода конфигурации учитывайте права пользователя ОС, от имени которого запущено приложение</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 1 — при работе с временными файлами и каталогами соблюдайте правила ниже" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#1">п. 1 — При работе с временными файлами и каталогами соблюдайте правила ниже</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.1 — для получения имени временного файла используйте получитьимявременногофайла() (исключение: веб-клиент, см acc:495 bslls:tempfilesdir">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#11">п. 1.1 — Для получения имени временного файла используйте ПолучитьИмяВременногоФайла() (исключение: веб-клиент, см</a></h2>
         <div class="diagnostics-clause__links diagnostic-links">
-          <a class="diagnostic-chip" href="acc/441.md">acc:441</a>
           <a class="diagnostic-chip" href="acc/495.md">acc:495</a>
-          <a class="diagnostic-chip" href="bslls/FileSystemAccess.md">bslls:FileSystemAccess</a>
           <a class="diagnostic-chip" href="bslls/TempFilesDir.md">bslls:TempFilesDir</a>
         </div>
       </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 1 — для получения имени временного файла используйте получитьимявременногофайла() (исключение: веб-клиент, см acc:441 acc:495 bslls:filesystemaccess bslls:tempfilesdir">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#1_1">п. 1 — Для получения имени временного файла используйте ПолучитьИмяВременногоФайла() (исключение: веб-клиент, см</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.2 — для временного каталога также используйте имя, полученное через получитьимявременногофайла() (исключение: веб-клиент, см" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#12">п. 1.2 — Для временного каталога также используйте имя, полученное через ПолучитьИмяВременногоФайла() (исключение: веб-клиент, см</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.3 — в веб-клиенте получитьимявременногофайла() недоступен" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#13">п. 1.3 — В веб-клиенте ПолучитьИмяВременногоФайла() недоступен</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.4 — после завершения работы временный файл или каталог удаляйте явно acc:441 bslls:missingtemporaryfiledeletion v8cs:missing-temporary-file-deletion">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#14">п. 1.4 — После завершения работы временный файл или каталог удаляйте явно</a></h2>
         <div class="diagnostics-clause__links diagnostic-links">
           <a class="diagnostic-chip" href="acc/441.md">acc:441</a>
-          <a class="diagnostic-chip" href="acc/495.md">acc:495</a>
-          <a class="diagnostic-chip" href="bslls/FileSystemAccess.md">bslls:FileSystemAccess</a>
-          <a class="diagnostic-chip" href="bslls/TempFilesDir.md">bslls:TempFilesDir</a>
-        </div>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 1 — если один и тот же файл обрабатывается и на клиенте, и на сервере, передавайте его через временное хранилище acc:441 acc:495 bslls:filesystemaccess bslls:tempfilesdir">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#1_2">п. 1 — Если один и тот же файл обрабатывается и на клиенте, и на сервере, передавайте его через временное хранилище</a></h2>
-        <div class="diagnostics-clause__links diagnostic-links">
-          <a class="diagnostic-chip" href="acc/441.md">acc:441</a>
-          <a class="diagnostic-chip" href="acc/495.md">acc:495</a>
-          <a class="diagnostic-chip" href="bslls/FileSystemAccess.md">bslls:FileSystemAccess</a>
-          <a class="diagnostic-chip" href="bslls/TempFilesDir.md">bslls:TempFilesDir</a>
-        </div>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 1.1 — если код выполняется на клиенте, доступ к файловой системе идет под правами пользователя, который запустил приложение (тонкий, толстый или веб-клиент)" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#11">п. 1.1 — Если код выполняется на клиенте, доступ к файловой системе идет под правами пользователя, который запустил приложение (тонкий, толстый или веб-клиент)</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 1.2 — если код выполняется на сервере:" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#12">п. 1.2 — Если код выполняется на сервере:</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 2 — запрещено записывать файлы в каталог исполняемых файлов платформы, получаемый через каталогпрограммы()" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#2">п. 2 — Запрещено записывать файлы в каталог исполняемых файлов платформы, получаемый через КаталогПрограммы()</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 2 — для временного каталога также используйте имя, полученное через получитьимявременногофайла() (исключение: веб-клиент, см" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#2_1">п. 2 — Для временного каталога также используйте имя, полученное через ПолучитьИмяВременногоФайла() (исключение: веб-клиент, см</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 2 — если данные файла должны храниться между несколькими серверными вызовами, при помещении в хранилище передавайте уникальныйидентификаторформы в поместитьфайл()" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#2_2">п. 2 — Если данные файла должны храниться между несколькими серверными вызовами, при помещении в хранилище передавайте УникальныйИдентификаторФормы в ПоместитьФайл()</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 3 — даже если #std761: локализация конфигурации на другие языки не планируется, обеспечивайте переносимость автоматически сформированных файлов между ос с разными кодировками" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#3">п. 3 — Даже если #std761: локализация конфигурации на другие языки не планируется, обеспечивайте переносимость автоматически сформированных файлов между ОС с разными кодировками</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 3 — если в конфигурацию встроена бсп, для помещения файлов во временное хранилище используйте загрузитьфайл() и загрузитьфайлы() общего модуля файловаясистемаклиент" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#3_1">п. 3 — Если в конфигурацию встроена БСП, для помещения файлов во временное хранилище используйте ЗагрузитьФайл() и ЗагрузитьФайлы() общего модуля ФайловаяСистемаКлиент</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 3.1 — в именах файлов, которые формируются системой, используйте только английские буквы и цифры" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#31">п. 3.1 — В именах файлов, которые формируются системой, используйте только английские буквы и цифры</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 3.1 — в веб-клиенте получитьимявременногофайла() недоступен" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#31_1">п. 3.1 — В веб-клиенте ПолучитьИмяВременногоФайла() недоступен</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 3.2 — если имя файла вводит пользователь, разрешайте русскоязычные имена, но дайте возможность транслитерации в латиницу" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#32">п. 3.2 — Если имя файла вводит пользователь, разрешайте русскоязычные имена, но дайте возможность транслитерации в латиницу</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 3.2 — если в конфигурацию встроена бсп, для создания временных каталогов на клиенте используйте файловаясистемаклиент.создатьвременныйкаталог()" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#32_1">п. 3.2 — Если в конфигурацию встроена БСП, для создания временных каталогов на клиенте используйте ФайловаяСистемаКлиент.СоздатьВременныйКаталог()</a></h2>
-        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
-      </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 4 — после завершения работы временный файл или каталог удаляйте явно bslls:missingtemporaryfiledeletion v8cs:missing-temporary-file-deletion">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#4">п. 4 — После завершения работы временный файл или каталог удаляйте явно</a></h2>
-        <div class="diagnostics-clause__links diagnostic-links">
           <a class="diagnostic-chip" href="bslls/MissingTemporaryFileDeletion.md">bslls:MissingTemporaryFileDeletion</a>
           <a class="diagnostic-chip" href="v8-code-style/missing-temporary-file-deletion.md">v8cs:missing-temporary-file-deletion</a>
         </div>
       </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 5 — если временные файлы или каталоги используются на сервере, завершайте работу с ними в рамках одного серверного вызова" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#5">п. 5 — Если временные файлы или каталоги используются на сервере, завершайте работу с ними в рамках одного серверного вызова</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.5 — если временные файлы или каталоги используются на сервере, завершайте работу с ними в рамках одного серверного вызова" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#15">п. 1.5 — Если временные файлы или каталоги используются на сервере, завершайте работу с ними в рамках одного серверного вызова</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 5.1 — в редких случаях временные файлы нужно передавать между сеансами (например, подготовка данных для фонового задания или длительный процесс из нескольких вызовов web-сервиса)" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/542.md#51">п. 5.1 — В редких случаях временные файлы нужно передавать между сеансами (например, подготовка данных для фонового задания или длительный процесс из нескольких вызовов web-сервиса)</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.6 — в редких случаях временные файлы нужно передавать между сеансами (например, подготовка данных для фонового задания или длительный процесс из нескольких вызовов web-сервиса)" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#16">п. 1.6 — В редких случаях временные файлы нужно передавать между сеансами (например, подготовка данных для фонового задания или длительный процесс из нескольких вызовов web-сервиса)</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 2 — обращение к файловой системе ради получения двоичных данных обычно избыточно: двоичные данные объекта в любом случае размещаются в памяти" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#2">п. 2 — Обращение к файловой системе ради получения двоичных данных обычно избыточно: двоичные данные объекта в любом случае размещаются в памяти</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 2.1 — для получения двоичных данных объектов используйте потоки в памяти: потоквпамяти, записьданных, чтениеданных" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#21">п. 2.1 — Для получения двоичных данных объектов используйте потоки в памяти: ПотокВПамяти, ЗаписьДанных, ЧтениеДанных</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 2.2 — после чтения двоичных данных закрывайте поток" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#22">п. 2.2 — После чтения двоичных данных закрывайте поток</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 2.3 — файловая система для получения двоичных данных допустима, только если особенности платформы не позволяют получить двоичные данные объекта в памяти и остается единственный путь: запись во временный файл и получение его двоичных данных" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#23">п. 2.3 — Файловая система для получения двоичных данных допустима, только если особенности платформы не позволяют получить двоичные данные объекта в памяти и остается единственный путь: запись во временный файл и получение его двоичных данных</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 3 — если один и тот же файл обрабатывается и на клиенте, и на сервере, передавайте его через временное хранилище" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#3">п. 3 — Если один и тот же файл обрабатывается и на клиенте, и на сервере, передавайте его через временное хранилище</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 3.1 — для загрузки файла с клиента на сервер используйте поместитьфайлнасерверасинх(), поместитьфайлынасерверасинх(), начатьпомещениефайланасервер(), начатьпомещениефайловнасервер()" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#31">п. 3.1 — Для загрузки файла с клиента на сервер используйте ПоместитьФайлНаСерверАсинх(), ПоместитьФайлыНаСерверАсинх(), НачатьПомещениеФайлаНаСервер(), НачатьПомещениеФайловНаСервер()</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 3.2 — для сохранения (скачивания) файла сервера на клиенте используйте получитьфайлссервераасинх(), получитьфайлыссервераасинх(), начатьполучениефайлассервера(), начатьполучениефайловссервера()" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#32">п. 3.2 — Для сохранения (скачивания) файла сервера на клиенте используйте ПолучитьФайлССервераАсинх(), ПолучитьФайлыССервераАсинх(), НачатьПолучениеФайлаССервера(), НачатьПолучениеФайловССервера()</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 4 — даже если #std761: локализация конфигурации на другие языки не планируется, обеспечивайте переносимость автоматически сформированных файлов между ос с разными кодировками" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#4">п. 4 — Даже если #std761: локализация конфигурации на другие языки не планируется, обеспечивайте переносимость автоматически сформированных файлов между ОС с разными кодировками</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 4.1 — в именах файлов, которые формируются системой, используйте только английские буквы и цифры" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#41">п. 4.1 — В именах файлов, которые формируются системой, используйте только английские буквы и цифры</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 4.2 — если имя файла вводит пользователь, разрешайте русскоязычные имена, но дайте возможность транслитерации в латиницу" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#42">п. 4.2 — Если имя файла вводит пользователь, разрешайте русскоязычные имена, но дайте возможность транслитерации в латиницу</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 5 — при обращении к файлам и каталогам из кода конфигурации учитывайте права пользователя ос, от имени которого запущено приложение" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#5">п. 5 — При обращении к файлам и каталогам из кода конфигурации учитывайте права пользователя ОС, от имени которого запущено приложение</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 5.1 — если код выполняется на клиенте, доступ к файловой системе идет под правами пользователя, который запустил приложение (тонкий, толстый или веб-клиент)" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#51">п. 5.1 — Если код выполняется на клиенте, доступ к файловой системе идет под правами пользователя, который запустил приложение (тонкий, толстый или веб-клиент)</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 5.2 — если код выполняется на сервере:" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#52">п. 5.2 — Если код выполняется на сервере:</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6 — код конфигурации не должен читать и изменять файлы, не предусмотренные проектным решением bslls:filesystemaccess">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#6">п. 6 — Код конфигурации не должен читать и изменять файлы, не предусмотренные проектным решением</a></h2>
+        <div class="diagnostics-clause__links diagnostic-links">
+          <a class="diagnostic-chip" href="bslls/FileSystemAccess.md">bslls:FileSystemAccess</a>
+        </div>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.1 — запрещено хранить путь или имя файла в реквизитах формы: на клиенте их можно подменить сторонними средствами, и серверный код прочитает или изменит произвольный файл" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#61">п. 6.1 — Запрещено хранить путь или имя файла в реквизитах формы: на клиенте их можно подменить сторонними средствами, и серверный код прочитает или изменит произвольный файл</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.2 — запрещено передавать путь к файлу в параметры серверных процедур форм и экспортных процедур серверных общих модулей" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#62">п. 6.2 — Запрещено передавать путь к файлу в параметры серверных процедур форм и экспортных процедур серверных общих модулей</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.3 — если серверный метод использует расширение файла, переданное с клиента, проверяйте его одним из способов:" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#63">п. 6.3 — Если серверный метод использует расширение файла, переданное с клиента, проверяйте его одним из способов:</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.4 — если путь к файлу формируется по данным из информационной базы (например, по полю ввода, которое редактирует пользователь), используйте общегоназначенияклиентсервер.заменитьнедопустимыесимволывименифайла() из бсп" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#64">п. 6.4 — Если путь к файлу формируется по данным из информационной базы (например, по полю ввода, которое редактирует пользователь), используйте ОбщегоНазначенияКлиентСервер.ЗаменитьНедопустимыеСимволыВИмениФайла() из БСП</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.5 — перед работой с файлом на сервере убедитесь, что файл находится во временном каталоге или другом специально предусмотренном месте" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#65">п. 6.5 — Перед работой с файлом на сервере убедитесь, что файл находится во временном каталоге или другом специально предусмотренном месте</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.6 — при работе с временными файлами убедитесь, что выполняются условия:" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#66">п. 6.6 — При работе с временными файлами убедитесь, что выполняются условия:</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.7 — запрещено записывать файлы в каталог исполняемых файлов платформы, получаемый через каталогпрограммы()" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#67">п. 6.7 — Запрещено записывать файлы в каталог исполняемых файлов платформы, получаемый через КаталогПрограммы()</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 6.8 — администраторам информационных баз рекомендуется ограничивать доступ к файловой системе на сервере профилями безопасности" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/542.md#68">п. 6.8 — Администраторам информационных баз рекомендуется ограничивать доступ к файловой системе на сервере профилями безопасности</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
     </div>
@@ -10099,6 +10154,26 @@ llms:
       </section>
       <section class="diagnostics-clause" data-clause data-search="п. 4 — обработчик сообщений ботов должен работать без необработанных исключений (см #std499: перехват исключений в коде)" hidden data-empty="true">
         <h2 class="diagnostics-clause__title"><a href="../std/798.md#4">п. 4 — Обработчик сообщений ботов должен работать без необработанных исключений (см #std499: Перехват исключений в коде)</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+    </div>
+  </details>
+  <details class="diagnostics-standard" data-standard data-search="std801 разработка правил регистраций" hidden data-empty="true">
+    <summary class="diagnostics-standard__summary">
+      <span class="diagnostics-standard__title">#std801: Разработка правил регистраций</span>
+      <span class="diagnostics-standard__counts">0 проверок · 0 пунктов · 0 исправлений</span>
+    </summary>
+    <div class="diagnostics-standard__clauses">
+      <section class="diagnostics-clause" data-clause data-search="п. 1 — правила регистрации размещайте в модулях конфигурации, например поставляйте отдельным общим модулем — менеджером регистрации" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/801.md#1">п. 1 — Правила регистрации размещайте в модулях конфигурации, например поставляйте отдельным общим модулем — менеджером регистрации</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 2 — в правилах регистрации не изменяйте безопасный и привилегированный режимы" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/801.md#2">п. 2 — В правилах регистрации не изменяйте безопасный и привилегированный режимы</a></h2>
+        <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
+      </section>
+      <section class="diagnostics-clause" data-clause data-search="п. 3 — исправления ошибок в правилах обмена поставляйте расширениями (патчами)" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/801.md#3">п. 3 — Исправления ошибок в правилах обмена поставляйте расширениями (патчами)</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
     </div>

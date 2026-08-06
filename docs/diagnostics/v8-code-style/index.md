@@ -95,7 +95,7 @@ llms:
 | [method-param-value-type](method-param-value-type.md) | `bsl` | — |
 | [method-semicolon-extra](method-semicolon-extra.md) | `bsl` | — |
 | [method-too-many-params](method-too-many-params.md) | `bsl` | [#std640, п. 5: Параметры процедур и функций](../../std/640.md#5) |
-| [missing-temporary-file-deletion](missing-temporary-file-deletion.md) | `bsl` | [#std542, п. 4: Доступ к файловой системе из кода конфигурации](../../std/542.md#4) |
+| [missing-temporary-file-deletion](missing-temporary-file-deletion.md) | `bsl` | [#std542, п. 1.4: Доступ к файловой системе из кода конфигурации](../../std/542.md#14) |
 | [module-accessibility-at-client](module-accessibility-at-client.md) | `bsl` | [#std680, п. 2: Поддержка толстого клиента, управляемое приложение, клиент-сервер](../../std/680.md#2) |
 | [module-attachable-event-handler-name](module-attachable-event-handler-name.md) | `bsl` | [#std492, п. 1: Обработчики событий модуля формы, подключаемые из кода](../../std/492.md#1) |
 | [module-consecutive-blank-lines](module-consecutive-blank-lines.md) | `bsl` | — |
