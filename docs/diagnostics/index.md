@@ -1526,8 +1526,8 @@ llms:
           <a class="diagnostic-chip" href="bslls/OrdinaryAppSupport.md">bslls:OrdinaryAppSupport</a>
         </div>
       </section>
-      <section class="diagnostics-clause" data-clause data-search="п. 1.5 — не делайте пользовательские интерфейсы сильно отличающимися от интерфейса по умолчанию" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/467.md#15">п. 1.5 — Не делайте пользовательские интерфейсы сильно отличающимися от интерфейса по умолчанию</a></h2>
+      <section class="diagnostics-clause" data-clause data-search="п. 1.5 — не отходите от умолчаний платформы при проектировании технических решений, разработке пользовательского интерфейса и отчетов" hidden data-empty="true">
+        <h2 class="diagnostics-clause__title"><a href="../std/467.md#15">п. 1.5 — Не отходите от умолчаний платформы при проектировании технических решений, разработке пользовательского интерфейса и отчетов</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
       <section class="diagnostics-clause" data-clause data-search="п. 2.1 — пишите тексты грамотно acc:8 acc:87 acc:216 acc:235 acc:265 acc:321 acc:323 acc:324 acc:355 acc:1026 acc:1027 acc:1028 acc:1030 acc:1032 acc:1033 acc:1034 acc:1035 acc:1036 acc:1037 acc:1038">
