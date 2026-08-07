@@ -10162,22 +10162,22 @@ llms:
       </section>
     </div>
   </details>
-  <details class="diagnostics-standard" data-standard data-search="std801 разработка правил регистраций" hidden data-empty="true">
+  <details class="diagnostics-standard" data-standard data-search="std799 разработка правил регистраций" hidden data-empty="true">
     <summary class="diagnostics-standard__summary">
-      <span class="diagnostics-standard__title">#std801: Разработка правил регистраций</span>
+      <span class="diagnostics-standard__title">#std799: Разработка правил регистраций</span>
       <span class="diagnostics-standard__counts">0 проверок · 0 пунктов · 0 исправлений</span>
     </summary>
     <div class="diagnostics-standard__clauses">
       <section class="diagnostics-clause" data-clause data-search="п. 1 — правила регистрации размещайте в модулях конфигурации, например поставляйте отдельным общим модулем — менеджером регистрации" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/801.md#1">п. 1 — Правила регистрации размещайте в модулях конфигурации, например поставляйте отдельным общим модулем — менеджером регистрации</a></h2>
+        <h2 class="diagnostics-clause__title"><a href="../std/799.md#1">п. 1 — Правила регистрации размещайте в модулях конфигурации, например поставляйте отдельным общим модулем — менеджером регистрации</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
       <section class="diagnostics-clause" data-clause data-search="п. 2 — в правилах регистрации не изменяйте безопасный и привилегированный режимы" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/801.md#2">п. 2 — В правилах регистрации не изменяйте безопасный и привилегированный режимы</a></h2>
+        <h2 class="diagnostics-clause__title"><a href="../std/799.md#2">п. 2 — В правилах регистрации не изменяйте безопасный и привилегированный режимы</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
       <section class="diagnostics-clause" data-clause data-search="п. 3 — исправления ошибок в правилах обмена поставляйте расширениями (патчами)" hidden data-empty="true">
-        <h2 class="diagnostics-clause__title"><a href="../std/801.md#3">п. 3 — Исправления ошибок в правилах обмена поставляйте расширениями (патчами)</a></h2>
+        <h2 class="diagnostics-clause__title"><a href="../std/799.md#3">п. 3 — Исправления ошибок в правилах обмена поставляйте расширениями (патчами)</a></h2>
         <p class="diagnostics-clause__empty">Нет проверок и исправлений</p>
       </section>
     </div>
