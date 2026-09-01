@@ -103,19 +103,19 @@ docker compose -f docker-compose/docker-compose.yml up -d v8std-mcp
 Локальный адрес MCP:
 
 ```text
-http://127.0.0.1:8765/mcp
+http://127.0.0.1:8766/mcp
 ```
 
 Подключение к Codex:
 
 ```bash
-codex mcp add v8std-local --url http://127.0.0.1:8765/mcp
+codex mcp add v8std-local --url http://127.0.0.1:8766/mcp
 ```
 
 Подключение к Claude Code:
 
 ```bash
-claude mcp add --transport http v8std-local http://127.0.0.1:8765/mcp
+claude mcp add --transport http v8std-local http://127.0.0.1:8766/mcp
 ```
 
 Для Cursor и Kiro используйте тот же адрес в `mcp.json`:
@@ -124,7 +124,7 @@ claude mcp add --transport http v8std-local http://127.0.0.1:8765/mcp
 {
   "mcpServers": {
     "v8std-local": {
-      "url": "http://127.0.0.1:8765/mcp"
+      "url": "http://127.0.0.1:8766/mcp"
     }
   }
 }
@@ -136,7 +136,7 @@ claude mcp add --transport http v8std-local http://127.0.0.1:8765/mcp
 {
   "mcpServers": {
     "v8std-local": {
-      "serverUrl": "http://127.0.0.1:8765/mcp"
+      "serverUrl": "http://127.0.0.1:8766/mcp"
     }
   }
 }
@@ -158,7 +158,7 @@ python scripts/v8std_mcp_server.py \
   --pages docs/ai/pages.jsonl \
   --vectors docs/ai/search-vectors.jsonl \
   --host 127.0.0.1 \
-  --port 8765
+  --port 8766
 ```
 
 Полезные команды:

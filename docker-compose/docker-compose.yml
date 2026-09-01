@@ -19,7 +19,7 @@ services:
       dockerfile: docker-compose/docker/Dockerfile
     restart: always
     ports:
-      - "127.0.0.1:8765:8765"
+      - "127.0.0.1:8766:8765"
     cap_drop:
       - ALL
     security_opt:
