@@ -26,6 +26,18 @@ from generate_social_cards import (  # noqa: E402
 )
 from v8std_retrieval_rules import RetrievalRules  # noqa: E402
 from v8std_search_features import generated_aliases_for_page  # noqa: E402
+# BEGIN V8STD-FORK
+from v8std_knowledge_collections import (  # noqa: E402
+    classify_collection,
+    expand_retrieval_records,
+    metadata_bool,
+    normalized_aliases,
+    normalized_tags,
+    validate_source_metadata,
+    validate_yaxunit_snapshot,
+    yaxunit_document_id,
+)
+# END V8STD-FORK
 from atomic_files import atomic_write_text  # noqa: E402
 
 
@@ -33,6 +45,9 @@ LLMS_TXT = "llms.txt"
 LLMS_FULL_TXT = "llms-full.txt"
 AI_DIR = "ai"
 PAGES_JSONL = "pages.jsonl"
+# BEGIN V8STD-FORK
+SEARCH_VECTORS_JSONL = "search-vectors.jsonl"
+# END V8STD-FORK
 
 MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)")
 DIRECT_URL_RE = re.compile(r"https?://[^\s)>\"']+")
@@ -96,6 +111,10 @@ TYPE_ORDER = {
     "fix": 2,
     "pattern": 3,
     "service": 4,
+    # BEGIN V8STD-FORK
+    "rule": 5,
+    "reference": 6,
+    # END V8STD-FORK
 }
 
 
@@ -332,7 +351,17 @@ def relative_route(relative: Path) -> str:
     return f"{url_path}/" if url_path else ""
 
 
-def classify_page(relative: Path) -> str:
+# BEGIN V8STD-FORK
+def classify_page(relative: Path, front_matter: dict | None = None) -> str:
+    front_matter = front_matter or {}
+    collection = classify_collection(relative)
+    if collection == "corporate":
+        return str(front_matter.get("type", "")).strip()
+    if collection == "yaxunit":
+        if relative.parts[:2] == ("yaxunit", "patterns"):
+            return "pattern"
+        return "reference"
+    # END V8STD-FORK
     parts = relative.parts
     if len(parts) == 2 and parts[0] == "std" and relative.stem.isdigit():
         return "standard"
@@ -367,7 +396,20 @@ def fallback_page_id(relative: Path, page_type: str) -> str:
     return normalized or relative.stem
 
 
-def build_page_id(relative: Path, content: str, page_type: str) -> str:
+# BEGIN V8STD-FORK
+def build_page_id(
+    relative: Path,
+    content: str,
+    page_type: str,
+    front_matter: dict | None = None,
+) -> str:
+    front_matter = front_matter or {}
+    collection = classify_collection(relative)
+    if collection == "corporate":
+        return str(front_matter.get("id", "")).strip()
+    if collection == "yaxunit":
+        return yaxunit_document_id(relative)
+    # END V8STD-FORK
     match = MARKER_RE.search(content)
     if match:
         marker = match.group("marker")
@@ -660,8 +702,12 @@ def build_ai_page(
     raw = source.read_text(encoding="utf-8")
     front_matter, content = extract_front_matter(raw)
     content = content.replace("\r\n", "\n").replace("\r", "\n").strip()
-    page_type = classify_page(relative)
-    page_id = build_page_id(relative, content, page_type)
+    # BEGIN V8STD-FORK
+    collection = classify_collection(relative)
+    page_type = classify_page(relative, front_matter)
+    page_id = build_page_id(relative, content, page_type, front_matter)
+    validate_source_metadata(relative, front_matter, collection, page_type, page_id)
+    # END V8STD-FORK
     metadata = build_page_metadata(source, docs_dir, project)
     metadata_title = metadata["seo_title"]
     metadata_description = metadata["description"]
@@ -673,22 +719,38 @@ def build_ai_page(
 
     page = {
         "id": page_id,
+        # BEGIN V8STD-FORK
+        "collection": collection,
         "type": page_type,
+        "level": front_matter.get("level") if collection == "corporate" else None,
+        "tags": normalized_tags(front_matter),
+        # END V8STD-FORK
         "title": metadata_title,
         "description": metadata_description,
         "url": metadata["canonical"],
         "markdown_url": canonical_markdown_url(project, relative),
         "source_path": str(relative),
-        "aliases": build_aliases(
-            page_id,
-            relative,
-            page_type,
-            metadata_title,
-            retrieval_rules,
+        # BEGIN V8STD-FORK
+        "aliases": dedupe(
+            [
+                *build_aliases(
+                    page_id,
+                    relative,
+                    page_type,
+                    metadata_title,
+                    retrieval_rules,
+                ),
+                *normalized_aliases(front_matter),
+            ]
         ),
+        # END V8STD-FORK
         "related": [],
         "source_urls": extract_source_urls(content),
         "body_markdown": body_markdown,
+        # BEGIN V8STD-FORK
+        "_index_for_ai": metadata_bool(front_matter, "index_for_ai", True),
+        "_publish_publicly": metadata_bool(front_matter, "publish_publicly", collection == "v8std"),
+        # END V8STD-FORK
         "_llms_ignored": llms_ignored(front_matter),
         "_links": extract_markdown_links(content),
     }
@@ -696,6 +758,12 @@ def build_ai_page(
     return page
 
 
+# BEGIN V8STD-FORK
+def retrieval_records(pages: list[dict], *, public_only: bool = False) -> list[dict]:
+    return expand_retrieval_records(mcp_index_pages(pages), public_only=public_only)
+
+
+# END V8STD-FORK
 def resolve_relations(pages: list[dict], docs_dir: Path) -> None:
     pages_by_source = {page["source_path"]: page for page in pages}
 
@@ -848,7 +916,13 @@ def strip_ignored_markdown_refs(markdown: str, ignored_refs: dict) -> str:
 
 
 def llm_visible_pages(pages: list[dict]) -> list[dict]:
-    ignored_pages = [page for page in pages if page.get("_llms_ignored", False)]
+    # BEGIN V8STD-FORK
+    ignored_pages = [
+        page
+        for page in pages
+        if page.get("_llms_ignored", False) or not page.get("_publish_publicly", True)
+    ]
+    # END V8STD-FORK
     ignored_ids = {page["id"] for page in ignored_pages}
     ignored_refs = build_ignored_ref_context(ignored_pages)
     visible_pages = []
@@ -875,6 +949,10 @@ def llm_visible_pages(pages: list[dict]) -> list[dict]:
 
 
 def mcp_index_includes_page(page: dict) -> bool:
+    # BEGIN V8STD-FORK
+    if not page.get("_index_for_ai", True):
+        return False
+    # END V8STD-FORK
     if not page.get("_llms_ignored", False):
         return True
     return page.get("type") == "standard"
@@ -1024,13 +1102,15 @@ def build_llms_full_txt(index: dict) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def build_pages_jsonl(pages: list[dict]) -> str:
+# BEGIN V8STD-FORK
+def build_pages_jsonl(pages: list[dict], *, public_only: bool = False) -> str:
     lines = []
-    for page in mcp_index_pages(pages):
+    for page in retrieval_records(pages, public_only=public_only):
         payload = {
             key: page[key]
             for key in (
                 "id",
+                "collection",
                 "type",
                 "title",
                 "description",
@@ -1043,6 +1123,10 @@ def build_pages_jsonl(pages: list[dict]) -> str:
                 "body_markdown",
             )
         }
+        for key in ("document_id", "section", "level", "tags"):
+            if page.get(key) not in (None, [], ""):
+                payload[key] = page[key]
+        # END V8STD-FORK
         lines.append(json.dumps(payload, ensure_ascii=False, sort_keys=True))
     return "\n".join(lines) + "\n"
 
@@ -1050,6 +1134,9 @@ def build_pages_jsonl(pages: list[dict]) -> str:
 def build_site_ai_index(root: Path) -> dict:
     project = load_project(root)
     docs_dir = root / project.get("docs_dir", "docs")
+    # BEGIN V8STD-FORK
+    validate_yaxunit_snapshot(root)
+    # END V8STD-FORK
     retrieval_rules = RetrievalRules.load(root / "retrieval-rules.yml")
     pages = sort_pages(
         [
@@ -1058,6 +1145,12 @@ def build_site_ai_index(root: Path) -> dict:
             if not source.is_relative_to(docs_dir / AI_DIR)
         ]
     )
+    # BEGIN V8STD-FORK
+    source_ids = [page["id"] for page in pages]
+    duplicate_ids = sorted({page_id for page_id in source_ids if source_ids.count(page_id) > 1})
+    if duplicate_ids:
+        raise ValueError(f"duplicate source page id: {', '.join(duplicate_ids)}")
+    # END V8STD-FORK
     resolve_relations(pages, docs_dir)
 
     return {
@@ -1077,6 +1170,19 @@ def write_ai_artifacts(index: dict) -> None:
     atomic_write_text(ai_dir / PAGES_JSONL, build_pages_jsonl(index["pages"]))
 
 
+# BEGIN V8STD-FORK
+def write_public_ai_artifacts(index: dict, site_dir: Path) -> None:
+    from generate_search_vectors import generate_rows
+
+    ai_dir = site_dir / AI_DIR
+    ai_dir.mkdir(parents=True, exist_ok=True)
+    pages_path = ai_dir / PAGES_JSONL
+    atomic_write_text(pages_path, build_pages_jsonl(index["pages"], public_only=True))
+    rows = generate_rows(pages_path)
+    atomic_write_text(ai_dir / SEARCH_VECTORS_JSONL, "\n".join(rows) + "\n")
+
+
+# END V8STD-FORK
 def build_page_markdown(page: dict) -> str:
     lines = [
         f"# {page['title']}",
@@ -1146,6 +1252,13 @@ def main() -> int:
         type=Path,
         help="Publish Markdown sidecars from a prepared cache without rebuilding the AI index.",
     )
+    # BEGIN V8STD-FORK
+    parser.add_argument(
+        "--write-public-ai",
+        type=Path,
+        help="Write a public-only pages/vector index into an already built site directory.",
+    )
+    # END V8STD-FORK
     args = parser.parse_args()
 
     root = discover_project_root()
@@ -1165,6 +1278,11 @@ def main() -> int:
     index = build_site_ai_index(root)
     write_ai_artifacts(index)
 
+    # BEGIN V8STD-FORK
+    if args.write_public_ai:
+        write_public_ai_artifacts(index, args.write_public_ai)
+
+    # END V8STD-FORK
     if args.site_markdown_cache:
         cache_path = args.site_markdown_cache
         if not cache_path.is_absolute():

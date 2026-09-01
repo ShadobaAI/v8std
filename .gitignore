@@ -2,6 +2,10 @@
 site/
 .DS_Store
 .cache/
+# BEGIN V8STD-FORK
+.zensical-public.toml
+.zensical-local.toml
+# END V8STD-FORK
 .venv/
 __pycache__/
 docs/assets/social/

@@ -488,12 +488,14 @@ def build_server(
     usage_logger: McpToolUsageLogger | None = None,
 ) -> FastMCP:
     tool_usage = usage_logger or McpToolUsageLogger(None)
+    # BEGIN V8STD-FORK
     server = FastMCP(
         "v8std",
         log_level=log_level,
         instructions=(
             "Use this read-only MCP as a v8std.ru knowledge source for 1C:Enterprise "
-            "BSL/SDBL standards, diagnostics, aliases, relations, source URLs, and "
+            "BSL/SDBL standards, corporate policy, YaXUnit reference sections, diagnostics, "
+            "aliases, relations, source URLs, and "
             "clean Markdown. It does not run analyzers, inspect projects, or change code. "
             "Tool selection: use v8std_explain_snippet for a short BSL/SDBL snippet; "
             "use v8std_explain_diagnostics for ACC, BSLLS, or EDT/v8-code-style "
@@ -513,12 +515,16 @@ def build_server(
             allowed_origins=allowed_origins,
         ),
     )
+    # END V8STD-FORK
 
+    # BEGIN V8STD-FORK
     @server.tool(
         name="v8std_search",
         description=(
             "Use this when the user asks an arbitrary phrase question or topic search "
-            "over v8std.ru standards, diagnostics, patterns, or service pages, including "
+            "over v8std, corporate, or YaXUnit collections, including standards, rules, "
+            "reference sections, diagnostics, patterns, and service pages. Supports strict "
+            "collection/type filters and "
             "natural Russian phrases, standard ids such as std437, and diagnostic names "
             "when no exact list is available. Do not use this first for code snippets "
             "or diagnostic-code lists; prefer v8std_explain_snippet or "
@@ -528,20 +534,29 @@ def build_server(
     )
     def search(
         query: str,
-        limit: int = 10,
+        limit: int = 3,
         types: list[str] | None = None,
+        collections: list[str] | None = None,
         mode: str = "hybrid",
     ) -> dict[str, Any]:
-        result = index.search(query, types=types, mode=mode, limit=limit)
+        result = index.search(
+            query,
+            types=types,
+            collections=collections,
+            mode=mode,
+            limit=limit,
+        )
         tool_usage.record_search(query, result, system=current_client_system())
         return result
+    # END V8STD-FORK
 
+    # BEGIN V8STD-FORK
     @server.tool(
         name="v8std_get_page",
         description=(
             "Use this when you already have an exact id, alias, source path, HTML URL, "
             "or Markdown URL and need the full clean Markdown page text for a standard, "
-            "diagnostic, pattern, or service page. After v8std_search, "
+            "diagnostic, pattern, corporate rule, or YaXUnit reference section. After v8std_search, "
             "v8std_explain_snippet, v8std_explain_diagnostics, or v8std_get_related "
             "returns an id, call this to read the authoritative content before "
             "explaining or fixing code. Not for discovery; use search, snippet, "
@@ -552,6 +567,7 @@ def build_server(
         result = index.page(id_or_alias_or_url, body_limit=body_limit)
         tool_usage.record_page(id_or_alias_or_url, result, system=current_client_system())
         return result
+    # END V8STD-FORK
 
     @server.tool(
         name="v8std_get_related",

@@ -11,6 +11,11 @@ class DocsLinksTests(unittest.TestCase):
     def test_docs_do_not_link_to_generated_markdown_artifacts_as_internal_pages(self):
         offenders = []
         for source in sorted((REPO_ROOT / "docs").rglob("*.md")):
+            # BEGIN V8STD-FORK
+            # Vendored YaXUnit Markdown is byte-identical upstream reference content and is not a public site source.
+            if source.is_relative_to(REPO_ROOT / "docs" / "yaxunit"):
+                continue
+            # END V8STD-FORK
             relative = source.relative_to(REPO_ROOT)
             for line_number, line in enumerate(source.read_text(encoding="utf-8").splitlines(), start=1):
                 if ROOT_RELATIVE_MARKDOWN_LINK_RE.search(line):

@@ -1,0 +1,329 @@
+{
+  "license": "Apache-2.0",
+  "license_sha256": "5ad8c213095c573921d7388edf93f6a9f54490b8ebf3b165ae8ef1947cf70846",
+  "project": "bia-technologies/yaxunit",
+  "revision": "23fd2db738dbb26b7b43bdcf0c35fd2c263a3899",
+  "source_path": "exts/yaxunit/src",
+  "targets": [
+    {
+      "exports": 11,
+      "generated_path": "api/Мокито.md",
+      "generated_sha256": "5e8fe2bfb13bb8fc89dc7da7fc6527a0fe0a6865b4dc4205ab6f6682fc688a0a",
+      "name": "Мокито",
+      "source_path": "exts/yaxunit/src/CommonModules/Мокито/Module.bsl",
+      "source_sha256": "5e37204fa41b47cf5a4f3d526b2de5a7a93f58bc81cad357040d697e7be8d3bc"
+    },
+    {
+      "exports": 8,
+      "generated_path": "api/МокитоОбучение.md",
+      "generated_sha256": "cacac8da0dec81560fb047f80b98ded8d9ea97b70e3331ab8e21e87aa7462494",
+      "name": "МокитоОбучение",
+      "source_path": "exts/yaxunit/src/CommonModules/МокитоОбучение/Module.bsl",
+      "source_sha256": "eaadfcf1b182954756fd9e6f83ca8a0fe33d23d527fda2307fc0694de5f8c903"
+    },
+    {
+      "exports": 1,
+      "generated_path": "api/МокитоПерехват.md",
+      "generated_sha256": "92c4129087532d051fb9df1c7733d662f51a3894c7e121351062ac1d89a34bab",
+      "name": "МокитоПерехват",
+      "source_path": "exts/yaxunit/src/CommonModules/МокитоПерехват/Module.bsl",
+      "source_sha256": "4d438763d85f945bcc291edef6808797b21becca87ff2bb40f82d050d636f38a"
+    },
+    {
+      "exports": 8,
+      "generated_path": "api/МокитоПроверки.md",
+      "generated_sha256": "7343376cd4668a6b46f3fbf3824e0c5230328ea370abf13c983057460435a633",
+      "name": "МокитоПроверки",
+      "source_path": "exts/yaxunit/src/CommonModules/МокитоПроверки/Module.bsl",
+      "source_sha256": "e2989888f0a7c2e53216ca335cb1bae310278222d3a6ec50a2779034a6f78ad6"
+    },
+    {
+      "exports": 27,
+      "generated_path": "api/ЮТАлюр.md",
+      "generated_sha256": "edc31ac89e5db5ff26de3da583f4905bf945d6b7b8f7f0bfce4e8d832497d490",
+      "name": "ЮТАлюр",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТАлюр/Module.bsl",
+      "source_sha256": "c7733c563fcca80964ab14178c5ea2ec552be9658b3b58f2c2912e9bf5804b35"
+    },
+    {
+      "exports": 2,
+      "generated_path": "api/ЮТЗависимости.md",
+      "generated_sha256": "2751d54011e03f4a66256d85c4f505ce432f292b13bb6d7ccbd08bf858263c8c",
+      "name": "ЮТЗависимости",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТЗависимости/Module.bsl",
+      "source_sha256": "e608fbbe5f951fb79323d652c01666857740e8e40291f70909ce71e5004552df"
+    },
+    {
+      "exports": 14,
+      "generated_path": "api/ЮТЗапросы.md",
+      "generated_sha256": "78ca76144f2149094932b10f2e0af180696038678af732ad46505460fc35d842",
+      "name": "ЮТЗапросы",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТЗапросы/Module.bsl",
+      "source_sha256": "9e058b77acd6dfadedd06b6bddded1227db63e8208aa43b61e89b56158e9fc51"
+    },
+    {
+      "exports": 3,
+      "generated_path": "api/ЮТИсключения.md",
+      "generated_sha256": "18b775ef794cbb7d9b0f747fe01580c4ccfabb3aef2422908c3d8e290d6ec156",
+      "name": "ЮТИсключения",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТИсключения/Module.bsl",
+      "source_sha256": "17173f4a27114d1b802e429e85e1559a4c30eddbf049b4d558b409ae21ad9d3b"
+    },
+    {
+      "exports": 22,
+      "generated_path": "api/ЮТКоллекции.md",
+      "generated_sha256": "070e6fe9e61747699c25814559c0a8531d1680c8b18f738c2913e1a1e92f6134",
+      "name": "ЮТКоллекции",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТКоллекции/Module.bsl",
+      "source_sha256": "e8c534cb8487d78d8ee226e415eefd2e5a359d112be6831edf507f43938f6f3d"
+    },
+    {
+      "exports": 9,
+      "generated_path": "api/ЮТКомпоненты.md",
+      "generated_sha256": "5d4f00c5f16cb11a8acdf1455ab586ae26d3aa0b3931c106944627ae6d13b944",
+      "name": "ЮТКомпоненты",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТКомпоненты/Module.bsl",
+      "source_sha256": "bc310df8f260d16660969b332b3fe710dee84ce943d08a93737d28e995355247"
+    },
+    {
+      "exports": 4,
+      "generated_path": "api/ЮТКонструкторВариантов.md",
+      "generated_sha256": "995b1c527871a90a675819760f06e28c5fda0039b29de02c090834e81d1f67d8",
+      "name": "ЮТКонструкторВариантов",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТКонструкторВариантов/Module.bsl",
+      "source_sha256": "cec9e2e457469f2d0b6f45b80e8903feca5324cf5a328215800560e46c2bff6d"
+    },
+    {
+      "exports": 3,
+      "generated_path": "api/ЮТКонтекст.md",
+      "generated_sha256": "d1a77f7ec90e3181bca3d7a1b090280d217b43a064276a0e2f07eb4b136a9131",
+      "name": "ЮТКонтекст",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТКонтекст/Module.bsl",
+      "source_sha256": "b44afa1eaf859b131e3ad251a52c6ae9a5c79ef6e4947378031f8272ef2f5889"
+    },
+    {
+      "exports": 3,
+      "generated_path": "api/ЮТКонтекстТеста.md",
+      "generated_sha256": "0318e1e1a3a5c5b3dfa24557b4b8060cdb87b0e5e386bd2ef5df0912568efd3b",
+      "name": "ЮТКонтекстТеста",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТКонтекстТеста/Module.bsl",
+      "source_sha256": "b0e683711c8750b24c4ff4f0b2fcae6284ec00050c5e5fd39ffe8de58f5b0929"
+    },
+    {
+      "exports": 6,
+      "generated_path": "api/ЮТЛогирование.md",
+      "generated_sha256": "9c955d2abc9ba95c519f45db0caf9250de104646e64402a742bd6b4d6ab618a8",
+      "name": "ЮТЛогирование",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТЛогирование/Module.bsl",
+      "source_sha256": "891352525f190d77287bdc73e30fe346e013fe909aeac80b7b4b41477e3996d3"
+    },
+    {
+      "exports": 24,
+      "generated_path": "api/ЮТМетаданные.md",
+      "generated_sha256": "8fd17bda171c57802d646e481eeb4420fc8fa96039ad32f3b195e553c1da79c4",
+      "name": "ЮТМетаданные",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТМетаданные/Module.bsl",
+      "source_sha256": "6dfccce265dc300b16467d28f8b7304668dbcffe54398ff4caffef38875e45e3"
+    },
+    {
+      "exports": 5,
+      "generated_path": "api/ЮТМетоды.md",
+      "generated_sha256": "02fe470ba7a158d53b6c6bc39b90ecd124e41821bceaaa32c4751eba4ecf6353",
+      "name": "ЮТМетоды",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТМетоды/Module.bsl",
+      "source_sha256": "8889c7748d3928e9f29ec0d0708e8d9b5d9d50bf2cd5b67f9669faf850dfc8f2"
+    },
+    {
+      "exports": 7,
+      "generated_path": "api/ЮТНастройкиВыполнения.md",
+      "generated_sha256": "a30f3b5bb5d08f7fa4f68062127f6b272f04f5093d07bcf6696c83dff1403f11",
+      "name": "ЮТНастройкиВыполнения",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТНастройкиВыполнения/Module.bsl",
+      "source_sha256": "c203053e56c21ebfb44e8398372ede38baa7c9f7c21d7cfa36a52be97856f8e6"
+    },
+    {
+      "exports": 48,
+      "generated_path": "api/ЮТОбщий.md",
+      "generated_sha256": "2f9a535f17108737c19a31cc2b4a69c07130dfe872a3ac1097b15092f36dd870",
+      "name": "ЮТОбщий",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТОбщий/Module.bsl",
+      "source_sha256": "a2f9ac4e5d2e9ebcb2b29b86145ba07c6edac728fb78e1d6ee4241185644a087"
+    },
+    {
+      "exports": 14,
+      "generated_path": "api/ЮТОкружение.md",
+      "generated_sha256": "f72383d4e5528ee0b37d06412496e39f3a421b9b93793f4ff771d27f1bdb50f5",
+      "name": "ЮТОкружение",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТОкружение/Module.bsl",
+      "source_sha256": "1ca9cc163d149875b7e2b0905924c96458e49f0fb75decf7caa11d544bf32b7b"
+    },
+    {
+      "exports": 5,
+      "generated_path": "api/ЮТПодражатель.md",
+      "generated_sha256": "4328faf5c227a0822466fbade56a96e6dafaa9a953864beb56d22bb280e4308b",
+      "name": "ЮТПодражатель",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТПодражатель/Module.bsl",
+      "source_sha256": "d1a21b11c991c4c58be524e1987ddb4c6988af21f42f0f1b3e12d4bcb60b1d45"
+    },
+    {
+      "exports": 30,
+      "generated_path": "api/ЮТПредикаты.md",
+      "generated_sha256": "78ae6c063c5253781f05226465d372ec8aa942869914525031d947160835478e",
+      "name": "ЮТПредикаты",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТПредикаты/Module.bsl",
+      "source_sha256": "4278a4c52536de061e35dfc32662682dc28452c6940b6c1bd7b13e709ce771c8"
+    },
+    {
+      "exports": 2,
+      "generated_path": "api/ЮТРегистрацияОшибок.md",
+      "generated_sha256": "37a902b5d8e9d9d685e61011131e60a68245728008c0f6145791ba9fb2d7f4d9",
+      "name": "ЮТРегистрацияОшибок",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТРегистрацияОшибок/Module.bsl",
+      "source_sha256": "da14ebd97fcb24962dad5976cbf50ee4ddd2bb9be8306e540eef41970fe6dbc8"
+    },
+    {
+      "exports": 15,
+      "generated_path": "api/ЮТСтроки.md",
+      "generated_sha256": "daba64151a67dcb02c68caf9a7bcd12215d1438190b6623bd13d284a5bfe4f63",
+      "name": "ЮТСтроки",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТСтроки/Module.bsl",
+      "source_sha256": "3c505a80a7ad12ae0186b43a7573a9e9c0cabd55bede88962efbb1c7a7e67581"
+    },
+    {
+      "exports": 48,
+      "generated_path": "api/ЮТТестовыеДанные.md",
+      "generated_sha256": "f97683c1c6a864a9cf19c8e9838f6aad1de9c20a80a6a950e7047dc109c66fcb",
+      "name": "ЮТТестовыеДанные",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТТестовыеДанные/Module.bsl",
+      "source_sha256": "687e19621cd4f5d66a54a6974a94ff2c90a436c6dbdabc8ae6ea80984061c193"
+    },
+    {
+      "exports": 19,
+      "generated_path": "api/ЮТТесты.md",
+      "generated_sha256": "044c8e462c5127dae9299ab9b39faecc97b108003ef9b98c4fc40cf4412f9bd1",
+      "name": "ЮТТесты",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТТесты/Module.bsl",
+      "source_sha256": "59829a59ef287b626da8c2fcd4a4e4a42c51a3f082953ca2eab47747210754b6"
+    },
+    {
+      "exports": 59,
+      "generated_path": "api/ЮТУтверждения.md",
+      "generated_sha256": "589da43dca25c4536d2e827f94686a7502c6e4ea8224187cc7100aa10cac26cb",
+      "name": "ЮТУтверждения",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТУтверждения/Module.bsl",
+      "source_sha256": "96dd34af0cbac66450ad1055ac81ee0caafbf5fa0eb17c5bc916a66dc169a207"
+    },
+    {
+      "exports": 11,
+      "generated_path": "api/ЮТУтвержденияИБ.md",
+      "generated_sha256": "b99b2edb24b258b13ac1c1e5b64906a88955c955d03d28a17837e1287092dc7d",
+      "name": "ЮТУтвержденияИБ",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТУтвержденияИБ/Module.bsl",
+      "source_sha256": "cd2024418e83c85152eb288eb27e86727f73cde9ff1f33572968a2faf216d20c"
+    },
+    {
+      "exports": 20,
+      "generated_path": "api/ЮТФабрика.md",
+      "generated_sha256": "5522261439e8009f2b1796f672206b6eb7e98dcaf9ed2b83aeeb43f7f47d9500",
+      "name": "ЮТФабрика",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТФабрика/Module.bsl",
+      "source_sha256": "7b9446b6d1c738adfd92c32b5d15e000a30863a1922b94b456392663fba2bfec"
+    },
+    {
+      "exports": 10,
+      "generated_path": "api/ЮТФайлы.md",
+      "generated_sha256": "c519d71ddc08c21e8835168d727a872291f617304dd6e25fcc122073255c4474",
+      "name": "ЮТФайлы",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТФайлы/Module.bsl",
+      "source_sha256": "de8fe5352688b442751712f75ddf809cbac5900518eeab83d2df5a9cd0b320cf"
+    },
+    {
+      "exports": 20,
+      "generated_path": "api/ЮТест.md",
+      "generated_sha256": "7a973673993eba7b8f5719b5bd83cb3642b09fc0a13386c4570b4b82fe862c9c",
+      "name": "ЮТест",
+      "source_path": "exts/yaxunit/src/CommonModules/ЮТест/Module.bsl",
+      "source_sha256": "a9e43ed91dcad2633a9cfa27723c011bfd50d11cf5eae27554eb4170a9784919"
+    },
+    {
+      "exports": 19,
+      "generated_path": "api/ЮТКонструкторТестовыхДанных.md",
+      "generated_sha256": "117a1e742e3d5d8fa4b97b33c49d3f0a0ad58767ad0107ee19136460bb6aa0c2",
+      "name": "ЮТКонструкторТестовыхДанных",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТКонструкторТестовыхДанных/ObjectModule.bsl",
+      "source_sha256": "a06ac19642c8178aafff29b3dcb72057e7825721079272c7778a27efdcc75e65"
+    },
+    {
+      "exports": 13,
+      "generated_path": "api/ЮТКонструкторДвижений.md",
+      "generated_sha256": "03103b9029f621f5caa5ab093bc030d69c790a24437d87334ffd8260eb6f9ae0",
+      "name": "ЮТКонструкторДвижений",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТКонструкторДвижений/ObjectModule.bsl",
+      "source_sha256": "1309b0479cca99f9d4a6f5e3f834b615396671d280bdd84a997d2a99f16c649f"
+    },
+    {
+      "exports": 11,
+      "generated_path": "api/ЮТКонструкторОбъектаXDTO.md",
+      "generated_sha256": "e2a418e2c6c892fd1379788610090e204f9a0db80e3b862a57b909dd8915d5f0",
+      "name": "ЮТКонструкторОбъектаXDTO",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТКонструкторОбъектаXDTO/ObjectModule.bsl",
+      "source_sha256": "60b535abb037840780e4c22934f6ad8fe13eb717dcdec9f19d3923151958e1dc"
+    },
+    {
+      "exports": 15,
+      "generated_path": "api/ЮТКонструкторТекста.md",
+      "generated_sha256": "d336662648f7acd54b4a336bdeeec3b50f738258b0876717d766cda9ef3cff6e",
+      "name": "ЮТКонструкторТекста",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТКонструкторТекста/ObjectModule.bsl",
+      "source_sha256": "d7609a7e94d08e89b2c72e9381047d8e57a6df93b7e6e021baa29e2cc14fee54"
+    },
+    {
+      "exports": 12,
+      "generated_path": "api/ЮТHTTPСервисЗапрос.md",
+      "generated_sha256": "316e684f3c5f04840755acfee8027dbf3d088deea03274a1ab4a5e7f7f2992a7",
+      "name": "ЮТHTTPСервисЗапрос",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТHTTPСервисЗапрос/ObjectModule.bsl",
+      "source_sha256": "404abb386b478d3edfdda8c84ebff9f39c202029250e91dcec0ddacf19f6e5bc"
+    },
+    {
+      "exports": 12,
+      "generated_path": "api/ЮТHTTPServiceRequest.md",
+      "generated_sha256": "e12de7d88ba6cb9984aab0ec4bbc15ec0f78bcb7f9f0c72fc0386d7cdc1fd477",
+      "name": "ЮТHTTPServiceRequest",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТHTTPServiceRequest/ObjectModule.bsl",
+      "source_sha256": "1f1708fa582ea92dd6733b663b065e58849a983f8f72bfceb3aecde85d912fbb"
+    },
+    {
+      "exports": 25,
+      "generated_path": "api/ЮТHTTPСоединение.md",
+      "generated_sha256": "c42c77413b82213bf498bfac311d68bc1a36bb6ab625d2fba51ea6d67160fc05",
+      "name": "ЮТHTTPСоединение",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТHTTPСоединение/ObjectModule.bsl",
+      "source_sha256": "c26097e081b6f89b7789d8222f6135422c87b05d59926646e19e0c0c7c63cba7"
+    },
+    {
+      "exports": 14,
+      "generated_path": "api/ЮТHTTPОтвет.md",
+      "generated_sha256": "d538fdaa05f2b8e600e561d379cd0f4632b1ac8ea4eaa6f46c6c8027578582bf",
+      "name": "ЮТHTTPОтвет",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТHTTPОтвет/ObjectModule.bsl",
+      "source_sha256": "a47e5be80bce0ec9e7f7bb6000c17fdb510350204fc66283e1fd08f4cf575da1"
+    },
+    {
+      "exports": 8,
+      "generated_path": "api/ЮТRecordSet.md",
+      "generated_sha256": "893ca9bb09faac43768293d37b691e0d28babfd15bdd68e0e7127bae4dddb5dc",
+      "name": "ЮТRecordSet",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТRecordSet/ObjectModule.bsl",
+      "source_sha256": "30d2da371ad62bc881bef0cc2316355aca9f880af7a5d958c3bf14d63d06f931"
+    },
+    {
+      "exports": 12,
+      "generated_path": "api/ЮТСообщениеСервисаИнтеграции.md",
+      "generated_sha256": "39a044535e04eca0e95b3d41ebde9fb0fbc3ba75cf785ef5487e9a36d4e01912",
+      "name": "ЮТСообщениеСервисаИнтеграции",
+      "source_path": "exts/yaxunit/src/DataProcessors/ЮТСообщениеСервисаИнтеграции/ObjectModule.bsl",
+      "source_sha256": "b446ddcec4de6c6f7aa9bf43660a604f0a68d43bb2a99a9ad2399ea40bc3b3f1"
+    }
+  ]
+}

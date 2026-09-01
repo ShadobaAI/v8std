@@ -345,7 +345,10 @@ class GenerateAiArtifactsTests(unittest.TestCase):
             self.assertIn("Canonical HTML: https://v8std.ru/std/437/", payload)
             self.assertIn("Markdown URL: https://v8std.ru/std/437.md", payload)
             self.assertIn("## Content", payload)
-            self.assertIn("ID: #std437", payload)
+            # BEGIN V8STD-FORK
+            # Canonical standard IDs omit the source marker's leading '#'; '#std437' remains an alias.
+            self.assertIn("ID: std437", payload)
+            # END V8STD-FORK
 
             ignored_id = collect_ui_design_standard_ids()[0]
             ignored_source_path = self.pages_by_id[ignored_id]["source_path"]

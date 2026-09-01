@@ -26,6 +26,13 @@ from v8std_search_features import (
     search_terms,
     split_identifier_tokens,
 )
+# BEGIN V8STD-FORK
+from v8std_knowledge_collections import (
+    VALID_COLLECTIONS,
+    VALID_CORPORATE_LEVELS,
+    VALID_TYPES,
+)
+# END V8STD-FORK
 
 
 DEFAULT_INDEX_URL = "https://v8std.ru/ai/pages.jsonl"
@@ -35,7 +42,9 @@ DEFAULT_REFRESH_SECONDS = 3600
 MAX_QUERY_CHARS = 500
 MAX_ID_OR_ALIAS_CHARS = 1000
 MAX_LIMIT = 50
-DEFAULT_LIMIT = 10
+# BEGIN V8STD-FORK
+DEFAULT_LIMIT = 3
+# END V8STD-FORK
 MAX_BODY_CHARS = 12000
 MAX_BODY_LIMIT_CHARS = 30000
 MAX_SNIPPET_CHARS = 4000
@@ -52,7 +61,6 @@ RESOURCE_MAX_BYTES = {
 VECTOR_DIM = 256
 MAX_VECTOR_ROWS = 100000
 MAX_VECTOR_BASE64_CHARS = 8192
-VALID_TYPES = {"standard", "diagnostic", "fix", "pattern", "service"}
 VALID_MODES = {"hybrid", "exact", "bm25", "semantic"}
 VALID_RELATIONS = {"standard", "diagnostic", "edt_check", "related"}
 LEGACY_RELATION_ALIASES = {
@@ -233,6 +241,9 @@ def derive_markdown_url(page: dict[str, Any]) -> str:
 
 def normalize_page_schema(page: dict[str, Any]) -> dict[str, Any]:
     normalized = dict(page)
+    # BEGIN V8STD-FORK
+    normalized.setdefault("collection", "v8std")
+    # END V8STD-FORK
     normalized.setdefault("type", "service")
     normalized.setdefault("title", normalized.get("id", ""))
     normalized.setdefault("description", "")
@@ -242,6 +253,10 @@ def normalize_page_schema(page: dict[str, Any]) -> dict[str, Any]:
     normalized.setdefault("related", [])
     normalized.setdefault("source_urls", [])
     normalized.setdefault("body_markdown", "")
+    # BEGIN V8STD-FORK
+    normalized.setdefault("tags", [])
+    normalized.setdefault("level", None)
+    # END V8STD-FORK
     normalized["markdown_url"] = derive_markdown_url(normalized)
     return normalized
 
@@ -442,12 +457,18 @@ class V8StdIndex:
         query: str,
         *,
         types: list[str] | None = None,
+        # BEGIN V8STD-FORK
+        collections: list[str] | None = None,
+        # END V8STD-FORK
         mode: str = "hybrid",
         limit: int | None = None,
     ) -> dict[str, Any]:
         query = require_text(query, "query", MAX_QUERY_CHARS)
         requested_limit = clamp_limit(limit)
         allowed_types = self._validate_types(types)
+        # BEGIN V8STD-FORK
+        allowed_collections = self._validate_collections(collections)
+        # END V8STD-FORK
         mode = self._validate_mode(mode)
         self.refresh_if_needed()
         normalized_query = normalize_query(query)
@@ -457,6 +478,9 @@ class V8StdIndex:
                 "normalized_query": normalized_query,
                 "mode": mode,
                 "types": sorted(allowed_types) if allowed_types else None,
+                # BEGIN V8STD-FORK
+                "collections": sorted(allowed_collections) if allowed_collections else None,
+                # END V8STD-FORK
                 "results": [],
             }
 
@@ -486,6 +510,10 @@ class V8StdIndex:
                     continue
                 if allowed_types and page.get("type") not in allowed_types:
                     continue
+                # BEGIN V8STD-FORK
+                if allowed_collections and page.get("collection") not in allowed_collections:
+                    continue
+                # END V8STD-FORK
                 score = candidate["score"]
                 if page_is_section(page) and not candidate["details"].get("exact"):
                     score *= 0.65
@@ -500,6 +528,9 @@ class V8StdIndex:
             "normalized_query": normalized_query,
             "mode": mode,
             "types": sorted(allowed_types) if allowed_types else None,
+            # BEGIN V8STD-FORK
+            "collections": sorted(allowed_collections) if allowed_collections else None,
+            # END V8STD-FORK
             "semantic_enabled": self._vector_metadata is not None and bool(self._vectors),
             "results": [
                 self._search_entry(page, score, candidate)
@@ -716,6 +747,16 @@ class V8StdIndex:
             raise ValueError("invalid page type")
         return set(values)
 
+    # BEGIN V8STD-FORK
+    def _validate_collections(self, collections: list[str] | None) -> set[str] | None:
+        values = require_string_list(collections, "collections", MAX_ENUM_CHARS)
+        if values is None:
+            return None
+        if any(value not in VALID_COLLECTIONS for value in values):
+            raise ValueError("invalid collection")
+        return set(values)
+
+    # END V8STD-FORK
     def _validate_mode(self, mode: str) -> str:
         mode = require_text(mode, "mode", MAX_ENUM_CHARS)
         if mode not in VALID_MODES:
@@ -991,7 +1032,12 @@ class V8StdIndex:
         }
         return {
             "id": page["id"],
+            # BEGIN V8STD-FORK
+            "collection": page["collection"],
             "type": page["type"],
+            "section": page.get("section"),
+            "level": page.get("level"),
+            # END V8STD-FORK
             "title": page["title"],
             "description": page["description"],
             "url": page["url"],
@@ -1186,6 +1232,9 @@ class V8StdIndex:
 
     def _parse_pages(self, payload: str) -> list[dict[str, Any]]:
         pages = []
+        # BEGIN V8STD-FORK
+        seen_ids: set[str] = set()
+        # END V8STD-FORK
         for line_number, line in enumerate(payload.splitlines(), start=1):
             if not line.strip():
                 continue
@@ -1197,6 +1246,21 @@ class V8StdIndex:
             if not isinstance(page, dict) or not page.get("id"):
                 raise IndexLoadError(f"invalid page payload at line {line_number}")
             normalized = normalize_page_schema(page)
+            # BEGIN V8STD-FORK
+            page_id = str(normalized["id"])
+            if page_id in seen_ids:
+                raise IndexLoadError(f"duplicate page id '{page_id}' at line {line_number}")
+            if normalized.get("type") not in VALID_TYPES:
+                raise IndexLoadError(f"invalid page type at line {line_number}")
+            if normalized.get("collection") not in VALID_COLLECTIONS:
+                raise IndexLoadError(f"invalid collection at line {line_number}")
+            if (
+                normalized.get("collection") == "corporate"
+                and normalized.get("level") not in VALID_CORPORATE_LEVELS
+            ):
+                raise IndexLoadError(f"invalid corporate level at line {line_number}")
+            seen_ids.add(page_id)
+            # END V8STD-FORK
             normalized["_generated_aliases"] = generated_aliases_for_page(normalized)
             normalized["aliases"] = self._merged_aliases(normalized)
             pages.append(normalized)
@@ -1384,6 +1448,13 @@ class V8StdIndex:
                     page.get("id", ""),
                     page.get("title", ""),
                     page.get("description", ""),
+                    # BEGIN V8STD-FORK
+                    page.get("collection", ""),
+                    page.get("type", ""),
+                    page.get("level", "") or "",
+                    page.get("section", "") or "",
+                    " ".join(page.get("tags", [])),
+                    # END V8STD-FORK
                     " ".join(page.get("aliases", [])),
                 ]
             )

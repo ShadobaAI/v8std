@@ -66,6 +66,18 @@ export V8STD_REPO_ROOT="${REPO_ROOT}"
 cd "${REPO_ROOT}"
 PYTHON_BIN="$(find_python)"
 SITE_MARKDOWN_CACHE="${REPO_ROOT}/.cache/site-markdown-pages.jsonl"
+# BEGIN V8STD-FORK
+PUBLIC_KNOWLEDGE_PUBLISHER="${SCRIPT_DIR}/publish_public_knowledge.py"
+PUBLIC_KNOWLEDGE_PREPARER="${SCRIPT_DIR}/prepare_public_knowledge.py"
+
+cleanup_public_knowledge() {
+  "${PYTHON_BIN}" "${PUBLIC_KNOWLEDGE_PREPARER}" --root "${REPO_ROOT}" --clean
+}
+
+cleanup_local_knowledge() {
+  "${PYTHON_BIN}" "${PUBLIC_KNOWLEDGE_PREPARER}" --root "${REPO_ROOT}" --local --clean
+}
+# END V8STD-FORK
 
 "${PYTHON_BIN}" - "${ZENSICAL_VERSION_PYTHON}" <<'PY'
 import importlib.metadata
@@ -113,6 +125,10 @@ site_markdown_cache = Path(sys.argv[3])
 generator = script_dir / "generate_ai_artifacts.py"
 license_publisher = script_dir / "publish_license_texts.py"
 sitemap_publisher = script_dir / "publish_diagnostic_sitemap.py"
+# BEGIN V8STD-FORK
+# Local serve keeps fork knowledge collections in the rendered site.
+# Production build prunes them after Zensical finishes.
+# END V8STD-FORK
 
 
 def signature() -> tuple[tuple[int, int], ...] | None:
@@ -166,6 +182,12 @@ while True:
                 [sys.executable, str(license_publisher), "--site", str(site_dir)],
                 check=False,
             ),
+            # BEGIN V8STD-FORK
+            subprocess.run(
+                [sys.executable, str(generator), "--write-public-ai", str(site_dir)],
+                check=False,
+            ),
+            # END V8STD-FORK
         ]
         if all(result.returncode == 0 for result in results):
             last_processed_build = current_signature[:2]
@@ -175,14 +197,27 @@ PY
 }
 
 if [ "${1:-}" = "build" ]; then
-  "${PYTHON_BIN}" -m zensical "$@"
+  # BEGIN V8STD-FORK
+  PUBLIC_ZENSICAL_CONFIG="$("${PYTHON_BIN}" "${PUBLIC_KNOWLEDGE_PREPARER}" --root "${REPO_ROOT}")"
+  trap cleanup_public_knowledge EXIT
+  "${PYTHON_BIN}" -m zensical build --config-file "${PUBLIC_ZENSICAL_CONFIG}" "${@:2}"
+  # END V8STD-FORK
   "${PYTHON_BIN}" "${SCRIPT_DIR}/publish_diagnostic_sitemap.py" --root "${REPO_ROOT}" --sitemap "${REPO_ROOT}/site/sitemap.xml"
   "${PYTHON_BIN}" "${SCRIPT_DIR}/publish_license_texts.py" --site "${REPO_ROOT}/site"
   "${PYTHON_BIN}" "${SCRIPT_DIR}/generate_ai_artifacts.py" \
     --from-site-markdown-cache "${SITE_MARKDOWN_CACHE}" \
     --write-site-markdown "${REPO_ROOT}/site"
+  # BEGIN V8STD-FORK
+  "${PYTHON_BIN}" "${SCRIPT_DIR}/generate_ai_artifacts.py" --write-public-ai "${REPO_ROOT}/site"
+  "${PYTHON_BIN}" "${PUBLIC_KNOWLEDGE_PUBLISHER}" --site "${REPO_ROOT}/site"
+  cleanup_public_knowledge
+  trap - EXIT
+  # END V8STD-FORK
 elif [ "${1:-}" = "serve" ]; then
-  "${PYTHON_BIN}" -m zensical "$@" &
+  # BEGIN V8STD-FORK
+  LOCAL_ZENSICAL_CONFIG="$("${PYTHON_BIN}" "${PUBLIC_KNOWLEDGE_PREPARER}" --root "${REPO_ROOT}" --local)"
+  "${PYTHON_BIN}" -m zensical serve --config-file "${LOCAL_ZENSICAL_CONFIG}" "${@:2}" &
+  # END V8STD-FORK
   serve_pid="$!"
   write_site_markdown_watch &
   watch_pid="$!"
@@ -190,6 +225,9 @@ elif [ "${1:-}" = "serve" ]; then
   cleanup() {
     kill "${watch_pid}" 2>/dev/null || true
     kill "${serve_pid}" 2>/dev/null || true
+    # BEGIN V8STD-FORK
+    cleanup_local_knowledge
+    # END V8STD-FORK
   }
 
   trap cleanup INT TERM
@@ -198,6 +236,9 @@ elif [ "${1:-}" = "serve" ]; then
   status="$?"
   kill "${watch_pid}" 2>/dev/null || true
   wait "${watch_pid}" 2>/dev/null || true
+  # BEGIN V8STD-FORK
+  cleanup_local_knowledge
+  # END V8STD-FORK
   exit "${status}"
 else
   exec "${PYTHON_BIN}" -m zensical "$@"

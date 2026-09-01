@@ -1,0 +1,44 @@
+# Public YaXUnit API used when creating, updating, and analysing tests.
+# Format: API name | source path relative to exts/yaxunit/src.
+# Technical internals, UI helpers, smoke-test engines, and interceptors are intentionally excluded.
+Мокито|CommonModules/Мокито/Module.bsl
+МокитоОбучение|CommonModules/МокитоОбучение/Module.bsl
+МокитоПерехват|CommonModules/МокитоПерехват/Module.bsl
+МокитоПроверки|CommonModules/МокитоПроверки/Module.bsl
+ЮТАлюр|CommonModules/ЮТАлюр/Module.bsl
+ЮТЗависимости|CommonModules/ЮТЗависимости/Module.bsl
+ЮТЗапросы|CommonModules/ЮТЗапросы/Module.bsl
+ЮТИсключения|CommonModules/ЮТИсключения/Module.bsl
+ЮТКоллекции|CommonModules/ЮТКоллекции/Module.bsl
+ЮТКомпоненты|CommonModules/ЮТКомпоненты/Module.bsl
+ЮТКонструкторВариантов|CommonModules/ЮТКонструкторВариантов/Module.bsl
+ЮТКонтекст|CommonModules/ЮТКонтекст/Module.bsl
+ЮТКонтекстТеста|CommonModules/ЮТКонтекстТеста/Module.bsl
+ЮТЛогирование|CommonModules/ЮТЛогирование/Module.bsl
+ЮТМетаданные|CommonModules/ЮТМетаданные/Module.bsl
+ЮТМетоды|CommonModules/ЮТМетоды/Module.bsl
+ЮТНастройкиВыполнения|CommonModules/ЮТНастройкиВыполнения/Module.bsl
+ЮТОбщий|CommonModules/ЮТОбщий/Module.bsl
+ЮТОкружение|CommonModules/ЮТОкружение/Module.bsl
+ЮТПодражатель|CommonModules/ЮТПодражатель/Module.bsl
+ЮТПредикаты|CommonModules/ЮТПредикаты/Module.bsl
+ЮТРегистрацияОшибок|CommonModules/ЮТРегистрацияОшибок/Module.bsl
+ЮТСтроки|CommonModules/ЮТСтроки/Module.bsl
+ЮТТестовыеДанные|CommonModules/ЮТТестовыеДанные/Module.bsl
+ЮТТесты|CommonModules/ЮТТесты/Module.bsl
+ЮТУтверждения|CommonModules/ЮТУтверждения/Module.bsl
+ЮТУтвержденияИБ|CommonModules/ЮТУтвержденияИБ/Module.bsl
+ЮТФабрика|CommonModules/ЮТФабрика/Module.bsl
+ЮТФайлы|CommonModules/ЮТФайлы/Module.bsl
+ЮТест|CommonModules/ЮТест/Module.bsl
+# Fluent objects returned by ЮТест.Данные() and related factories.
+ЮТКонструкторТестовыхДанных|DataProcessors/ЮТКонструкторТестовыхДанных/ObjectModule.bsl
+ЮТКонструкторДвижений|DataProcessors/ЮТКонструкторДвижений/ObjectModule.bsl
+ЮТКонструкторОбъектаXDTO|DataProcessors/ЮТКонструкторОбъектаXDTO/ObjectModule.bsl
+ЮТКонструкторТекста|DataProcessors/ЮТКонструкторТекста/ObjectModule.bsl
+ЮТHTTPСервисЗапрос|DataProcessors/ЮТHTTPСервисЗапрос/ObjectModule.bsl
+ЮТHTTPServiceRequest|DataProcessors/ЮТHTTPServiceRequest/ObjectModule.bsl
+ЮТHTTPСоединение|DataProcessors/ЮТHTTPСоединение/ObjectModule.bsl
+ЮТHTTPОтвет|DataProcessors/ЮТHTTPОтвет/ObjectModule.bsl
+ЮТRecordSet|DataProcessors/ЮТRecordSet/ObjectModule.bsl
+ЮТСообщениеСервисаИнтеграции|DataProcessors/ЮТСообщениеСервисаИнтеграции/ObjectModule.bsl

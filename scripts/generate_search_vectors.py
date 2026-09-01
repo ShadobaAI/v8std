@@ -62,6 +62,13 @@ def page_chunks(page: dict[str, Any]) -> list[tuple[str, int, str]]:
             page.get("id", ""),
             page.get("title", ""),
             page.get("description", ""),
+            # BEGIN V8STD-FORK
+            page.get("collection", ""),
+            page.get("type", ""),
+            page.get("level", "") or "",
+            page.get("section", "") or "",
+            " ".join(page.get("tags", [])),
+            # END V8STD-FORK
             " ".join(page.get("aliases", [])),
         ]
     ).strip()
