@@ -1,0 +1,80 @@
+FROM python:3.12-slim AS artifacts
+
+WORKDIR /build
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /build/requirements.txt
+COPY scripts /build/scripts
+COPY docs /build/docs
+COPY zensical.toml retrieval-rules.yml /build/
+
+RUN python -m pip install --no-cache-dir --upgrade \
+        -r /build/requirements.txt \
+        Pillow \
+    && rm -rf /build/docs/ai \
+    && rm -f /build/docs/llms.txt /build/docs/llms-full.txt \
+    && python /build/scripts/generate_social_cards.py \
+    && python /build/scripts/generate_ai_artifacts.py \
+    && python /build/scripts/generate_search_vectors.py \
+        --pages /build/docs/ai/pages.jsonl \
+        --output /build/docs/ai/search-vectors.jsonl \
+    && test -s /build/docs/ai/pages.jsonl \
+    && test -s /build/docs/ai/search-vectors.jsonl \
+    && test -s /build/docs/llms.txt \
+    && test -s /build/docs/llms-full.txt
+
+
+FROM python:3.12-slim AS runtime
+
+LABEL org.opencontainers.image.title="v8std MCP" \
+      org.opencontainers.image.description="Self-contained MCP server with a build-time v8std knowledge index" \
+      org.opencontainers.image.source="https://github.com/ShadobaAI/v8std"
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    V8STD_MCP_DATA_DIR=/opt/v8std/data \
+    V8STD_MCP_HOST=0.0.0.0 \
+    V8STD_MCP_PORT=8766 \
+    V8STD_MCP_PATH=/mcp \
+    V8STD_MCP_CACHE_DIR=/tmp/v8std-mcp
+
+WORKDIR /opt/v8std
+
+COPY requirements-mcp-runtime.txt /opt/v8std/requirements-mcp-runtime.txt
+RUN python -m pip install --no-cache-dir --upgrade \
+        -r /opt/v8std/requirements-mcp-runtime.txt \
+    && groupadd --system --gid 10001 v8std \
+    && useradd --system --uid 10001 --gid v8std --home-dir /nonexistent --shell /usr/sbin/nologin v8std
+
+COPY scripts/run_v8std_mcp_image.sh \
+     scripts/v8std_mcp_server.py \
+     scripts/v8std_mcp_index.py \
+     scripts/v8std_mcp_monitoring.py \
+     scripts/v8std_retrieval_rules.py \
+     scripts/v8std_search_features.py \
+     scripts/v8std_knowledge_collections.py \
+     /opt/v8std/scripts/
+COPY retrieval-rules.yml /opt/v8std/retrieval-rules.yml
+COPY --from=artifacts /build/docs/ai /opt/v8std/data/ai
+COPY --from=artifacts /build/docs/llms.txt /opt/v8std/data/llms.txt
+COPY --from=artifacts /build/docs/llms-full.txt /opt/v8std/data/llms-full.txt
+
+RUN sed -i 's/\r$//' /opt/v8std/scripts/run_v8std_mcp_image.sh \
+    && chmod +x /opt/v8std/scripts/run_v8std_mcp_image.sh \
+    && chmod -R a+rX /opt/v8std/data /opt/v8std/retrieval-rules.yml /opt/v8std/scripts \
+    && test -s /opt/v8std/data/ai/pages.jsonl \
+    && test -s /opt/v8std/data/ai/search-vectors.jsonl \
+    && test -s /opt/v8std/data/llms.txt \
+    && test -s /opt/v8std/data/llms-full.txt
+
+USER 10001:10001
+
+EXPOSE 8766
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+    CMD ["python", "-c", "import os, urllib.request; urllib.request.urlopen(f\"http://127.0.0.1:{os.environ.get('V8STD_MCP_PORT', '8766')}/healthz\", timeout=3).read()"]
+
+ENTRYPOINT ["/opt/v8std/scripts/run_v8std_mcp_image.sh"]

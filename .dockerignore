@@ -1,0 +1,11 @@
+.git
+.github
+.cache
+.venv
+__pycache__
+*.py[cod]
+site
+tests
+docs/ai
+docs/llms.txt
+docs/llms-full.txt
