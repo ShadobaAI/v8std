@@ -1,0 +1,104 @@
+[
+  {
+    "scenario": "new-test-in-existing-module",
+    "known": true,
+    "required": ["yaxunit:patterns:authoring-baseline"],
+    "search_max": 0
+  },
+  {
+    "scenario": "new-test-module",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:test-module",
+      "yaxunit:patterns:naming"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "test-with-persistent-data",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:test-data",
+      "yaxunit:patterns:data-isolation"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "module-wide-transaction-isolation",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:data-isolation"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "parameterized-test",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:registration-and-parameters"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "database-state-assertion",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:assertions"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "database-state-assertion-with-predicate",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:assertions",
+      "yaxunit:patterns:predicates-and-queries"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "test-with-mock",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:mocking"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "test-with-file-or-xdto-dependency",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:dependencies"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "test-with-hooks-or-cross-context-state",
+    "known": true,
+    "required": [
+      "yaxunit:patterns:authoring-baseline",
+      "yaxunit:patterns:lifecycle-and-contexts"
+    ],
+    "search_max": 0
+  },
+  {
+    "scenario": "test-review-or-migration",
+    "known": true,
+    "required": ["yaxunit:patterns:test-analysis-and-migration"],
+    "search_max": 0
+  },
+  {
+    "scenario": "unknown-yaxunit-api",
+    "known": false,
+    "required": [],
+    "search_max": 1
+  }
+]

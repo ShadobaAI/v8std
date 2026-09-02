@@ -99,10 +99,54 @@ class KnowledgeCollectionsTests(unittest.TestCase):
         api = [row for row in yaxunit if row["type"] == "reference"]
         patterns = [row for row in yaxunit if row["type"] == "pattern"]
         self.assertGreater(len(api), 450)
-        self.assertEqual(len(patterns), 9)
+        expected_pattern_ids = {
+            "yaxunit:patterns:assertions",
+            "yaxunit:patterns:authoring-baseline",
+            "yaxunit:patterns:data-isolation",
+            "yaxunit:patterns:dependencies",
+            "yaxunit:patterns:lifecycle-and-contexts",
+            "yaxunit:patterns:mocking",
+            "yaxunit:patterns:naming",
+            "yaxunit:patterns:predicates-and-queries",
+            "yaxunit:patterns:registration-and-parameters",
+            "yaxunit:patterns:test-analysis-and-migration",
+            "yaxunit:patterns:test-data",
+            "yaxunit:patterns:test-module",
+        }
+        self.assertEqual({row["id"] for row in patterns}, expected_pattern_ids)
         self.assertTrue(all(len(row["body_markdown"]) <= 2000 for row in api))
         self.assertTrue(all(len(row["body_markdown"]) <= 1500 for row in patterns))
         self.assertFalse(any("](/api/" in row["body_markdown"] for row in yaxunit))
+        self.assertTrue(
+            all(f'{row["id"]}:overview' in row["aliases"] for row in patterns),
+            "legacy generated pattern IDs must remain aliases",
+        )
+        self.assertTrue(all("#overview" not in row["url"] for row in patterns))
+        self.assertTrue(all("#overview" not in row["markdown_url"] for row in patterns))
+
+        pattern_aliases: dict[str, str] = {}
+        for row in patterns:
+            for alias in row["aliases"]:
+                normalized = alias.strip().casefold()
+                owner = pattern_aliases.setdefault(normalized, row["id"])
+                self.assertEqual(owner, row["id"], f"ambiguous YaXUnit pattern alias: {alias}")
+
+        combined_patterns = "\n".join(row["body_markdown"] for row in patterns)
+        self.assertNotIn("Функция ИсполняемыеСценарии", combined_patterns)
+        self.assertIn("Процедура ИсполняемыеСценарии() Экспорт", combined_patterns)
+        self.assertIn("ЮТест.ОжидаетЧтоТаблицаБазы", combined_patterns)
+        predicates = next(
+            row for row in patterns if row["id"] == "yaxunit:patterns:predicates-and-queries"
+        )
+        self.assertNotIn("Записи = ЮТЗапросы.Записи", predicates["body_markdown"])
+        self.assertIn(".СодержитЗаписи(Условие)", predicates["body_markdown"])
+        naming = next(row for row in patterns if row["id"] == "yaxunit:patterns:naming")
+        self.assertIn("ИсполняемыеСценарии", naming["body_markdown"])
+        self.assertIn("ОМ_", naming["body_markdown"])
+        self.assertIn("вспомогательный модуль", naming["body_markdown"].lower())
+        isolation = next(row for row in patterns if row["id"] == "yaxunit:patterns:data-isolation")
+        self.assertEqual(isolation["body_markdown"].count("ЮТТесты.ВТранзакции()"), 1)
+        self.assertGreaterEqual(isolation["body_markdown"].count("ДобавитьТестовыйНабор"), 2)
 
         assertion = next(row for row in api if row.get("section") == "ЮТест.ОжидаетЧто")
         self.assertIn(
@@ -173,10 +217,10 @@ class KnowledgeCollectionsTests(unittest.TestCase):
     def test_yaxunit_search_prefers_exact_api_and_usage_patterns(self):
         cases = {
             "сигнатура ЮТест.ОжидаетЧто": "yaxunit:api:ютест:ютест-ожидаетчто",
-            "как проверить исключение": "yaxunit:patterns:assertions:overview",
-            "как создать тестовый документ": "yaxunit:patterns:test-data:overview",
-            "как мокировать вызов метода": "yaxunit:patterns:mocking:overview",
-            "параметризованный тест": "yaxunit:patterns:registration-and-parameters:overview",
+            "как проверить исключение": "yaxunit:patterns:assertions",
+            "как создать тестовый документ": "yaxunit:patterns:test-data",
+            "как мокировать вызов метода": "yaxunit:patterns:mocking",
+            "параметризованный тест": "yaxunit:patterns:registration-and-parameters",
             "ЮТТесты.Вызов": "yaxunit:api:юттесты:юттесты-вызов",
         }
         for query, expected_id in cases.items():
@@ -184,6 +228,52 @@ class KnowledgeCollectionsTests(unittest.TestCase):
                 result = self.index.search(query, collections=["yaxunit"])
                 self.assertTrue(result["results"])
                 self.assertEqual(result["results"][0]["id"], expected_id)
+
+    def test_yaxunit_routing_contract_references_known_direct_ids(self):
+        contract = json.loads(
+            (REPO_ROOT / "tests" / "yaxunit_retrieval_contract.json").read_text(encoding="utf-8")
+        )
+        pattern_ids = {
+            row["id"]
+            for row in self.rows
+            if row["collection"] == "yaxunit" and row["type"] == "pattern"
+        }
+        for case in contract:
+            with self.subTest(case=case["scenario"]):
+                required = case["required"]
+                self.assertEqual(len(required), len(set(required)))
+                self.assertTrue(set(required) <= pattern_ids)
+                if case["known"]:
+                    self.assertEqual(case["search_max"], 0)
+                else:
+                    self.assertLessEqual(case["search_max"], 1)
+
+    def test_engineering_routing_contract_has_valid_ids_and_budgets(self):
+        contract = json.loads(
+            (REPO_ROOT / "tests" / "engineering_retrieval_contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        page_ids = {row["id"] for row in self.rows}
+        for case in contract:
+            with self.subTest(case=case["scenario"]):
+                required = case["required"]
+                self.assertEqual(len(required), len(set(required)))
+                self.assertTrue(set(required) <= page_ids)
+                if case["known"]:
+                    self.assertEqual(case["search_max"], 0)
+                else:
+                    self.assertLessEqual(case["search_max"], 1)
+
+    def test_legacy_yaxunit_pattern_id_resolves_to_canonical_page(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pages_path = Path(temp_dir) / "pages.jsonl"
+            pages_path.write_text(self.jsonl, encoding="utf-8")
+            index = self.index_module.V8StdIndex(pages_path=pages_path)
+            index.load()
+            page = index.page("yaxunit:patterns:authoring-baseline:overview")
+            self.assertTrue(page["found"])
+            self.assertEqual(page["page"]["id"], "yaxunit:patterns:authoring-baseline")
 
     def test_get_page_returns_only_selected_yaxunit_section(self):
         record = next(

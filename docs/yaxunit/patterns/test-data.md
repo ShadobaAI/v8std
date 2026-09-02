@@ -1,4 +1,5 @@
 ---
+id: yaxunit:patterns:test-data
 title: Создание тестовых данных YaXUnit
 description: Безопасное создание объектов, документов и случайных значений через ЮТест.Данные.
 tags: [yaxunit, pattern, test-data, builders]

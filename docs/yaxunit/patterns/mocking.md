@@ -1,4 +1,5 @@
 ---
+id: yaxunit:patterns:mocking
 title: Мокирование зависимостей с Мокито
 description: Обучение мока, запуск, проверка вызовов и ограничения мокирования.
 tags: [yaxunit, pattern, mocking, mockito]

@@ -408,6 +408,9 @@ def build_page_id(
     if collection == "corporate":
         return str(front_matter.get("id", "")).strip()
     if collection == "yaxunit":
+        explicit_id = str(front_matter.get("id", "")).strip()
+        if explicit_id:
+            return explicit_id
         return yaxunit_document_id(relative)
     # END V8STD-FORK
     match = MARKER_RE.search(content)

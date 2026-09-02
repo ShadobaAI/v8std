@@ -1,0 +1,50 @@
+[
+  {
+    "scenario": "simple-local-body-fix",
+    "known": true,
+    "required": [],
+    "search_max": 0
+  },
+  {
+    "scenario": "new-method",
+    "known": true,
+    "required": ["std455"],
+    "search_max": 0
+  },
+  {
+    "scenario": "new-common-module",
+    "known": true,
+    "required": ["std455", "std469"],
+    "search_max": 0
+  },
+  {
+    "scenario": "privileged-mode",
+    "known": true,
+    "required": ["std485"],
+    "search_max": 0
+  },
+  {
+    "scenario": "full-access-common-module",
+    "known": true,
+    "required": ["std469", "std488"],
+    "search_max": 0
+  },
+  {
+    "scenario": "select-allowed-query",
+    "known": true,
+    "required": ["std415", "std437", "std444"],
+    "search_max": 0
+  },
+  {
+    "scenario": "localized-user-text",
+    "known": true,
+    "required": ["std761", "std762", "std765"],
+    "search_max": 0
+  },
+  {
+    "scenario": "unknown-standard",
+    "known": false,
+    "required": [],
+    "search_max": 1
+  }
+]

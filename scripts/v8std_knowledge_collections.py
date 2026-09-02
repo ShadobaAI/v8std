@@ -102,6 +102,11 @@ def validate_source_metadata(
         raise ValueError(f"unknown type '{page_type}' in {relative}")
     if not page_id:
         raise ValueError(f"missing stable id in {relative}")
+    if collection == "yaxunit" and page_type == "pattern":
+        if "id" not in front_matter:
+            raise ValueError(f"missing explicit YaXUnit pattern id in {relative}")
+        if not page_id.startswith("yaxunit:patterns:"):
+            raise ValueError(f"invalid YaXUnit pattern id '{page_id}' in {relative}")
     if collection != "corporate":
         return
     required = {"id", "collection", "type", "level", "tags"}
@@ -297,16 +302,29 @@ def expand_retrieval_records(indexed_pages: list[dict[str, Any]], *, public_only
             page_records = [page]
         else:
             page_records = []
-            for section_id, section_title, body in split_h2_sections(page["body_markdown"]):
+            sections = split_h2_sections(page["body_markdown"])
+            compact_yaxunit_pattern = page["collection"] == "yaxunit" and page["type"] == "pattern"
+            if compact_yaxunit_pattern and (
+                len(sections) != 1 or sections[0][0] != "overview"
+            ):
+                raise ValueError(
+                    f"YaXUnit pattern '{page['id']}' must remain one compact retrieval record"
+                )
+            for section_id, section_title, body in sections:
                 record = dict(page)
                 record["document_id"] = page["id"]
-                record["id"] = f"{page['id']}:{section_id}"
+                record["id"] = page["id"] if compact_yaxunit_pattern else f"{page['id']}:{section_id}"
                 record["section"] = section_title
                 record["title"] = f"{page['title']} — {section_title}"
                 record["description"] = section_description(body, page["description"])
-                record["aliases"] = dedupe_strings([*page["aliases"], page["id"], section_title])
-                record["url"] = f"{page['url'].split('#', 1)[0]}#{section_id}"
-                record["markdown_url"] = f"{page['markdown_url'].split('#', 1)[0]}#{section_id}"
+                legacy_aliases = [f"{page['id']}:overview"] if compact_yaxunit_pattern else []
+                section_aliases = [] if compact_yaxunit_pattern else [section_title]
+                record["aliases"] = dedupe_strings(
+                    [*page["aliases"], *legacy_aliases, page["id"], *section_aliases]
+                )
+                url_suffix = "" if compact_yaxunit_pattern else f"#{section_id}"
+                record["url"] = f"{page['url'].split('#', 1)[0]}{url_suffix}"
+                record["markdown_url"] = f"{page['markdown_url'].split('#', 1)[0]}{url_suffix}"
                 record["body_markdown"] = body
                 record["related"] = []
                 page_records.append(record)
