@@ -674,7 +674,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE_DIR)
     parser.add_argument("--refresh-seconds", type=int, default=DEFAULT_REFRESH_SECONDS)
     parser.add_argument("--host", default="127.0.0.1")
+    # BEGIN V8STD-FORK
     parser.add_argument("--port", type=int, default=8766)
+    # END V8STD-FORK
     parser.add_argument("--mcp-path", default="/mcp")
     parser.add_argument(
         "--log-level",

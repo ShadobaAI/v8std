@@ -19,7 +19,9 @@ services:
       dockerfile: docker-compose/docker/Dockerfile
     restart: always
     ports:
+      # BEGIN V8STD-FORK
       - "127.0.0.1:8766:8765"
+      # END V8STD-FORK
     cap_drop:
       - ALL
     security_opt:

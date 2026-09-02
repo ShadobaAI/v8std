@@ -100,6 +100,7 @@ cd v8std
 docker compose -f docker-compose/docker-compose.yml up -d v8std-mcp
 ```
 
+<!-- BEGIN V8STD-FORK -->
 Локальный адрес MCP:
 
 ```text
@@ -160,6 +161,7 @@ python scripts/v8std_mcp_server.py \
   --host 127.0.0.1 \
   --port 8766
 ```
+<!-- END V8STD-FORK -->
 
 Полезные команды:
 
