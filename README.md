@@ -15,7 +15,7 @@ MCP-сервер будет доступен на `http://127.0.0.1:8766/mcp` и
 Упрощенный запуск готового образа:
 
 ```bash
-docker run -d -p 127.0.0.1:8766:8766 aleksp99/v8std-mcp:latest
+docker run -d --name v8std -p 127.0.0.1:8766:8766 aleksp99/v8std-mcp:latest
 ```
 
 ```bash
