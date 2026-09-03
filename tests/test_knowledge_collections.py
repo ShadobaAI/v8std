@@ -85,14 +85,56 @@ class KnowledgeCollectionsTests(unittest.TestCase):
         self.assertTrue(any(row["type"] == "rule" and row["level"] == "mandatory" for row in corporate))
         self.assertTrue(all(row.get("section") and row.get("document_id") for row in corporate))
 
-    def test_repository_ships_no_corporate_rules(self):
-        self.assertFalse(any(row["collection"] == "corporate" for row in self.rows))
+    def test_repository_ships_private_additional_work_rules(self):
+        expected_documents = {
+            "corporate:work:bsl-change-policy",
+            "corporate:work:bsl-type-transparency",
+            "corporate:work:bsl-readability",
+            "corporate:work:bsl-formatting",
+            "corporate:work:module-organization",
+            "corporate:work:query-conventions",
+            "corporate:work:error-reporting",
+        }
+        corporate_rows = [row for row in self.rows if row["collection"] == "corporate"]
+        self.assertEqual(
+            {row["document_id"] for row in corporate_rows},
+            expected_documents,
+        )
+        self.assertEqual(
+            {row["id"] for row in corporate_rows},
+            {f"{document_id}:overview" for document_id in expected_documents},
+        )
+        self.assertTrue(all(row["level"] == "mandatory" for row in corporate_rows))
+        self.assertTrue(all("work" in row["tags"] for row in corporate_rows))
+
+        expected_files = {
+            "README.md",
+            "work/README.md",
+            "work/bsl-change-policy.md",
+            "work/bsl-formatting.md",
+            "work/bsl-readability.md",
+            "work/bsl-type-transparency.md",
+            "work/error-reporting.md",
+            "work/module-organization.md",
+            "work/query-conventions.md",
+        }
         corporate_files = sorted(
             path.relative_to(REPO_ROOT / "docs" / "corporate").as_posix()
             for path in (REPO_ROOT / "docs" / "corporate").rglob("*")
             if path.is_file()
         )
-        self.assertEqual(corporate_files, ["README.md"])
+        self.assertEqual(set(corporate_files), expected_files)
+
+    def test_unindexed_corporate_indexes_do_not_require_retrieval_ids(self):
+        corporate_indexes = [
+            page
+            for page in self.index_data["pages"]
+            if Path(page["source_path"]).as_posix()
+            in {"corporate/README.md", "corporate/work/README.md"}
+        ]
+        self.assertEqual(len(corporate_indexes), 2)
+        self.assertTrue(all(not page["_index_for_ai"] for page in corporate_indexes))
+        self.assertTrue(all(not page["id"] for page in corporate_indexes))
 
     def test_yaxunit_has_atomic_api_cards_and_compact_patterns(self):
         yaxunit = [row for row in self.rows if row["collection"] == "yaxunit"]

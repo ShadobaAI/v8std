@@ -1149,7 +1149,7 @@ def build_site_ai_index(root: Path) -> dict:
         ]
     )
     # BEGIN V8STD-FORK
-    source_ids = [page["id"] for page in pages]
+    source_ids = [page["id"] for page in pages if page.get("_index_for_ai", True)]
     duplicate_ids = sorted({page_id for page_id in source_ids if source_ids.count(page_id) > 1})
     if duplicate_ids:
         raise ValueError(f"duplicate source page id: {', '.join(duplicate_ids)}")
