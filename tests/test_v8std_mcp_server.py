@@ -19,7 +19,13 @@ SCRIPTS_PATH = REPO_ROOT / "scripts"
 EXPECTED_TOOL_NAMES = [
     "v8std_search",
     "v8std_get_page",
+    "v8std_get_summary",
+    "v8std_get_section",
+    "v8std_get_pattern",
+    "v8std_get_api_card",
+    "v8std_get_requirements_for_context",
     "v8std_get_related",
+    "v8std_get_related_ids",
     "v8std_explain_snippet",
     "v8std_explain_diagnostics",
 ]
@@ -37,11 +43,47 @@ EXPECTED_TOOL_GUIDANCE = {
         "exact id",
         "After v8std_search",
     ],
+    "v8std_get_summary": [
+        "Use this when",
+        "compact",
+        "exact page id or alias",
+        "v8std_get_page",
+    ],
+    "v8std_get_section": [
+        "Use this when",
+        "Markdown heading",
+        "more compact",
+        "ambiguous headings",
+    ],
+    "v8std_get_pattern": [
+        "Use this when",
+        "YaXUnit pattern",
+        "rejects non-pattern",
+        "pattern discovery",
+    ],
+    "v8std_get_api_card": [
+        "Use this when",
+        "YaXUnit API",
+        "member section",
+        "project source inspection",
+    ],
+    "v8std_get_requirements_for_context": [
+        "Use this when",
+        "ranked",
+        "not an exhaustive compliance verdict",
+        "final evidence",
+    ],
     "v8std_get_related": [
         "Use this when",
         "from a known standard or diagnostic",
         "related standards",
         "diagnostics",
+    ],
+    "v8std_get_related_ids": [
+        "Use this when",
+        "compact",
+        "v8std_get_related",
+        "starting id",
     ],
     "v8std_explain_snippet": [
         "Use this when",

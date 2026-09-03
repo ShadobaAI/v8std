@@ -180,6 +180,53 @@ class V8StdMcpIndexTests(unittest.TestCase):
             any(item["id"] == "bslls:AssignAliasFieldsInQuery" for item in related)
         )
 
+    def test_compact_summary_and_related_ids_preserve_authoritative_links(self):
+        summary = self.index.summary("std437", body_limit=300)
+        related = self.index.related_ids("std437", limit=2)
+
+        self.assertTrue(summary["found"])
+        self.assertEqual(summary["page"]["id"], "std437")
+        self.assertLessEqual(len(summary["page"]["body_markdown"]), 305)
+        self.assertTrue(related["found"])
+        self.assertLessEqual(len(related["related"]), 2)
+        self.assertNotIn("description", related["related"][0])
+
+    def test_section_and_api_card_return_one_yaxunit_member(self):
+        section = self.index.section("ЮТест", "Данные")
+        api_card = self.index.api_card("ЮТест", member="Данные")
+
+        self.assertTrue(section["found"])
+        self.assertIn("ЮТест.Данные", section["heading"])
+        self.assertEqual(api_card["id"], section["id"])
+        self.assertIn("ЮТест.Данные", api_card["body_markdown"])
+
+    def test_pattern_rejects_non_pattern_and_returns_compact_pattern(self):
+        pattern = self.index.pattern("yaxunit:patterns:authoring-baseline", body_limit=500)
+        non_pattern = self.index.pattern("std437")
+
+        self.assertTrue(pattern["found"])
+        self.assertEqual(pattern["page"]["collection"], "yaxunit")
+        self.assertEqual(pattern["page"]["type"], "pattern")
+        self.assertFalse(non_pattern["found"])
+        self.assertIn("not a YaXUnit pattern", non_pattern["reason"])
+
+    def test_requirements_for_context_returns_bounded_ranked_candidates(self):
+        result = self.index.requirements_for_context(
+            "тестирование общего модуля",
+            mechanisms=["YaXUnit"],
+            collections=["yaxunit"],
+            limit=2,
+            body_limit_per_item=300,
+        )
+
+        self.assertEqual(result["coverage"], "ranked_candidates_not_exhaustive")
+        self.assertLessEqual(len(result["requirements"]), 2)
+        self.assertTrue(result["requirements"])
+        for item in result["requirements"]:
+            self.assertEqual(item["collection"], "yaxunit")
+            self.assertIn("score", item)
+            self.assertLessEqual(len(item["body_markdown"]), 305)
+
     def test_acc_placeholder_metadata_is_decoded_at_the_mcp_boundary(self):
         catalog = json.loads(
             (REPO_ROOT / "data" / "acc-diagnostics.json").read_text(encoding="utf-8")

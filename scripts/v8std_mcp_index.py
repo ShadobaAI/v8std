@@ -47,6 +47,8 @@ DEFAULT_LIMIT = 3
 # END V8STD-FORK
 MAX_BODY_CHARS = 12000
 MAX_BODY_LIMIT_CHARS = 30000
+DEFAULT_COMPACT_BODY_CHARS = 2000
+MAX_COMPACT_BODY_CHARS = 6000
 MAX_SNIPPET_CHARS = 4000
 MAX_DIAGNOSTIC_CODES = 500
 MAX_DIAGNOSTIC_CODE_CHARS = 200
@@ -212,6 +214,16 @@ def clamp_body_limit(body_limit: int | None) -> int:
     return max(1000, min(value, MAX_BODY_LIMIT_CHARS))
 
 
+def clamp_compact_body_limit(body_limit: int | None) -> int:
+    if body_limit is None:
+        return DEFAULT_COMPACT_BODY_CHARS
+    try:
+        value = int(body_limit)
+    except (TypeError, ValueError) as error:
+        raise ValueError("body_limit must be an integer") from error
+    return max(250, min(value, MAX_COMPACT_BODY_CHARS))
+
+
 def trim_body(page: dict[str, Any], max_body_chars: int = MAX_BODY_CHARS) -> dict[str, Any]:
     result = dict(page)
     body = result.get("body_markdown") or ""
@@ -220,6 +232,47 @@ def trim_body(page: dict[str, Any], max_body_chars: int = MAX_BODY_CHARS) -> dic
         result["body_truncated"] = True
     else:
         result["body_truncated"] = False
+    return result
+
+
+COMPACT_PAGE_KEYS = (
+    "id", "collection", "type", "title", "description", "url",
+    "markdown_url", "source_path", "tags", "level",
+)
+MARKDOWN_HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
+
+
+def compact_page(page: dict[str, Any], *, body_limit: int) -> dict[str, Any]:
+    result = {key: page.get(key) for key in COMPACT_PAGE_KEYS}
+    result["body_markdown"] = trim_body(page, max_body_chars=body_limit)["body_markdown"]
+    result["body_truncated"] = len(page.get("body_markdown") or "") > body_limit
+    return result
+
+
+def normalize_heading(value: str) -> str:
+    return normalize_query(value).strip(" .:#`\t")
+
+
+def markdown_sections(body: str) -> list[dict[str, Any]]:
+    lines = body.splitlines()
+    headings: list[tuple[int, int, str]] = []
+    for index, line in enumerate(lines):
+        match = MARKDOWN_HEADING_RE.match(line)
+        if match:
+            headings.append((index, len(match.group(1)), match.group(2).strip()))
+
+    result = []
+    for position, (start, level, heading) in enumerate(headings):
+        end = len(lines)
+        for next_start, next_level, _next_heading in headings[position + 1:]:
+            if next_level <= level:
+                end = next_start
+                break
+        result.append({
+            "heading": heading,
+            "level": level,
+            "body_markdown": "\n".join(lines[start:end]).strip(),
+        })
     return result
 
 
@@ -558,6 +611,185 @@ class V8StdIndex:
             }
         return {"found": True, "page": trim_body(page, max_body_chars=body_limit), "candidates": []}
 
+    def summary(
+        self,
+        id_or_alias_or_url: str,
+        *,
+        body_limit: int = DEFAULT_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        id_or_alias_or_url = require_text(
+            id_or_alias_or_url, "id_or_alias_or_url", MAX_ID_OR_ALIAS_CHARS
+        )
+        body_limit = clamp_compact_body_limit(body_limit)
+        self.refresh_if_needed()
+        page = self.resolve(id_or_alias_or_url)
+        if page is None:
+            candidates = []
+            if len(id_or_alias_or_url) <= MAX_QUERY_CHARS:
+                candidates = self.search(id_or_alias_or_url, limit=5)["results"]
+            return {"found": False, "query": id_or_alias_or_url, "candidates": candidates}
+        return {
+            "found": True,
+            "page": compact_page(page, body_limit=body_limit),
+            "candidates": [],
+        }
+
+    def section(
+        self,
+        id_or_alias_or_url: str,
+        heading: str,
+        *,
+        body_limit: int = MAX_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        id_or_alias_or_url = require_text(
+            id_or_alias_or_url, "id_or_alias_or_url", MAX_ID_OR_ALIAS_CHARS
+        )
+        heading = require_text(heading, "heading", MAX_ID_OR_ALIAS_CHARS)
+        body_limit = clamp_compact_body_limit(body_limit)
+        self.refresh_if_needed()
+        page = self.resolve(id_or_alias_or_url)
+        if page is None:
+            return {"found": False, "query": id_or_alias_or_url, "heading": heading, "candidates": []}
+
+        sections = markdown_sections(page.get("body_markdown") or "")
+        requested = normalize_heading(heading)
+        exact = [item for item in sections if normalize_heading(item["heading"]) == requested]
+        matches = exact or [
+            item for item in sections
+            if normalize_heading(item["heading"]).endswith(f".{requested}")
+        ]
+        if not matches and page.get("collection") == "yaxunit" and "api" in page.get("tags", []):
+            module_tags = [
+                tag for tag in page.get("tags", [])
+                if normalize_query(tag) not in {"yaxunit", "api"}
+            ]
+            member_page = None
+            for module in module_tags:
+                member_page = self.resolve(f"{module}.{heading}")
+                if member_page is not None:
+                    break
+            if member_page is not None:
+                body = member_page.get("body_markdown") or ""
+                return {
+                    "found": True,
+                    "id": member_page["id"],
+                    "title": member_page["title"],
+                    "url": member_page["url"],
+                    "markdown_url": member_page["markdown_url"],
+                    "heading": member_page.get("description") or heading,
+                    "level": member_page.get("level"),
+                    "body_markdown": body[:body_limit].rstrip()
+                    + ("\n\n..." if len(body) > body_limit else ""),
+                    "body_truncated": len(body) > body_limit,
+                }
+        if len(matches) != 1:
+            return {
+                "found": False,
+                "id": page["id"],
+                "heading": heading,
+                "candidates": [item["heading"] for item in matches[:10]],
+            }
+
+        selected = matches[0]
+        body = selected["body_markdown"]
+        return {
+            "found": True,
+            "id": page["id"],
+            "title": page["title"],
+            "url": page["url"],
+            "markdown_url": page["markdown_url"],
+            "heading": selected["heading"],
+            "level": selected["level"],
+            "body_markdown": body[:body_limit].rstrip()
+            + ("\n\n..." if len(body) > body_limit else ""),
+            "body_truncated": len(body) > body_limit,
+        }
+
+    def pattern(
+        self,
+        id_or_alias_or_url: str,
+        *,
+        body_limit: int = MAX_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        result = self.summary(id_or_alias_or_url, body_limit=body_limit)
+        page = result.get("page")
+        if result.get("found") and (
+            page.get("collection") != "yaxunit" or page.get("type") != "pattern"
+        ):
+            return {
+                "found": False,
+                "query": id_or_alias_or_url,
+                "reason": "resolved page is not a YaXUnit pattern",
+                "candidates": [],
+            }
+        return result
+
+    def api_card(
+        self,
+        module_or_alias: str,
+        *,
+        member: str | None = None,
+        body_limit: int = MAX_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        module_or_alias = require_text(module_or_alias, "module_or_alias", MAX_ID_OR_ALIAS_CHARS)
+        body_limit = clamp_compact_body_limit(body_limit)
+        self.refresh_if_needed()
+        page = self.resolve(module_or_alias)
+        if page is None:
+            candidates = self.search(
+                module_or_alias, types=["reference"], collections=["yaxunit"], limit=5
+            )["results"]
+            return {"found": False, "query": module_or_alias, "candidates": candidates}
+        if page.get("collection") != "yaxunit" or "api" not in page.get("tags", []):
+            return {
+                "found": False,
+                "query": module_or_alias,
+                "reason": "resolved page is not a YaXUnit API card",
+                "candidates": [],
+            }
+        if member is not None:
+            member = require_text(member, "member", MAX_ID_OR_ALIAS_CHARS)
+            return self.section(page["id"], member, body_limit=body_limit)
+        return {"found": True, "page": compact_page(page, body_limit=body_limit), "candidates": []}
+
+    def requirements_for_context(
+        self,
+        context: str,
+        *,
+        mechanisms: list[str] | None = None,
+        collections: list[str] | None = None,
+        limit: int | None = None,
+        body_limit_per_item: int = 1000,
+    ) -> dict[str, Any]:
+        context = require_text(context, "context", MAX_QUERY_CHARS)
+        mechanism_values = require_string_list(mechanisms, "mechanisms", MAX_ENUM_CHARS) or []
+        body_limit_per_item = clamp_compact_body_limit(body_limit_per_item)
+        requested_limit = clamp_limit(limit)
+        query = " ".join([context, *mechanism_values]).strip()
+        search_result = self.search(
+            query,
+            types=["standard", "pattern", "rule", "reference"],
+            collections=collections,
+            limit=requested_limit,
+        )
+        requirements = []
+        for entry in search_result["results"]:
+            page = self.resolve(entry["id"])
+            if page is None:
+                continue
+            requirements.append({
+                **compact_page(page, body_limit=body_limit_per_item),
+                "score": entry["score"],
+                "match_reasons": entry["match_reasons"],
+            })
+        return {
+            "context": context,
+            "mechanisms": mechanism_values,
+            "collections": search_result["collections"],
+            "coverage": "ranked_candidates_not_exhaustive",
+            "requirements": requirements,
+        }
+
     def related(
         self,
         id_or_alias_or_url: str,
@@ -594,6 +826,24 @@ class V8StdIndex:
             "title": page["title"],
             "relations": sorted(allowed_relations) if allowed_relations else None,
             "related": enriched,
+        }
+
+    def related_ids(
+        self,
+        id_or_alias_or_url: str,
+        *,
+        relations: list[str] | None = None,
+        limit: int | None = None,
+    ) -> dict[str, Any]:
+        result = self.related(id_or_alias_or_url, relations=relations, limit=limit)
+        if not result.get("found"):
+            return result
+        return {
+            **{key: result[key] for key in ("found", "id", "title", "relations")},
+            "related": [
+                {key: item.get(key) for key in ("id", "title", "relation", "url", "markdown_url")}
+                for item in result["related"]
+            ],
         }
 
     def explain_snippet(

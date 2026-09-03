@@ -23,6 +23,7 @@ from v8std_mcp_index import (
     DEFAULT_REFRESH_SECONDS,
     DEFAULT_VECTORS_URL,
     MAX_BODY_CHARS,
+    MAX_COMPACT_BODY_CHARS,
     V8StdIndex,
 )
 
@@ -502,6 +503,9 @@ def build_server(
             "diagnostic codes; use v8std_get_page when you already have an id, alias, "
             "path, or URL and need the full clean Markdown page; use v8std_get_related "
             "to move between a known standard and linked diagnostics or standards; "
+            "use v8std_get_summary or v8std_get_section when compact evidence is enough; "
+            "use v8std_get_pattern and v8std_get_api_card for exact YaXUnit facts; "
+            "use v8std_get_requirements_for_context to collect ranked requirements; "
             "use v8std_search for arbitrary prose search or unknown ids."
         ),
         host=host,
@@ -570,6 +574,95 @@ def build_server(
     # END V8STD-FORK
 
     @server.tool(
+        name="v8std_get_summary",
+        description=(
+            "Use this when you already know an exact page id or alias and need a compact "
+            "authoritative summary instead of the full clean Markdown returned by "
+            "v8std_get_page. It returns bounded page text and stable metadata; use "
+            "v8std_search first when the id is unknown."
+        ),
+    )
+    def summary(id_or_alias_or_url: str, body_limit: int = 2000) -> dict[str, Any]:
+        tool_usage.record("v8std_get_summary", system=_usage_system(current_client_system()))
+        return index.summary(id_or_alias_or_url, body_limit=body_limit)
+
+    @server.tool(
+        name="v8std_get_section",
+        description=(
+            "Use this when you know a page id or alias plus a Markdown heading and need "
+            "only that exact section. This is more compact than v8std_get_page and does "
+            "not perform arbitrary prose search; ambiguous headings are returned as "
+            "candidates instead of being guessed."
+        ),
+    )
+    def section(
+        id_or_alias_or_url: str,
+        heading: str,
+        body_limit: int = MAX_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        tool_usage.record("v8std_get_section", system=_usage_system(current_client_system()))
+        return index.section(id_or_alias_or_url, heading, body_limit=body_limit)
+
+    @server.tool(
+        name="v8std_get_pattern",
+        description=(
+            "Use this when you already know a YaXUnit pattern id or alias and need its "
+            "compact authoritative pattern card. It rejects non-pattern pages; use "
+            "v8std_search with the yaxunit collection for pattern discovery."
+        ),
+    )
+    def pattern(
+        id_or_alias_or_url: str,
+        body_limit: int = MAX_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        tool_usage.record("v8std_get_pattern", system=_usage_system(current_client_system()))
+        return index.pattern(id_or_alias_or_url, body_limit=body_limit)
+
+    @server.tool(
+        name="v8std_get_api_card",
+        description=(
+            "Use this when you need an exact YaXUnit API module card or one member section. "
+            "Pass member to receive only that method heading; use v8std_search for unknown "
+            "modules and do not treat this reference lookup as project source inspection."
+        ),
+    )
+    def api_card(
+        module_or_alias: str,
+        member: str | None = None,
+        body_limit: int = MAX_COMPACT_BODY_CHARS,
+    ) -> dict[str, Any]:
+        tool_usage.record("v8std_get_api_card", system=_usage_system(current_client_system()))
+        return index.api_card(module_or_alias, member=member, body_limit=body_limit)
+
+    @server.tool(
+        name="v8std_get_requirements_for_context",
+        description=(
+            "Use this when planning or reviewing a 1C change and you need a compact ranked "
+            "set of standards, rules, patterns, or reference requirements for a described "
+            "context and optional mechanisms. Results are ranked candidates, not an "
+            "exhaustive compliance verdict; use exact page or section tools for final evidence."
+        ),
+    )
+    def requirements_for_context(
+        context: str,
+        mechanisms: list[str] | None = None,
+        collections: list[str] | None = None,
+        limit: int = 3,
+        body_limit_per_item: int = 1000,
+    ) -> dict[str, Any]:
+        tool_usage.record(
+            "v8std_get_requirements_for_context",
+            system=_usage_system(current_client_system()),
+        )
+        return index.requirements_for_context(
+            context,
+            mechanisms=mechanisms,
+            collections=collections,
+            limit=limit,
+            body_limit_per_item=body_limit_per_item,
+        )
+
+    @server.tool(
         name="v8std_get_related",
         description=(
             "Use this when you need to move from a known standard or diagnostic to "
@@ -587,6 +680,22 @@ def build_server(
     ) -> dict[str, Any]:
         tool_usage.record("v8std_get_related", system=_usage_system(current_client_system()))
         return index.related(id_or_alias_or_url, relations=relations, limit=limit)
+
+    @server.tool(
+        name="v8std_get_related_ids",
+        description=(
+            "Use this when you have a known standard or diagnostic and need only compact "
+            "related ids, titles, relations, and URLs. Prefer v8std_get_related when "
+            "descriptions are also required; use v8std_search when no starting id is known."
+        ),
+    )
+    def related_ids(
+        id_or_alias_or_url: str,
+        relations: list[str] | None = None,
+        limit: int = 10,
+    ) -> dict[str, Any]:
+        tool_usage.record("v8std_get_related_ids", system=_usage_system(current_client_system()))
+        return index.related_ids(id_or_alias_or_url, relations=relations, limit=limit)
 
     @server.tool(
         name="v8std_explain_snippet",
