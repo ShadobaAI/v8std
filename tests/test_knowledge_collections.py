@@ -136,6 +136,64 @@ class KnowledgeCollectionsTests(unittest.TestCase):
         self.assertTrue(all(not page["_index_for_ai"] for page in corporate_indexes))
         self.assertTrue(all(not page["id"] for page in corporate_indexes))
 
+    def test_work_policy_exact_sections_preserve_complete_legacy_pages(self):
+        corporate = [row for row in self.rows if row["collection"] == "corporate"]
+        with tempfile.TemporaryDirectory() as directory:
+            pages_path = Path(directory) / "pages.jsonl"
+            pages_path.write_text(self.jsonl, encoding="utf-8")
+            index = self.index_module.V8StdIndex(pages_path=pages_path)
+            index.load()
+            for page in corporate:
+                with self.subTest(page=page["id"]):
+                    full = index.summary(page["id"], body_limit=6000)
+                    self.assertTrue(full["found"])
+                    self.assertFalse(full["page"]["body_truncated"])
+                    self.assertEqual(full["page"]["body_markdown"], page["body_markdown"])
+                    sections = [
+                        section for section in self.index_module.markdown_sections(page["body_markdown"])
+                        if section["level"] == 3
+                    ]
+                    self.assertTrue(sections)
+                    for section in sections:
+                        selected = index.section(page["id"], section["heading"])
+                        self.assertTrue(selected["found"], section["heading"])
+                        self.assertFalse(selected["body_truncated"])
+                        self.assertEqual(selected["body_markdown"], section["body_markdown"])
+                        self.assertLess(len(selected["body_markdown"]), len(page["body_markdown"]))
+
+            existence = index.section(
+                "corporate:work:query-conventions:overview", "Проверка наличия"
+            )
+            self.assertIn("std438", existence["body_markdown"])
+            self.assertNotIn("std436", existence["body_markdown"])
+            self.assertNotIn("std725", existence["body_markdown"])
+
+    def test_skill_selector_checker_rejects_missing_and_unknown_evidence(self):
+        checker = load_module("check_work_policy_skills")
+        documents = [
+            row["document_id"].removeprefix("corporate:work:")
+            for row in self.rows if row["collection"] == "corporate"
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            reference = root / "1c-code-change" / "references" / "requirements.md"
+            reference.parent.mkdir(parents=True)
+            (reference.parent.parent / "SKILL.md").write_text(
+                "[Requirements](references/requirements.md)", encoding="utf-8"
+            )
+            baseline = "\n".join(f"`{document}`" for document in documents)
+            reference.write_text(baseline, encoding="utf-8")
+            self.assertEqual(checker.check_skills(self.index, root)["corporate_selectors"], 7)
+            for invalid in (
+                "`bsl-formatting / Missing heading`",
+                "`unknown-policy / Missing heading`",
+                "`std999999`",
+            ):
+                with self.subTest(invalid=invalid):
+                    reference.write_text(baseline + "\n" + invalid, encoding="utf-8")
+                    with self.assertRaises(ValueError):
+                        checker.check_skills(self.index, root)
+
     def test_yaxunit_has_atomic_api_cards_and_compact_patterns(self):
         yaxunit = [row for row in self.rows if row["collection"] == "yaxunit"]
         api = [row for row in yaxunit if row["type"] == "reference"]
