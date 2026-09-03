@@ -4,6 +4,7 @@ import re
 import sys
 import tempfile
 import unittest
+from unittest.mock import Mock
 from pathlib import Path
 
 
@@ -183,6 +184,9 @@ class KnowledgeCollectionsTests(unittest.TestCase):
             )
             baseline = "\n".join(f"`{document}`" for document in documents)
             reference.write_text(baseline, encoding="utf-8")
+            patterns = root / "yaxunit-tests" / "SKILL.md"
+            patterns.parent.mkdir()
+            patterns.write_text("| Create | `test-module` |", encoding="utf-8")
             self.assertEqual(checker.check_skills(self.index, root)["corporate_selectors"], 7)
             for invalid in (
                 "`bsl-formatting / Missing heading`",
@@ -193,6 +197,56 @@ class KnowledgeCollectionsTests(unittest.TestCase):
                     reference.write_text(baseline + "\n" + invalid, encoding="utf-8")
                     with self.assertRaises(ValueError):
                         checker.check_skills(self.index, root)
+
+    def test_pattern_checker_validates_bare_ids_full_ids_and_rejects_missing(self):
+        checker = load_module("check_work_policy_skills")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            skill = root / "yaxunit-tests" / "SKILL.md"
+            skill.parent.mkdir()
+            valid = "| Create | `test-module`, `yaxunit:patterns:authoring-baseline` |"
+            skill.write_text(valid, encoding="utf-8")
+            self.assertEqual(checker.check_patterns(self.index, root), 2)
+            for invalid in ("missing-pattern", "yaxunit:patterns:missing", "std455"):
+                skill.write_text(valid + f"\n| Other | `{invalid}` |", encoding="utf-8")
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    checker.check_patterns(self.index, root)
+
+    def test_skill_links_resolve_cross_skill_reference_and_reject_escape(self):
+        checker = load_module("check_work_policy_skills")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "skills"
+            skill = root / "1c-standards" / "SKILL.md"
+            reference = root / "1c-code-change" / "references" / "requirements.md"
+            skill.parent.mkdir(parents=True)
+            reference.parent.mkdir(parents=True)
+            reference.write_text("Requirements", encoding="utf-8")
+            skill.write_text("[Select](../1c-code-change/references/requirements.md)", encoding="utf-8")
+            self.assertEqual(checker.check_local_links(root), 1)
+            outside = Path(directory) / "outside.md"
+            outside.write_text("Outside scope", encoding="utf-8")
+            for invalid in ("missing.md", "../../outside.md"):
+                skill.write_text(f"[Select]({invalid})", encoding="utf-8")
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    checker.check_local_links(root)
+
+    def test_pattern_checker_rejects_truncated_and_mismatched_evidence(self):
+        checker = load_module("check_work_policy_skills")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            skill = root / "yaxunit-tests" / "SKILL.md"
+            skill.parent.mkdir()
+            skill.write_text("| Create | `test-module` |", encoding="utf-8")
+            for page_id, truncated in (
+                ("yaxunit:patterns:test-module", True),
+                ("yaxunit:patterns:naming", False),
+            ):
+                index = Mock()
+                index.pattern.return_value = {
+                    "found": True, "page": {"id": page_id, "body_truncated": truncated}
+                }
+                with self.subTest(page_id=page_id, truncated=truncated), self.assertRaises(ValueError):
+                    checker.check_patterns(index, root)
 
     def test_yaxunit_has_atomic_api_cards_and_compact_patterns(self):
         yaxunit = [row for row in self.rows if row["collection"] == "yaxunit"]

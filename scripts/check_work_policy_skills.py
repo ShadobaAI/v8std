@@ -10,6 +10,45 @@ from pathlib import Path
 from v8std_mcp_index import V8StdIndex
 
 
+def check_patterns(index: V8StdIndex, root: Path) -> int:
+    """Validate every pattern selected by the YAxUnit routing table, not prose API names."""
+    path = root / "yaxunit-tests" / "SKILL.md"
+    patterns = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = line.split("|")
+        if len(cells) != 4:
+            raise ValueError(f"ambiguous pattern row in {path}: {line}")
+        for token in re.findall(r"`([^`]+)`", cells[2]):
+            page_id = token if token.startswith("yaxunit:patterns:") else f"yaxunit:patterns:{token}"
+            patterns.add(page_id)
+    if not patterns:
+        raise ValueError(f"no pattern selectors in {path}")
+    for page_id in sorted(patterns):
+        result = index.pattern(page_id)
+        body = result.get("page", {})
+        if not result.get("found") or body.get("body_truncated") is not False or body.get("id") != page_id:
+            raise ValueError(f"missing/ambiguous/truncated pattern: {page_id}")
+    return len(patterns)
+
+
+def check_local_links(root: Path) -> int:
+    """Resolve repository skill references without relying on an installed skill copy."""
+    checked = 0
+    scope = root.resolve()
+    for path in root.rglob("*.md"):
+        for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", path.read_text(encoding="utf-8")):
+            if re.match(r"[a-zA-Z][\w+.-]*:", target) or target.startswith("#"):
+                continue
+            target = target.split("#", 1)[0]
+            resolved = (path.parent / target).resolve()
+            if not resolved.is_relative_to(scope) or not resolved.is_file():
+                raise ValueError(f"unreachable skill reference: {path} -> {target}")
+            checked += 1
+    return checked
+
+
 def check_skills(index: V8StdIndex, root: Path) -> dict:
     skill = root / "1c-code-change" / "SKILL.md"
     reference = skill.parent / "references" / "requirements.md"
@@ -44,7 +83,11 @@ def check_skills(index: V8StdIndex, root: Path) -> dict:
     for page_id in standards:
         if index.resolve(page_id) is None:
             raise ValueError(f"missing general standard: {page_id}")
-    return {"skills": str(root), "corporate_selectors": len(selectors), "standards": len(standards)}
+    return {
+        "skills": str(root), "corporate_selectors": len(selectors),
+        "standards": len(standards), "patterns": check_patterns(index, root),
+        "local_links": check_local_links(root),
+    }
 
 
 def main() -> int:
