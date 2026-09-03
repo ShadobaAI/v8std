@@ -72,6 +72,9 @@ class McpContainerContractTests(unittest.TestCase):
         self.assertIn("docker build --no-cache", builder)
         self.assertIn("Dockerfile.mcp", builder)
         self.assertIn('set "V8STD_MCP_IMAGE=v8std-mcp:latest"', builder)
+        self.assertIn("get_docker_hub_username.ps1", builder)
+        self.assertIn('set "V8STD_MCP_PUSH_IMAGE=%V8STD_MCP_DOCKER_USER%/v8std-mcp:latest"', builder)
+        self.assertIn('--tag "%V8STD_MCP_PUSH_IMAGE%"', builder)
         self.assertNotIn("docker push", builder)
         self.assertNotIn("%~1", builder)
         self.assertNotIn("shadobaai/", builder)
@@ -83,6 +86,12 @@ class McpContainerContractTests(unittest.TestCase):
         self.assertNotIn("buildx", builder)
         self.assertNotIn(".github", builder)
         self.assertGreaterEqual(builder.casefold().count("pause"), 2)
+
+    def test_docker_hub_username_is_read_without_exposing_the_secret(self):
+        helper = (REPO_ROOT / "scripts" / "get_docker_hub_username.ps1").read_text(encoding="utf-8")
+        self.assertIn(".docker\\config.json", helper)
+        self.assertIn('"docker-credential-$credentialHelper" list', helper)
+        self.assertNotIn('"docker-credential-$credentialHelper" get', helper)
 
 
 if __name__ == "__main__":

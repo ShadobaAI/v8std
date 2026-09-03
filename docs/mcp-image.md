@@ -13,14 +13,17 @@ build-v8std-mcp.cmd
 ```
 
 Скрипт выполняет `docker build --no-cache -f Dockerfile.mcp`, поэтому все
-артефакты создаются заново. Результат сохраняется только локально с тегом
-`v8std-mcp:latest`; автоматической публикации нет.
+артефакты создаются заново. Образ получает локальный тег `v8std-mcp:latest` и
+готовый для публикации тег `<docker-hub-namespace>/v8std-mcp:latest`. Namespace
+автоматически определяется из учетных данных `docker login`. Его можно явно
+переопределить переменной окружения `V8STD_MCP_DOCKER_USER`. Автоматической
+публикации нет.
 
 При необходимости опубликуйте образ вручную:
 
 ```cmd
 docker login
-docker tag v8std-mcp:latest <docker-hub-namespace>/v8std-mcp:latest
+build-v8std-mcp.cmd
 docker push <docker-hub-namespace>/v8std-mcp:latest
 ```
 

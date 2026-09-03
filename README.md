@@ -30,7 +30,10 @@ codex mcp add v8std-local --url http://127.0.0.1:8766/mcp
 build-v8std-mcp.cmd
 ```
 
-Скрипт всегда пересобирает образ `v8std-mcp:latest` без кеша и не публикует его.
+Скрипт всегда пересобирает образ без кеша и добавляет два локальных тега:
+`v8std-mcp:latest` и `<docker-hub-namespace>/v8std-mcp:latest`. Namespace определяется
+из учетных данных `docker login`; при необходимости его можно переопределить переменной
+окружения `V8STD_MCP_DOCKER_USER`. Скрипт не публикует образ.
 
 Для запуска контейнера из локального образа без Docker Compose:
 
