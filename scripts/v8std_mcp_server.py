@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp.server import Settings as FastMCPSettings
 from mcp.server.transport_security import TransportSecuritySettings
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
@@ -26,6 +27,11 @@ from v8std_mcp_index import (
     MAX_COMPACT_BODY_CHARS,
     V8StdIndex,
 )
+
+
+# MCP SDK v1 defines Settings before FastMCP, so Pydantic cannot resolve the
+# lifespan field until the fastmcp.server module has finished importing.
+FastMCPSettings.model_rebuild()
 
 
 MCP_SELF_DOC_MESSAGE = "This is a MCP Streamable HTTP endpoint"

@@ -108,6 +108,7 @@ def _install_server_dependency_stubs() -> None:
     mcp_module = types.ModuleType("mcp")
     mcp_server_module = types.ModuleType("mcp.server")
     fastmcp_module = types.ModuleType("mcp.server.fastmcp")
+    fastmcp_server_module = types.ModuleType("mcp.server.fastmcp.server")
     transport_security_module = types.ModuleType("mcp.server.transport_security")
     starlette_module = types.ModuleType("starlette")
     starlette_requests_module = types.ModuleType("starlette.requests")
@@ -115,6 +116,13 @@ def _install_server_dependency_stubs() -> None:
 
     class FastMCP:
         pass
+
+    class FastMCPSettings:
+        __pydantic_complete__ = False
+
+        @classmethod
+        def model_rebuild(cls):
+            cls.__pydantic_complete__ = True
 
     class TransportSecuritySettings:
         def __init__(self, *_args, **_kwargs):
@@ -133,6 +141,7 @@ def _install_server_dependency_stubs() -> None:
         pass
 
     fastmcp_module.FastMCP = FastMCP
+    fastmcp_server_module.Settings = FastMCPSettings
     transport_security_module.TransportSecuritySettings = TransportSecuritySettings
     starlette_requests_module.Request = Request
     starlette_responses_module.JSONResponse = JSONResponse
@@ -142,6 +151,7 @@ def _install_server_dependency_stubs() -> None:
     sys.modules.setdefault("mcp", mcp_module)
     sys.modules.setdefault("mcp.server", mcp_server_module)
     sys.modules.setdefault("mcp.server.fastmcp", fastmcp_module)
+    sys.modules.setdefault("mcp.server.fastmcp.server", fastmcp_server_module)
     sys.modules.setdefault("mcp.server.transport_security", transport_security_module)
     sys.modules.setdefault("starlette", starlette_module)
     sys.modules.setdefault("starlette.requests", starlette_requests_module)
@@ -275,6 +285,11 @@ def server_instructions() -> str:
 
 
 class V8StdMcpServerToolNameTests(unittest.TestCase):
+    def test_fastmcp_settings_model_is_rebuilt_after_import(self):
+        server_module = load_server_module()
+
+        self.assertTrue(server_module.FastMCPSettings.__pydantic_complete__)
+
     def test_tool_names_are_openai_style(self):
         tool_names = registered_tool_names()
 
