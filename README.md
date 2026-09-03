@@ -12,6 +12,12 @@ docker compose -f docker-compose/docker-compose.yml up -d v8std-mcp
 MCP-сервер будет доступен на `http://127.0.0.1:8766/mcp` и читает локальный индекс
 `docs/ai/pages.jsonl` из смонтированного репозитория.
 
+Упрощенный запуск готового образа:
+
+```bash
+docker run -d -p 127.0.0.1:8766:8766 aleksp99/v8std-mcp:latest
+```
+
 ```bash
 codex mcp add v8std-local --url http://127.0.0.1:8766/mcp
 ```
