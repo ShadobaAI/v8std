@@ -15,7 +15,7 @@ MCP-сервер будет доступен на `http://127.0.0.1:8766/mcp` и
 Упрощенный запуск готового образа:
 
 ```bash
-docker run -d --name v8std -p 127.0.0.1:8766:8766 aleksp99/v8std-mcp:latest
+docker run --pull=always --name v8std -p 127.0.0.1:8766:8766 -d aleksp99/v8std-mcp:latest
 ```
 
 ```bash
@@ -30,15 +30,15 @@ codex mcp add v8std-local --url http://127.0.0.1:8766/mcp
 build-v8std-mcp.cmd
 ```
 
-Скрипт всегда пересобирает образ без кеша и добавляет два локальных тега:
-`v8std-mcp:latest` и `<docker-hub-namespace>/v8std-mcp:latest`. Namespace определяется
-из учетных данных `docker login`; при необходимости его можно переопределить переменной
-окружения `V8STD_MCP_DOCKER_USER`. Скрипт не публикует образ.
+Скрипт всегда пересобирает образ без кеша с тегом
+`<docker-hub-namespace>/v8std-mcp:latest`. Namespace определяется из учетных данных
+`docker login`; при необходимости его можно переопределить переменной окружения
+`V8STD_MCP_DOCKER_USER`. Скрипт не публикует образ.
 
-Для запуска контейнера из локального образа без Docker Compose:
+Для запуска собранного образа без Docker Compose передайте его полный тег:
 
 ```cmd
-run-v8std-mcp.cmd
+run-v8std-mcp.cmd <docker-hub-namespace>/v8std-mcp:latest
 ```
 
 Скрипт не выполняет `docker pull`. Другой тег образа при необходимости можно передать

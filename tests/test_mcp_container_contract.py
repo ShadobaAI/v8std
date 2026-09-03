@@ -56,6 +56,7 @@ class McpContainerContractTests(unittest.TestCase):
         launcher = (REPO_ROOT / "run-v8std-mcp.cmd").read_text(encoding="utf-8")
         self.assertIn("docker run", launcher)
         self.assertIn('set "V8STD_MCP_IMAGE=v8std-mcp:latest"', launcher)
+        self.assertIn('set "V8STD_MCP_CONTAINER=v8std"', launcher)
         self.assertIn('if not "%~1"=="" set "V8STD_MCP_IMAGE=%~1"', launcher)
         self.assertNotIn("Usage:", launcher)
         self.assertNotIn("shadobaai/", launcher)
@@ -67,14 +68,12 @@ class McpContainerContractTests(unittest.TestCase):
         self.assertGreaterEqual(launcher.casefold().count("pause"), 2)
         self.assertTrue((REPO_ROOT / "docker-compose" / "docker-compose.yml").exists())
 
-    def test_local_builder_rebuilds_without_cache_and_requires_no_arguments(self):
+    def test_builder_creates_only_push_ready_tag_and_requires_no_arguments(self):
         builder = (REPO_ROOT / "build-v8std-mcp.cmd").read_text(encoding="utf-8")
         self.assertIn("docker build --no-cache", builder)
         self.assertIn("Dockerfile.mcp", builder)
-        self.assertIn('set "V8STD_MCP_IMAGE=v8std-mcp:latest"', builder)
         self.assertIn("get_docker_hub_username.ps1", builder)
-        self.assertIn('set "V8STD_MCP_PUSH_IMAGE=%V8STD_MCP_DOCKER_USER%/v8std-mcp:latest"', builder)
-        self.assertIn('--tag "%V8STD_MCP_PUSH_IMAGE%"', builder)
+        self.assertIn('set "V8STD_MCP_IMAGE=%V8STD_MCP_DOCKER_USER%/v8std-mcp:latest"', builder)
         self.assertNotIn("docker push", builder)
         self.assertNotIn("%~1", builder)
         self.assertNotIn("shadobaai/", builder)
@@ -82,6 +81,7 @@ class McpContainerContractTests(unittest.TestCase):
         self.assertNotIn("--pull", builder)
         self.assertIn('pushd "%~dp0"', builder)
         self.assertIn(" --tag \"%V8STD_MCP_IMAGE%\" .", builder)
+        self.assertEqual(builder.count("--tag"), 1)
         self.assertNotIn('\"%~dp0\" .', builder)
         self.assertNotIn("buildx", builder)
         self.assertNotIn(".github", builder)

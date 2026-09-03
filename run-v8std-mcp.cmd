@@ -3,7 +3,7 @@ setlocal
 
 set "V8STD_MCP_IMAGE=v8std-mcp:latest"
 if not "%~1"=="" set "V8STD_MCP_IMAGE=%~1"
-set "V8STD_MCP_CONTAINER=v8std-mcp"
+set "V8STD_MCP_CONTAINER=v8std"
 
 docker container inspect "%V8STD_MCP_CONTAINER%" >nul 2>&1
 if not errorlevel 1 (
