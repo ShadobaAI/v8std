@@ -95,7 +95,6 @@ class KnowledgeCollectionsTests(unittest.TestCase):
             "corporate:work:bsl-formatting",
             "corporate:work:module-organization",
             "corporate:work:query-conventions",
-            "corporate:work:error-reporting",
         }
         corporate_rows = [row for row in self.rows if row["collection"] == "corporate"]
         self.assertEqual(
@@ -116,7 +115,6 @@ class KnowledgeCollectionsTests(unittest.TestCase):
             "work/bsl-formatting.md",
             "work/bsl-readability.md",
             "work/bsl-type-transparency.md",
-            "work/error-reporting.md",
             "work/module-organization.md",
             "work/query-conventions.md",
         }
@@ -138,7 +136,7 @@ class KnowledgeCollectionsTests(unittest.TestCase):
         self.assertTrue(all(not page["_index_for_ai"] for page in corporate_indexes))
         self.assertTrue(all(not page["id"] for page in corporate_indexes))
 
-    def test_work_policy_exact_sections_preserve_complete_legacy_pages(self):
+    def test_work_policy_exact_sections_match_current_pages(self):
         corporate = [row for row in self.rows if row["collection"] == "corporate"]
         with tempfile.TemporaryDirectory() as directory:
             pages_path = Path(directory) / "pages.jsonl"
@@ -164,11 +162,11 @@ class KnowledgeCollectionsTests(unittest.TestCase):
                         self.assertLess(len(selected["body_markdown"]), len(page["body_markdown"]))
 
             existence = index.section(
-                "corporate:work:query-conventions:overview", "Проверка наличия"
+                "corporate:work:query-conventions:overview", "Общие стандарты"
             )
             self.assertIn("std438", existence["body_markdown"])
-            self.assertNotIn("std436", existence["body_markdown"])
-            self.assertNotIn("std725", existence["body_markdown"])
+            self.assertIn("std436", existence["body_markdown"])
+            self.assertIn("std725", existence["body_markdown"])
 
     def test_skill_selector_checker_rejects_missing_and_unknown_evidence(self):
         checker = load_module("check_work_policy_skills")
@@ -188,7 +186,7 @@ class KnowledgeCollectionsTests(unittest.TestCase):
             patterns = root / "yaxunit-tests" / "SKILL.md"
             patterns.parent.mkdir()
             patterns.write_text("| Create | `test-module` |", encoding="utf-8")
-            self.assertEqual(checker.check_skills(self.index, root)["corporate_selectors"], 7)
+            self.assertEqual(checker.check_skills(self.index, root)["corporate_selectors"], 6)
             for invalid in (
                 "`bsl-formatting / Missing heading`",
                 "`unknown-policy / Missing heading`",

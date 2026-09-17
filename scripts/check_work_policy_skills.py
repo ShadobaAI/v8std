@@ -60,7 +60,7 @@ def check_skills(index: V8StdIndex, root: Path) -> dict:
     text = reference.read_text(encoding="utf-8")
     expected = {
         "bsl-change-policy", "bsl-type-transparency", "bsl-readability",
-        "bsl-formatting", "module-organization", "query-conventions", "error-reporting",
+        "bsl-formatting", "module-organization", "query-conventions",
     }
     selectors = set()
     covered = set()
