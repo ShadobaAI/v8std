@@ -2,21 +2,15 @@ FROM python:3.12-slim AS artifacts
 
 WORKDIR /build
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends fonts-dejavu-core \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY requirements.txt /build/requirements.txt
+COPY requirements-build.lock /build/requirements-build.lock
 COPY scripts /build/scripts
 COPY docs /build/docs
 COPY zensical.toml retrieval-rules.yml /build/
 
-RUN python -m pip install --no-cache-dir --upgrade \
-        -r /build/requirements.txt \
-        Pillow \
+RUN python -m pip install --no-cache-dir --require-hashes \
+        -r /build/requirements-build.lock \
     && rm -rf /build/docs/ai \
     && rm -f /build/docs/llms.txt /build/docs/llms-full.txt \
-    && python /build/scripts/generate_social_cards.py \
     && python /build/scripts/generate_ai_artifacts.py \
     && python /build/scripts/generate_search_vectors.py \
         --pages /build/docs/ai/pages.jsonl \
@@ -43,20 +37,21 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /opt/v8std
 
-COPY requirements-mcp-runtime.txt /opt/v8std/requirements-mcp-runtime.txt
-RUN python -m pip install --no-cache-dir --upgrade \
-        -r /opt/v8std/requirements-mcp-runtime.txt \
+COPY runtime/requirements-mcp.lock /opt/v8std/runtime/requirements-mcp.lock
+RUN python -m pip install --no-cache-dir --require-hashes \
+        -r /opt/v8std/runtime/requirements-mcp.lock \
     && groupadd --system --gid 10001 v8std \
     && useradd --system --uid 10001 --gid v8std --home-dir /nonexistent --shell /usr/sbin/nologin v8std
 
+COPY runtime/*.py /opt/v8std/runtime/
 COPY scripts/run_v8std_mcp_image.sh \
-     scripts/v8std_mcp_server.py \
-     scripts/v8std_mcp_index.py \
-     scripts/v8std_mcp_monitoring.py \
+     scripts/v8std_mcp_chunks.py \
      scripts/v8std_retrieval_rules.py \
      scripts/v8std_search_features.py \
      scripts/v8std_knowledge_collections.py \
      /opt/v8std/scripts/
+COPY LICENSE /opt/v8std/LICENSE
+COPY LICENSES /opt/v8std/LICENSES/
 COPY retrieval-rules.yml /opt/v8std/retrieval-rules.yml
 COPY --from=artifacts /build/docs/ai /opt/v8std/data/ai
 COPY --from=artifacts /build/docs/llms.txt /opt/v8std/data/llms.txt

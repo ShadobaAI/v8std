@@ -1,5 +1,5 @@
 .vscode/
-site/
+/site/
 .DS_Store
 .cache/
 # BEGIN V8STD-FORK
@@ -14,7 +14,7 @@ docs/llms.txt
 docs/llms-full.txt
 docs/ai/
 overrides/partials/page_meta.html
-skills/
+/skills/
 .codex*
 .worktrees/
 telegram*.md

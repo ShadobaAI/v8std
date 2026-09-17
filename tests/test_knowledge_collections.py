@@ -30,7 +30,8 @@ class KnowledgeCollectionsTests(unittest.TestCase):
     def setUpClass(cls):
         cls.generator = load_module("generate_ai_artifacts")
         cls.collections = load_module("v8std_knowledge_collections")
-        cls.index_module = load_module("v8std_mcp_index")
+        from runtime import v8std_mcp_index
+        cls.index_module = v8std_mcp_index
         cls.index_data = cls.generator.build_site_ai_index(REPO_ROOT)
         cls.jsonl = cls.generator.build_pages_jsonl(cls.index_data["pages"])
         cls.rows = [json.loads(line) for line in cls.jsonl.splitlines()]

@@ -16,7 +16,6 @@ class McpContainerContractTests(unittest.TestCase):
 
     def test_build_always_regenerates_every_mcp_artifact(self):
         for command in (
-            "generate_social_cards.py",
             "generate_ai_artifacts.py",
             "generate_search_vectors.py",
         ):
@@ -30,10 +29,8 @@ class McpContainerContractTests(unittest.TestCase):
         ):
             self.assertIn(f"test -s /build/{artifact}", self.dockerfile)
 
-        dockerignore = (REPO_ROOT / ".dockerignore").read_text(encoding="utf-8").splitlines()
-        self.assertIn("docs/ai", dockerignore)
-        self.assertIn("docs/llms.txt", dockerignore)
-        self.assertIn("docs/llms-full.txt", dockerignore)
+        self.assertIn("rm -rf /build/docs/ai", self.dockerfile)
+        self.assertIn("rm -f /build/docs/llms.txt /build/docs/llms-full.txt", self.dockerfile)
 
     def test_runtime_image_contains_only_mcp_runtime_and_generated_data(self):
         runtime = self.dockerfile.split("FROM python:3.12-slim AS runtime", 1)[1]
@@ -66,7 +63,7 @@ class McpContainerContractTests(unittest.TestCase):
         self.assertNotIn("docker compose", launcher)
         self.assertNotIn(" -v ", launcher)
         self.assertGreaterEqual(launcher.casefold().count("pause"), 2)
-        self.assertTrue((REPO_ROOT / "docker-compose" / "docker-compose.yml").exists())
+        self.assertTrue((REPO_ROOT / "delivery" / "local" / "compose.mcp.yaml").exists())
 
     def test_builder_creates_only_push_ready_tag_and_requires_no_arguments(self):
         builder = (REPO_ROOT / "build-v8std-mcp.cmd").read_text(encoding="utf-8")

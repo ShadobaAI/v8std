@@ -5,9 +5,12 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
-from v8std_mcp_index import V8StdIndex
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from runtime.v8std_mcp_index import V8StdIndex
 
 
 def check_patterns(index: V8StdIndex, root: Path) -> int:

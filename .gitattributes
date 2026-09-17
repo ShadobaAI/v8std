@@ -1,1 +1,6 @@
 LICENSES/*.txt -whitespace
+*.sh text eol=lf
+*.logrotate text eol=lf
+# Generated YaXUnit files are verified by byte hashes in manifest.json.
+docs/yaxunit/api/*.md -text
+docs/yaxunit/LICENSE -text -whitespace

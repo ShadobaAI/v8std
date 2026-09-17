@@ -62,6 +62,7 @@ find_repo_root() {
 }
 
 REPO_ROOT="$(find_repo_root)"
+export PYTHONPATH="${REPO_ROOT}:$(dirname -- "${SCRIPT_DIR}")${PYTHONPATH:+:${PYTHONPATH}}"
 export V8STD_REPO_ROOT="${REPO_ROOT}"
 cd "${REPO_ROOT}"
 PYTHON_BIN="$(find_python)"
@@ -202,6 +203,7 @@ if [ "${1:-}" = "build" ]; then
   trap cleanup_public_knowledge EXIT
   "${PYTHON_BIN}" -m zensical build --config-file "${PUBLIC_ZENSICAL_CONFIG}" "${@:2}"
   # END V8STD-FORK
+  "${PYTHON_BIN}" "${SCRIPT_DIR}/check_article_html.py" --site "${REPO_ROOT}/site"
   "${PYTHON_BIN}" "${SCRIPT_DIR}/publish_diagnostic_sitemap.py" --root "${REPO_ROOT}" --sitemap "${REPO_ROOT}/site/sitemap.xml"
   "${PYTHON_BIN}" "${SCRIPT_DIR}/publish_license_texts.py" --site "${REPO_ROOT}/site"
   "${PYTHON_BIN}" "${SCRIPT_DIR}/generate_ai_artifacts.py" \

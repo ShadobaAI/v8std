@@ -10,10 +10,11 @@ import tempfile
 import types
 import unittest
 from pathlib import Path
+from functools import lru_cache
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SERVER_PATH = REPO_ROOT / "scripts" / "v8std_mcp_server.py"
+SERVER_PATH = REPO_ROOT / 'runtime/v8std_mcp_server.py'
 SCRIPTS_PATH = REPO_ROOT / "scripts"
 
 EXPECTED_TOOL_NAMES = [
@@ -31,18 +32,11 @@ EXPECTED_TOOL_NAMES = [
 ]
 
 EXPECTED_TOOL_GUIDANCE = {
-    "v8std_search": [
-        "Use this when",
-        "arbitrary phrase",
-        "Do not use this first for code snippets",
-        "diagnostic-code lists",
-    ],
-    "v8std_get_page": [
-        "Use this when",
-        "clean Markdown",
-        "exact id",
-        "After v8std_search",
-    ],
+    "v8std_search": ["natural-language", "v8std_explain_diagnostics", "v8std_explain_snippet", "not probabilities"],
+    "v8std_get_page": ["Markdown", "body_truncated", "found=false", "v8std_search"],
+    "v8std_get_related": ["explicit corpus links", "not evidence", "v8std_get_page"],
+    "v8std_explain_snippet": ["one BSL procedure", "not confirmed violations", "heuristic confidence", "smaller relevant fragment"],
+    "v8std_explain_diagnostics": ["source-code comments", "unknown_codes", "does not justify", "No wildcard"],
     "v8std_get_summary": [
         "Use this when",
         "compact",
@@ -73,32 +67,14 @@ EXPECTED_TOOL_GUIDANCE = {
         "not an exhaustive compliance verdict",
         "final evidence",
     ],
-    "v8std_get_related": [
-        "Use this when",
-        "from a known standard or diagnostic",
-        "related standards",
-        "diagnostics",
-    ],
     "v8std_get_related_ids": [
         "Use this when",
         "compact",
         "v8std_get_related",
         "starting id",
     ],
-    "v8std_explain_snippet": [
-        "Use this when",
-        "short BSL or SDBL code fragment",
-        "applicable standards",
-        "Do not use it for ordinary prose",
-    ],
-    "v8std_explain_diagnostics": [
-        "Use this when",
-        "ACC",
-        "BSLLS",
-        "EDT",
-        "standard clauses",
-    ],
 }
+
 
 OPENAI_TOOL_NAME_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 LOWER_SNAKE_RE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$")
@@ -162,15 +138,15 @@ def load_server_module():
     if str(SCRIPTS_PATH) not in sys.path:
         sys.path.insert(0, str(SCRIPTS_PATH))
     try:
-        import v8std_mcp_server
+        import runtime.v8std_mcp_server as v8std_mcp_server
 
         return v8std_mcp_server
     except ModuleNotFoundError as error:
         if error.name not in {"mcp", "starlette"}:
             raise
         _install_server_dependency_stubs()
-        sys.modules.pop("v8std_mcp_server", None)
-        import v8std_mcp_server
+        sys.modules.pop("runtime.v8std_mcp_server", None)
+        import runtime.v8std_mcp_server as v8std_mcp_server
 
         return v8std_mcp_server
 
@@ -233,34 +209,12 @@ def _constant_string(value: ast.AST) -> str | None:
     return None
 
 
+@lru_cache(maxsize=1)
 def registered_tools() -> dict[str, str]:
-    tree = ast.parse(SERVER_PATH.read_text(encoding="utf-8"))
-    tools: dict[str, str] = {}
-
-    for node in ast.walk(tree):
-        if not isinstance(node, ast.FunctionDef):
-            continue
-
-        for decorator in node.decorator_list:
-            if not isinstance(decorator, ast.Call):
-                continue
-            if not isinstance(decorator.func, ast.Attribute):
-                continue
-            if decorator.func.attr != "tool":
-                continue
-
-            name = None
-            description = None
-            for keyword in decorator.keywords:
-                if keyword.arg == "name":
-                    name = _constant_string(keyword.value)
-                if keyword.arg == "description":
-                    description = _constant_string(keyword.value)
-
-            if name is not None and description is not None:
-                tools[name] = description
-
-    return tools
+    module = load_server_module()
+    server = module.build_server(module.V8StdIndex(), host="127.0.0.1", port=8765,
+        mcp_path="/mcp", allowed_hosts=["127.0.0.1:*"], allowed_origins=[])
+    return {tool.name: tool.description or "" for tool in asyncio.run(server.list_tools())}
 
 
 def registered_tool_names() -> list[str]:
@@ -312,7 +266,7 @@ class V8StdMcpServerToolNameTests(unittest.TestCase):
         for expected in [
             "read-only",
             "does not run analyzers",
-            "short BSL/SDBL snippet",
+            "one BSL procedure or SDBL fragment",
             "diagnostic codes",
             "clean Markdown",
             "arbitrary prose search",
@@ -379,16 +333,17 @@ class SelfDocumentingMcpAppTests(unittest.TestCase):
         self.assertEqual(body, b"")
         self.assertEqual(downstream.calls, [])
 
-    def test_mcp_get_with_event_stream_accept_reaches_downstream(self):
+    def test_mcp_get_with_event_stream_accept_is_rejected(self):
         app, downstream = self.app()
 
-        status, _headers, body = asyncio.run(
+        status, headers, body = asyncio.run(
             asgi_request(app, "GET", "/mcp", {"Accept": "application/json, text/event-stream"})
         )
 
-        self.assertEqual(status, 209)
-        self.assertEqual(body, b"downstream")
-        self.assertEqual(downstream.calls, [{"method": "GET", "path": "/mcp"}])
+        self.assertEqual(status, 405)
+        self.assertEqual(headers["allow"], "POST, HEAD")
+        self.assertIn(b"does not provide an unsolicited SSE stream", body)
+        self.assertEqual(downstream.calls, [])
 
     def test_post_reaches_downstream_even_with_bad_accept(self):
         app, downstream = self.app()

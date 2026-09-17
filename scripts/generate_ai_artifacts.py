@@ -820,7 +820,7 @@ def canonical_url(value: str) -> str:
 
 
 def ignored_text_refs(page: dict) -> list[str]:
-    return [f"#{page['id']}"]
+    return [f"#{page['id']}"] if page["id"] else []
 
 
 def build_ignored_ref_context(ignored_pages: list[dict]) -> dict:

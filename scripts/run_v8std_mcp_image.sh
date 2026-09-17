@@ -23,7 +23,7 @@ for required_file in \
     fi
 done
 
-exec python "${SCRIPT_DIR}/v8std_mcp_server.py" \
+exec python -m runtime.v8std_mcp_server \
     --pages "${PAGES_PATH}" \
     --vectors "${VECTORS_PATH}" \
     --cache-dir "${MCP_CACHE_DIR}" \
