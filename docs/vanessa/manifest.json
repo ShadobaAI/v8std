@@ -1,0 +1,2807 @@
+{
+  "coverage": {
+    "classified_sources": 579,
+    "complete": true,
+    "dispositions": {
+      "curated": 244,
+      "example_workflow": 20,
+      "historical": 307,
+      "navigation": 3,
+      "pointer_only": 3,
+      "release_history": 1,
+      "translation": 1
+    },
+    "documented_tools": 47,
+    "manual_version": "1.2.043.1",
+    "patterns": 39,
+    "runtime_schema_verified": false,
+    "scope": "Curated task-oriented patterns from all textual topics of MainHelp 1.2.043.1 and classified Markdown documentation plus cited Gherkin examples. Historical manuals, agent-example workflows, release history, translations and video-only pointers are explicitly distinguished; not external media contents, every API signature, runtime schemas or universal project policy."
+  },
+  "documents": [
+    {
+      "id": "vanessa:mcp:activate_process_os",
+      "path": "mcp/activate_process_os.md",
+      "sha256": "e7e159202198dc522c79249f13ddc37bfdb2f1b01a0fa7807b8baf204dfcfe94"
+    },
+    {
+      "id": "vanessa:mcp:check_syntax",
+      "path": "mcp/check_syntax.md",
+      "sha256": "d8b535b6448a13980d96e5276de77a47f8791f247237983368628ce342066005"
+    },
+    {
+      "id": "vanessa:mcp:close_test_client",
+      "path": "mcp/close_test_client.md",
+      "sha256": "fea54a9d6f3c7d0cffe02b0c3ad0601d9b88ce81b9da03ccb068a57a79cb4916"
+    },
+    {
+      "id": "vanessa:mcp:execute_feature_step",
+      "path": "mcp/execute_feature_step.md",
+      "sha256": "b85f66fa9f2ef37e9b91de1ba51c5bbd00bafaf8aa9771bd0f176a35c7f97c9b"
+    },
+    {
+      "id": "vanessa:mcp:execute_form_actions",
+      "path": "mcp/execute_form_actions.md",
+      "sha256": "b31d6acfa5c59e4658ccf8886b04d5d58689d864a0fe0d75fa7fc87669ed243d"
+    },
+    {
+      "id": "vanessa:mcp:find_form_elements",
+      "path": "mcp/find_form_elements.md",
+      "sha256": "c9e745d0613abef5eb0e99928b526361c50992cb72f13ff9deea3780abbc164a"
+    },
+    {
+      "id": "vanessa:mcp:frequently_used_steps",
+      "path": "mcp/frequently_used_steps.md",
+      "sha256": "7044fa98ddbe90f8879972bf2be451ddf6f52cd042f69b8565da15e0cbb2f08e"
+    },
+    {
+      "id": "vanessa:mcp:get_active_window_data",
+      "path": "mcp/get_active_window_data.md",
+      "sha256": "18c6fa91b72ae06f4afe2699e2b784b5a516d6493d0598ca06c8c6c7367e4056"
+    },
+    {
+      "id": "vanessa:mcp:get_data_from_knowledge_base",
+      "path": "mcp/get_data_from_knowledge_base.md",
+      "sha256": "064c491869f2705435bd7af002e8762e1ed9f2571c906f5340eca93ffa05ab9a"
+    },
+    {
+      "id": "vanessa:mcp:get_editor_state",
+      "path": "mcp/get_editor_state.md",
+      "sha256": "5a328cb83839447929e5888b9fcdd2570c3a708876ed1e1959a8ff2a1db54d39"
+    },
+    {
+      "id": "vanessa:mcp:get_environment_data",
+      "path": "mcp/get_environment_data.md",
+      "sha256": "75f06a00b24793ccba4fca4f938b81431a3b0f4043d1050a34f5837a8eb3d6b9"
+    },
+    {
+      "id": "vanessa:mcp:get_event_log_manager",
+      "path": "mcp/get_event_log_manager.md",
+      "sha256": "08226bb8a10a7207cd5746c95b353579406e56454a8e8ca2acab33d823895027"
+    },
+    {
+      "id": "vanessa:mcp:get_event_log_test_client",
+      "path": "mcp/get_event_log_test_client.md",
+      "sha256": "a67fc9a3db21df72a7d3f6562bd8f0122c44981bc92542855eb052d0aa2ff18f"
+    },
+    {
+      "id": "vanessa:mcp:get_extension_list",
+      "path": "mcp/get_extension_list.md",
+      "sha256": "d9215f53a3570576eafb0f5eb144b74b42e0e300233401be595b9f15edba1a3e"
+    },
+    {
+      "id": "vanessa:mcp:get_form_analysis",
+      "path": "mcp/get_form_analysis.md",
+      "sha256": "99fe506a8f57eeba39377ea531a0eb54016a7336f17982d622bf9dd05cb262ee"
+    },
+    {
+      "id": "vanessa:mcp:get_form_element_data",
+      "path": "mcp/get_form_element_data.md",
+      "sha256": "20c99c322df2fa602fde585f88f168a0c7ba37774dd97e2fe513c63da07fbdf8"
+    },
+    {
+      "id": "vanessa:mcp:get_info_about_line_scenario",
+      "path": "mcp/get_info_about_line_scenario.md",
+      "sha256": "a9c908e1954b1e6c1eb6182a8c670a0429ff609393ba332cbadf99ffc90ba249"
+    },
+    {
+      "id": "vanessa:mcp:get_object_attributes",
+      "path": "mcp/get_object_attributes.md",
+      "sha256": "f41879cee9a2924a4b2217a46e2f8cddbc706e298f868bb6270b40d9f71e6cb4"
+    },
+    {
+      "id": "vanessa:mcp:get_process_list_os",
+      "path": "mcp/get_process_list_os.md",
+      "sha256": "f5966ecfc0a19a5a449d91e5e36654cc5de224d418fa3b6166bcbaf0fff5c116"
+    },
+    {
+      "id": "vanessa:mcp:get_table_data",
+      "path": "mcp/get_table_data.md",
+      "sha256": "e3b4a150fa3d3d53497043035d42142e1152dbc5e1631593a1f63193fbaad8ca"
+    },
+    {
+      "id": "vanessa:mcp:get_test_results",
+      "path": "mcp/get_test_results.md",
+      "sha256": "616f24499e80c9838c4ab478ccb1e9b1ea43babcb6adae33e01c1c46c5814ac6"
+    },
+    {
+      "id": "vanessa:mcp:get_vanessa_automation_state",
+      "path": "mcp/get_vanessa_automation_state.md",
+      "sha256": "71e84de12cb7fec1b8aa7c1ae7e8424c2199583ac02be2e63a5a7ffef6b180a3"
+    },
+    {
+      "id": "vanessa:mcp:get_window_list_os",
+      "path": "mcp/get_window_list_os.md",
+      "sha256": "cf7c6cf4101c09f41bad1eec54d3f367dc00a0ddaaad38bf17b1b8dbb14caaae"
+    },
+    {
+      "id": "vanessa:mcp:get_window_list_testclient",
+      "path": "mcp/get_window_list_testclient.md",
+      "sha256": "307984b43ffe410aab1fe6e6e34015a3c0478f220cb14a564db6fc160602f591"
+    },
+    {
+      "id": "vanessa:mcp:get_window_screenshot_os",
+      "path": "mcp/get_window_screenshot_os.md",
+      "sha256": "b456941aa9b0702f629fa6f875bc2ca46181b786d9376a4638e17284dba36325"
+    },
+    {
+      "id": "vanessa:mcp:input_text_to_active_field",
+      "path": "mcp/input_text_to_active_field.md",
+      "sha256": "6a5aa3b8cb28ca5e75a091663bf42009a2ad2a2e0039a29904f3a3a6998fe193"
+    },
+    {
+      "id": "vanessa:mcp:load_features",
+      "path": "mcp/load_features.md",
+      "sha256": "87e51f55d284802e2e331e9f5a78d9e883f545962bb8dbdbe4fc24cbda3e6eab"
+    },
+    {
+      "id": "vanessa:mcp:manage_app",
+      "path": "mcp/manage_app.md",
+      "sha256": "ea60f37001199039de007dbce4489aa0e4369b85bcf98fe66db47991716eae15"
+    },
+    {
+      "id": "vanessa:mcp:manage_breakpoints",
+      "path": "mcp/manage_breakpoints.md",
+      "sha256": "b9fb70314519f2c34c8fe20d0c54abeb7c139d8d8610e4dd842992b58b625b28"
+    },
+    {
+      "id": "vanessa:mcp:manage_clipboard",
+      "path": "mcp/manage_clipboard.md",
+      "sha256": "31f275ba4f1ceb92d0a0676c2581bb204796d39544c677abf996ef6f1a75ef47"
+    },
+    {
+      "id": "vanessa:mcp:manage_command_interface",
+      "path": "mcp/manage_command_interface.md",
+      "sha256": "af153fe0e50c594772965dbba6d4901d2ffbb322e883df0cafe11b4958726964"
+    },
+    {
+      "id": "vanessa:mcp:manage_form_elements",
+      "path": "mcp/manage_form_elements.md",
+      "sha256": "e36406790d06317852749283f1994e817b38834ae986ac7d9635a14ed8958eb4"
+    },
+    {
+      "id": "vanessa:mcp:manage_test_client",
+      "path": "mcp/manage_test_client.md",
+      "sha256": "9cd6c92b5789c217ac287daec30bc668b9f882d1cd2aeb1a23ae096417587a62"
+    },
+    {
+      "id": "vanessa:mcp:manage_test_client_profiles",
+      "path": "mcp/manage_test_client_profiles.md",
+      "sha256": "513c28c853d864eb352aa1bb2e20121e604a45131b89a9b56d8da26394bdc169"
+    },
+    {
+      "id": "vanessa:mcp:manage_uiautomation",
+      "path": "mcp/manage_uiautomation.md",
+      "sha256": "9051dfc8c24200c3c381dab5dd678d920e79afde8980671a73d6610071a94f4f"
+    },
+    {
+      "id": "vanessa:mcp:manage_variables",
+      "path": "mcp/manage_variables.md",
+      "sha256": "fde44da65cea5d3f52fd20354093a406f93fd6da12072212e9a2bc335597a57b"
+    },
+    {
+      "id": "vanessa:mcp:open_feature_file",
+      "path": "mcp/open_feature_file.md",
+      "sha256": "59164a29af759623cfd2b4414def585da4e2ed9ae4e2e20c9bd30f978b2dca5f"
+    },
+    {
+      "id": "vanessa:mcp:run_scenario",
+      "path": "mcp/run_scenario.md",
+      "sha256": "de2f33d5e2458e92e33d970870771fa9bb57e81ae002fb16914876a93ca79de9"
+    },
+    {
+      "id": "vanessa:mcp:save_table_document_to_file",
+      "path": "mcp/save_table_document_to_file.md",
+      "sha256": "e67c33c4058051bf7cce858120b2c5018a206168bdefff88d6df1bcad7a1de54"
+    },
+    {
+      "id": "vanessa:mcp:search_for_steps_by_keywords",
+      "path": "mcp/search_for_steps_by_keywords.md",
+      "sha256": "26ae2a69d6534bd561afcfb5d0fb00e0aed67279f07bbfcd56f606cf905ca506"
+    },
+    {
+      "id": "vanessa:mcp:select_scenario",
+      "path": "mcp/select_scenario.md",
+      "sha256": "7b1b8bcb3a544351144e3e1eb96d313e2bfc24dd37beb4725291d028cd8152da"
+    },
+    {
+      "id": "vanessa:mcp:select_step",
+      "path": "mcp/select_step.md",
+      "sha256": "eacf6a1e190b79ed1092008c22b90fd63f736259293102608a0a45426ad4fd5a"
+    },
+    {
+      "id": "vanessa:mcp:speak_text",
+      "path": "mcp/speak_text.md",
+      "sha256": "3154f124688d38edbbd6fbecd2201784233e668a8aa255ac446fc5fc31c9e175"
+    },
+    {
+      "id": "vanessa:mcp:stop_scenario",
+      "path": "mcp/stop_scenario.md",
+      "sha256": "b2db350acc498547d01af5086a5c05a2217ac9bc44c553b1c31a6137eb43de91"
+    },
+    {
+      "id": "vanessa:mcp:user_actions_recording",
+      "path": "mcp/user_actions_recording.md",
+      "sha256": "811bc3e26711dddb5f642a928d52eacca8de57b9470320eba63954dcf1e692c6"
+    },
+    {
+      "id": "vanessa:mcp:voice_notification",
+      "path": "mcp/voice_notification.md",
+      "sha256": "5422f785592dab313c65074e82e3f1bef4dd449d74b5d176457405fc6bdd79a8"
+    },
+    {
+      "id": "vanessa:mcp:window_management",
+      "path": "mcp/window_management.md",
+      "sha256": "beca733f7a0f78872d6bb6b98c25b1aa03f9719d7ffecefb2ab935c7efbb87d3"
+    },
+    {
+      "id": "vanessa:patterns:browser-and-external-ui",
+      "path": "patterns/browser-and-external-ui.md",
+      "sha256": "e5352a9cd968907ba1a03c03353d9ebd02583ab2569e732199959b0648626213"
+    },
+    {
+      "id": "vanessa:patterns:catalog",
+      "path": "patterns/catalog.md",
+      "sha256": "4260f92fe1c7930b3631bd73fbbd420639d3756bf1426ac88e0daabc74ea9aae"
+    },
+    {
+      "id": "vanessa:patterns:compatibility-and-troubleshooting",
+      "path": "patterns/compatibility-and-troubleshooting.md",
+      "sha256": "d274c3fc032c29a58a5088aadccaf4d242528d5ec6f6087c49ba7bc6ede9e7ed"
+    },
+    {
+      "id": "vanessa:patterns:conditions-loops-exceptions",
+      "path": "patterns/conditions-loops-exceptions.md",
+      "sha256": "27b722438607e0df92037c182c2eb7ba5fed90ddc431c98d287e38aecb206f89"
+    },
+    {
+      "id": "vanessa:patterns:configuration-and-ci",
+      "path": "patterns/configuration-and-ci.md",
+      "sha256": "dae302e25bcb94b897094b5dbea7fcfa4d0ae1a04793c72f9bdfcbaa71e1bcd1"
+    },
+    {
+      "id": "vanessa:patterns:editor-workflow",
+      "path": "patterns/editor-workflow.md",
+      "sha256": "81f61113014bd7fa10fb67020b357bef8beaf882c7c0587e9f360f5b1d7d648e"
+    },
+    {
+      "id": "vanessa:patterns:email-testing",
+      "path": "patterns/email-testing.md",
+      "sha256": "b5907210cd1d490c3cb667bd45f4ea2df7f10ef82ec1c773a92c2949acc3f9f8"
+    },
+    {
+      "id": "vanessa:patterns:embedded-code-and-context",
+      "path": "patterns/embedded-code-and-context.md",
+      "sha256": "c4b51e5c5ac9a079b6e720bd98c3ee694ba0d9280773410165b185dd6368661f"
+    },
+    {
+      "id": "vanessa:patterns:environment-readiness",
+      "path": "patterns/environment-readiness.md",
+      "sha256": "a180499d6bafa3b88b75c050ef42fd118257868bc87b9ab1b835b0624fd30300"
+    },
+    {
+      "id": "vanessa:patterns:execution-debugging",
+      "path": "patterns/execution-debugging.md",
+      "sha256": "05eaef7d52bc02263199999d392cc5eab3b5ca776e74b85599c75b6240b1c95c"
+    },
+    {
+      "id": "vanessa:patterns:execution-lifecycle",
+      "path": "patterns/execution-lifecycle.md",
+      "sha256": "d5b1946a3bf9851796bf2ee5066a238ffbb4ca38062836ba43a72593c00835a4"
+    },
+    {
+      "id": "vanessa:patterns:exploration-recording",
+      "path": "patterns/exploration-recording.md",
+      "sha256": "f3cb4fca5eb0136cef040c20110664914902094a76f85b65c4331a39bf84dd0c"
+    },
+    {
+      "id": "vanessa:patterns:extension-capabilities",
+      "path": "patterns/extension-capabilities.md",
+      "sha256": "0b2c149fc32c9e15507655293d9cf3f7a3a7b47f49ca9b8383ad94b021ece277"
+    },
+    {
+      "id": "vanessa:patterns:external-components",
+      "path": "patterns/external-components.md",
+      "sha256": "aa4df6d15ff96b2dbb668318c3e0d43f2711a36288722b6f9233609221cbb102"
+    },
+    {
+      "id": "vanessa:patterns:failure-classification",
+      "path": "patterns/failure-classification.md",
+      "sha256": "51dd340f75907893e6454dca32d6e53543db8fa0371281631e29b866432f75c4"
+    },
+    {
+      "id": "vanessa:patterns:feature-sections",
+      "path": "patterns/feature-sections.md",
+      "sha256": "d0088ffd50dbb56ca149d285850c4bfa098717d4568c22606f70ffdf54bfdadb"
+    },
+    {
+      "id": "vanessa:patterns:files-and-dialogs",
+      "path": "patterns/files-and-dialogs.md",
+      "sha256": "df6d02b711b89fd5753d194c0fdddffedb22dc667d2d54b5c4b460937e30215d"
+    },
+    {
+      "id": "vanessa:patterns:fixtures-idempotency",
+      "path": "patterns/fixtures-idempotency.md",
+      "sha256": "999c9be26966ae5ed852e726e3338ed8b061131154b28086fb7e4192e2223a98"
+    },
+    {
+      "id": "vanessa:patterns:form-assertions-and-tables",
+      "path": "patterns/form-assertions-and-tables.md",
+      "sha256": "6ce77bc35d6d7ab1ec4aefd4dc2cb12b42361bec7b19915d154a53c0970ab8e1"
+    },
+    {
+      "id": "vanessa:patterns:gherkin-structure",
+      "path": "patterns/gherkin-structure.md",
+      "sha256": "7cf575f41394c4d6449b438c7545d30330958ec3abc9366f0afdd0e214a1e0f4"
+    },
+    {
+      "id": "vanessa:patterns:integration-multiple-bases",
+      "path": "patterns/integration-multiple-bases.md",
+      "sha256": "1a800197d61fceae841dfd469d575c3a4570b41e7c27d5c878389644df729fe7"
+    },
+    {
+      "id": "vanessa:patterns:mobile-testing",
+      "path": "patterns/mobile-testing.md",
+      "sha256": "a2fba02d57d4911a3ee99041a56bfe6fec3b1927ff0ff7489ae46e7511552147"
+    },
+    {
+      "id": "vanessa:patterns:modal-dialogs",
+      "path": "patterns/modal-dialogs.md",
+      "sha256": "c6d47dd577f7c749756c282e22084a03d63050659107d595b4636458517d036e"
+    },
+    {
+      "id": "vanessa:patterns:onboarding-and-embedded-run",
+      "path": "patterns/onboarding-and-embedded-run.md",
+      "sha256": "d0c8b313d31f36c8e36bc1fddf961c71c86a082e5d3cb471099d4253727c8579"
+    },
+    {
+      "id": "vanessa:patterns:project-layout",
+      "path": "patterns/project-layout.md",
+      "sha256": "fb342fd96c7e8650f696bb5f7f31b75b4f3c4e568ceb8df45aa6b17011d9f9fd"
+    },
+    {
+      "id": "vanessa:patterns:reporting-and-artifacts",
+      "path": "patterns/reporting-and-artifacts.md",
+      "sha256": "bc423955bfe7b35b83b834be161595040a954ddc510d3f290874d9a8058e91ca"
+    },
+    {
+      "id": "vanessa:patterns:runtime-distribution-and-custom-steps",
+      "path": "patterns/runtime-distribution-and-custom-steps.md",
+      "sha256": "8eb670a1cd16dd20782e9f07d6715c3413fdc51a389cd6b47ad2234fe95f92b9"
+    },
+    {
+      "id": "vanessa:patterns:runtime-settings",
+      "path": "patterns/runtime-settings.md",
+      "sha256": "54116dff30fdf40e1295460f5278d62ba9dfa27fd99dadd5f2f43088374945be"
+    },
+    {
+      "id": "vanessa:patterns:scenario-outlines",
+      "path": "patterns/scenario-outlines.md",
+      "sha256": "15d5cc85ec2deff0ac09ba6ff1cb2e5a4f7bdfa6560d9b573724c6c1fe50c1c1"
+    },
+    {
+      "id": "vanessa:patterns:smoke-test-generation",
+      "path": "patterns/smoke-test-generation.md",
+      "sha256": "0c46f60e0475891320323b7885be13f659542b5a4fadd1266a4f176aa3cb5601"
+    },
+    {
+      "id": "vanessa:patterns:steps-assertions",
+      "path": "patterns/steps-assertions.md",
+      "sha256": "1a9c77934a6578112cb42c2d22b911473262929d07e16287c5e3016c50401808"
+    },
+    {
+      "id": "vanessa:patterns:subscenarios-and-libraries",
+      "path": "patterns/subscenarios-and-libraries.md",
+      "sha256": "e88d20e8853ca8e852b6dcc719203fa49116c49a85f1b1d7951c8f8614b477b8"
+    },
+    {
+      "id": "vanessa:patterns:synchronization-and-waits",
+      "path": "patterns/synchronization-and-waits.md",
+      "sha256": "5b88d43b27f2e8ed4162d752aff9d54a66d2473b6f23f6a00b506346dd52878d"
+    },
+    {
+      "id": "vanessa:patterns:tags-and-selection",
+      "path": "patterns/tags-and-selection.md",
+      "sha256": "70496d42ab4eef431b3a941d4e60dfb29b8ec42d22e4f4cb41a79c989c803919"
+    },
+    {
+      "id": "vanessa:patterns:test-client-profiles",
+      "path": "patterns/test-client-profiles.md",
+      "sha256": "850d7c2f0e3df0612d462afce1c0aca7c7b7becee958a20970478757cb0be35b"
+    },
+    {
+      "id": "vanessa:patterns:test-data-strategies",
+      "path": "patterns/test-data-strategies.md",
+      "sha256": "e7c7dc769b8bcab033de673927991416c982823f757aadab86bb630cc39c2546"
+    },
+    {
+      "id": "vanessa:patterns:variables-and-parameters",
+      "path": "patterns/variables-and-parameters.md",
+      "sha256": "edfebced40b388f3c67381051bb2ab1b682aaf35df8ccfcfd569887124a4e52f"
+    },
+    {
+      "id": "vanessa:patterns:video-and-instructions",
+      "path": "patterns/video-and-instructions.md",
+      "sha256": "d077d4a1016cdbec555162894e93ad6bd1cee78a6f1af3ca7783fc894f50cdac"
+    },
+    {
+      "id": "vanessa:patterns:video-authoring",
+      "path": "patterns/video-authoring.md",
+      "sha256": "bd54f75e93c3665a65893beee0b810327cdbc1e5a791f05fc225cdc6f2e73792"
+    }
+  ],
+  "format_version": 1,
+  "generator": {
+    "path": "scripts/sync_vanessa_docs.py",
+    "sha256": "5fd6af09c32fab871fb0829c34590c45330a1fc86043cee9116c72ae49dc404f",
+    "version": "2"
+  },
+  "license": {
+    "path": "LICENSE",
+    "sha256": "71224b971106e7a984aacb9d96228a4e6c61293960674516da109c78da2b83e7",
+    "spdx": "BSD-3-Clause"
+  },
+  "source_map": {
+    "path": "source-map.json",
+    "sha256": "7273502e921f29ec7b0dbb25e4d86743e549fa9754a979de3a0cc284ff6ecfe1"
+  },
+  "sources": [
+    {
+      "content_revision": "sha256:0adffaaf243ba848e2049d66feffefd970dd55c9242b48b7c99f2032dc2681ee",
+      "inputs": [
+        {
+          "path": "LICENSE",
+          "sha256": "71224b971106e7a984aacb9d96228a4e6c61293960674516da109c78da2b83e7"
+        },
+        {
+          "path": "README.md",
+          "sha256": "c789b24aa01a34eb66763485150d9359fb96a7a6e333d8074b81f83c89cc6684"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/1.Исследование.md",
+          "sha256": "6e3898b5bfc8804992bd9972f7d86b481ccb889aec776d68ed46fd7a2b659524"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/2.Сценарий.md",
+          "sha256": "0dfe8c6589a8b05bdab9c94bcc38782cc035a09c8e1d560a7d0599042aa324ce"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/InstructionsResearch.md",
+          "sha256": "b7fa65c3bb627d8fb26eea022319ea9a7ee1ff6f89ef5764e87ca3807baa7246"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/InstructionsWriteScenario.md",
+          "sha256": "7b22c77d3522f4465492f9e316a73c73784673da929a4343dc204e87d7942d58"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/Memory.MD",
+          "sha256": "48e88aaed59c48a1544cd5fafb8f20d0880e47c4238f888192769fabc8b7c060"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/ОписаниеЗадачи.md",
+          "sha256": "0d204712f6a2727af117c8b120d014df6ab0bac90b4b3d0f0c5e983b13c825e7"
+        },
+        {
+          "path": "docs/AI/examples/ЗапускаемПромптыВРучную/Правила.MD",
+          "sha256": "21834b7d77857f9f67ac22479e48e244064e4575d4334c2cc2132ddd2e7bc732"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/Memory.MD",
+          "sha256": "92d642b83dc93565b4e8f36d75af6d15c18c2d3de3bac487c93224fb1a870396"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/Инструкции/InstructionsResearch.md",
+          "sha256": "3fc73aee28591213e5fddcd2c8a906e92b9d4db92cbf4865f49a0562bf19bd7f"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/Инструкции/InstructionsWriteScenario.md",
+          "sha256": "2c6be797ab81a7429c48feccbe91ff27cc7a70fe4fa9155a9c1e22944910d6d4"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПараметрыКонфигурации.MD",
+          "sha256": "e87ac8f2f3f6922d0f23a66167cdd5c387b6b2497623148cbf49fa22adffcc4d"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПодготовкаУправляющегоАгента.MD",
+          "sha256": "db2ab863616c8f15a3404f54e0c0d7fd3a3cc61064a32217f97e2fdc1bf77945"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_АдминистраторБазы.MD",
+          "sha256": "69f5385b917b8526d146e78964cd7c669974cf9a177c0ec812046a2aa9749579"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_АнализДанныхИИнтерфейса.MD",
+          "sha256": "ca21092d035b71fec81d4675dcbee8e69b072a1c758270f109f0f4c2e5dfb283"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_АналитикКода.MD",
+          "sha256": "799ea0b0b90e11faf4fc380f24c3fd3e7c1fc06f0b850dda968b98f98d16c36f"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_Исследователь.MD",
+          "sha256": "faa7aac1acb3cd445da3af54bf0f9fcae7a7165f85b832ab4a8f8e4fd47d2649"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_КодРевьюер_Feature.MD",
+          "sha256": "a7decf859c381818b7e68d15f75d6d43610a6352ef82f18f7580e9e135a923bb"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_КодРевьюер_Исследование.MD",
+          "sha256": "b1522028bced2ee9ed9edc88e67c8e9b8cabc829d21fc397c661d8162a554e97"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ПромптыСубагентов/Промпт_ПисательСценариев.MD",
+          "sha256": "2b3609a1b5859f24f2b9a5263d1a3860fe98b04c820a220ee519bed829111f41"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/ТестПлан.MD",
+          "sha256": "336e48b9adf5a7b13d069ee48d23bb2dcc6edb581e8c5cc1443777542e6bec4f"
+        },
+        {
+          "path": "docs/AI/examples/МультиАгент/Чеклисты/ЧекЛистКодРевьюера.MD",
+          "sha256": "fca712bc755c1d2c6315ea3f9f380aadcb353c83bc5bef5b56d54fea3ca36cde"
+        },
+        {
+          "path": "docs/AI/index.md",
+          "sha256": "9130fc43d93e19d1270fa7e237b8057978cfb25c4fa815ffecdb6a6f4dc48093"
+        },
+        {
+          "path": "docs/Changelog.md",
+          "sha256": "d23eea0f17b73a54d13f32406a4dfdcaaf9e31e8d53ae7ecbac73c4841b8bbd8"
+        },
+        {
+          "path": "docs/CommandSetting/CommandSetting.md",
+          "sha256": "a164f55ee0cddd0b97a1eab5627f1d8f9b7c2c4eb0ca49d82a532601fa85f16b"
+        },
+        {
+          "path": "docs/FAQ/KnownProblems.md",
+          "sha256": "94ad98fc8b64139ebb33a2fd8162f7fdb8afc9237d91bfbe978601e8dbf12a0b"
+        },
+        {
+          "path": "docs/FAQ/MakeAutoVideo.md",
+          "sha256": "927c7f70737905510888280b5c8e7b0b143c27e21d2619f9c8cffece8d54258d"
+        },
+        {
+          "path": "docs/FAQ/NotAdd.md",
+          "sha256": "377bae371218fb54c2be26bfb461f0dcbc6975571ce7bfd89cf7371d14930413"
+        },
+        {
+          "path": "docs/FAQ/index.md",
+          "sha256": "9e5492981227c93bcd3e06855c69e497980daeb27efcf48588200adca7a56a15"
+        },
+        {
+          "path": "docs/FAQ/Браузер.md",
+          "sha256": "bdf3a6930453ac6a8f3083c638a259ea3d88552b8e1f7284801dca783ada0702"
+        },
+        {
+          "path": "docs/FAQ/Режим совместимости 8.2.md",
+          "sha256": "0f249ee7be1c9fb2fd42279d509722088704a2caffea01a0c676057aaab7a2c9"
+        },
+        {
+          "path": "docs/InteractiveHelp/Onboarding.md",
+          "sha256": "5375ddb7458e90036610f2ccb4fc59c21f9c9795d51544448edaaae2258a15a4"
+        },
+        {
+          "path": "docs/InteractiveHelp/SettingUpInteractiveHelp.md",
+          "sha256": "1d7ba1437e6f0ad7112ad8f63c3e3cac2212f02f4c54b509f2c1e6cb87133c20"
+        },
+        {
+          "path": "docs/InteractiveHelp/VanessaInteractiveDemo.md",
+          "sha256": "b6be9e46c2391e29647c0c1ac86864bba27dc8a11cd8133ef4cc777925f0c92d"
+        },
+        {
+          "path": "docs/InteractiveHelp/ЗапускБезОткрытияФормы.md",
+          "sha256": "8bb3bfa629e57615358f301fe9f6e5ffcd8be3c816b15661aebf84f7e706aa50"
+        },
+        {
+          "path": "docs/InternetMail/InternetMail.md",
+          "sha256": "c2491ca94b13e43821d450f9d715fc1fd6668dd5c1174efff11fc51e04e19390"
+        },
+        {
+          "path": "docs/JsonParams/JsonParamsEN.md",
+          "sha256": "3df496400ac9f3505164f6813dff3febb2689f53004d1137546df4cda51647a7"
+        },
+        {
+          "path": "docs/JsonParams/JsonParamsRU.md",
+          "sha256": "417710e66ae6d0b7d7dc9a1246615fe9a30d874130a1934c4b832aaf8a799e8e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/index.MD",
+          "sha256": "e200da28fe67005c5ab004ff21249a7cfdccf0d510d9640b367318153a86226b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава00/ЧтоНужноЧтобыИнтерактивнаяСправкаРаботала.MD",
+          "sha256": "9918d7cecd62fb16f3062e81b93d504f800927c8deefdd37d476dcb42beb8b87"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава01/ЗнакомствоСVanessaAutomationОсновныеЭлементыФормы.MD",
+          "sha256": "49f722430a1ad2a7aa77239380c6b832c32820f61cf8df79c1d75500dc30465c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава01/ЧтоТакоеVanessaAutomation.MD",
+          "sha256": "222f95810dde29ac235ab1d340dacd1bcbeb064b58a6f09e245ca81c5bd75f70"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗагрузкаСпискаКлиентовТестированияИзФайла.MD",
+          "sha256": "08b84e7032589edd771b69163fa0cfb5f4f5e70e597375f295c1d73c55f9e8e5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисVanessaEditor.MD",
+          "sha256": "e8a7c51f9a4d50b7133880ff246a841e737f1377e5c4d49bf48e4202f140dfa3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииHTMLИMarkdown.MD",
+          "sha256": "de8a1236f8ad178b51649d3a44bb8c94d45fc79436158efe8e7eea7e845f8e42"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииUIAutomation.MD",
+          "sha256": "a9dda65d1edd2ca83527bddf6fa12d5675137a4a2891e793497ebc611fe4b416"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоКэшАудио.MD",
+          "sha256": "1f647f2f2f732ccad840fe0141a094e91e8d173ee0a1f43b6baba26e86c0e59b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоОбщие.MD",
+          "sha256": "f41f3c96708e6bb0193467b7b797bcafa43091cd43bc077d90bde3c57ee8b525"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоОзвучиваниеДиктором.MD",
+          "sha256": "664652d96a2d3bb1824556c556fd38581b64c37bbead27f3d625d78a8a1d995c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоСловариЗамен.MD",
+          "sha256": "ad5563af2267eb383a10435a22d23de9f4b2a524d4453c050661b6ab8c0f3820"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииВидео.MD",
+          "sha256": "1761499ed58e7ee3ae38f3c8a3164138ddfafb298e8fb970376aa59b53d687be"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииПоискКартинок.MD",
+          "sha256": "4d456d29d5bdd8538aca5d9f5b471b6f57ffc5229980404e6b6c99ad4fa13bed"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииРаботаСБраузером.MD",
+          "sha256": "34ead73fac67028345626a2edf1f5f988391d512eb4f1e9a2c62a856b271642a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииЭмуляцияКлавиатуры.MD",
+          "sha256": "d5103212ecac37d696ef3377ed27a7c28af1c2bb22594b19fb57afe63c3e07a3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисАвтоинструкцииЭмуляцияМышки.MD",
+          "sha256": "178dc78999627eb51c1e33a616d6cdfb448f0bebbdc5a062b70f182fd1949ae4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеПриВозникновенииОшибки.MD",
+          "sha256": "a5f61cd0fe3f8b8c5a4aeb929bc986376961761dfda10dbd6d94c16bc203320f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСкоростьВыполнения.MD",
+          "sha256": "68e21efe84d915cf0f6d53e7012102d8351745e86aad705e2e62485815aecc9f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевЛогированиеИОповещение.MD",
+          "sha256": "458255e4bf108dd045260aab4953457e3c8aabd18198f341b9264b0305ed54df"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевОбновлениеДанныхВДереве.MD",
+          "sha256": "9773c6c9948d64e13d6af6163c0dcdbfc3770547628e7cd7e821c9ae17d3676b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевОбновлятьСтатистику.MD",
+          "sha256": "4cf25b89d9485b285b4bdd167fdda4cdec9088170536cd96f5ea229a888dfa71"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевОстановитьВыполнениеСценария.MD",
+          "sha256": "1744b8c52fee0b0909cd0238d4ed7b86d5d51383be92f444f5ca7a2ab44f62b6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевПрочее.MD",
+          "sha256": "69fefb6a01479290e442c240ddfbaab205357d38a8293974fa2ed887c0fe1fbe"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевСтабилизацияВыполненияТестов.MD",
+          "sha256": "af496c0d6979d84f2566355dbb1b0126ef10baa35cd2ac3a0b6c83e61da9af21"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисВыполнениеСценариевСтатусыСценариев.MD",
+          "sha256": "ddacf9d0df9a2ef15bcc237967cde56e48ab2b23b5ed9a27c9602ef25d0218e3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗакрытиеКлиентаТестирования.MD",
+          "sha256": "3f8e1ce6f6093d2e173c4329f94536d7181405b1d6ff89fc229d78ebec586508"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗапускБраузера.MD",
+          "sha256": "fe4de6ed74c307542d4ea341c3633083c5c6b39a95bce4700054ba1b37eb606a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗапускКлиентаТестирования.MD",
+          "sha256": "036723f38062e01a829218361e3878e4cd2bc6161c74818f724d08205c8c35a9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияМобильныйКлиент.MD",
+          "sha256": "83739bb110cdad402d4b9118c6ed7aae482b6161835d96d937efc78e84cc6095"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияОтладкаКлиентаТестирования.MD",
+          "sha256": "440d2e67e0c5a55a1dffff601e19eb9275a7df4d0c0f5d5cff28037e90b803f2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОбучение.MD",
+          "sha256": "64de3ea5ae4cce0631bd42173953d5e859bb1d6895e09cdaf179921bfdc0457c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеВнешняяКомпонентаVanessaExt.MD",
+          "sha256": "c4ff161bdd9760685f3a7a410d9151b81e22ed271b06855f151b8ec367638228"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеЗаписьДействийПользователя.MD",
+          "sha256": "8b01a675b301ee4277126a5553ae4684887a3dd23a0458bb89983f46314861e7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеОтборПоСценариям.MD",
+          "sha256": "7f6fb49459bb6e86f5da7050dde362cbf2c98a4b220d42225bda14ab8196b11d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеПрочее.MD",
+          "sha256": "1ee4840e9e1c4879c1c29723b6808ef12a75d3d1b053678067738577f9e89f95"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеСбросНастроек.MD",
+          "sha256": "ecb0e0ffd02eac450f7e4971ba2258f43f92c02ff25801d7ac40574a83829d4f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеСистемныеКаталоги.MD",
+          "sha256": "dd436d52dc74fe914634527cd47865c7b1596f03d16b1e1510fbae64f1f03e15"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеСистемныеНастройки.MD",
+          "sha256": "6b95871867385929ffb340f65ee69bdace890d3bc147aba3385395ae1024eed6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеТеги.MD",
+          "sha256": "8296bc0cebb01e444e8bc070cac1d729a6c05b416cd3c7f3c136fb33a49be027"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОсновныеЯзыкФичаФайлов.MD",
+          "sha256": "6c6487631dee1122f28453dec4ecbbe54df705f32f51a334d6f7cc933b8809dc"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureМетки.MD",
+          "sha256": "6ca8687f4a18aac68af727d1cc4ce800f518235700d7f72870a6d6da0f1d9f38"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureОсновные.MD",
+          "sha256": "ff5fed0e37c31d0e2d45db689a0e62e403ef5d691b1660c1abf770af5b814976"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureПриложения.MD",
+          "sha256": "e4931be4ce3bf2047309afce193d11fe889df8c7c816eea2a9c7240726709ae9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевCucumber.MD",
+          "sha256": "466a1d20edac94a84012691836a186c6212a70fbb5f09b807f5ee22460cf46a7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевJson.MD",
+          "sha256": "7a67689cd595a0f85a024b2f2eed3543172ad55dcdd3246322cbfc5efd0e1a9c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевjUnit.MD",
+          "sha256": "a59095b898520b83e2bf7c9f865a1daf7287f90fb3ebc5b8f847abb0e8fcb444"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевВидеозапись.MD",
+          "sha256": "d2e77c6ff34f4580ad9aed7341a4c88809aa0969be80c74b79839b945014fa3c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевВнутреннийФормат.MD",
+          "sha256": "28262b3fa9939dec6d01f7fe98d7d744cc3c9998be8326bc77ab32000b888b88"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевЛог.MD",
+          "sha256": "73761fb1cbde66e644ff4709f3292aab3f227c9040d65a553b150d77022b1daf"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевОбщие.MD",
+          "sha256": "7a7b654d01c2ce060ad2773c97b5d01cacb866a98a846a669644c60271f1a8ee"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевСППР.MD",
+          "sha256": "9fd4f68fa344c2aa3f82d96a39b75d1ea9b14aa0130cf66c456a73bf1031b29a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисПрочее.MD",
+          "sha256": "7541c7855f609e9369971664a199016fd3293b70c710e12cfc1316e7b2622a61"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ЗакладкаСервисСкриншоты.MD",
+          "sha256": "f5a30fc651d8d64431c60c519e98dcdeeb99731bad23d200436122c9eabf0ddb"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КакУстроенаТаблицаКлиентовТестированияВводная.MD",
+          "sha256": "365b6fa59eafaf31bf424867159a849b12819ddf038ceac0486c6caf72c9c4b0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть1.MD",
+          "sha256": "a9eb2778e2269c89684f4b205f1a34fcf530d3355ab3978071c85adcf5e76003"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть2.MD",
+          "sha256": "114f69ae386e31920a39a1a31c77d589caa93f5012c1adabee68b220d5041fc0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть3.MD",
+          "sha256": "a61e083fb0124c7904174728ab3ba78c87fcbfcce1718c645f53e34eac4b49fa"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть4.MD",
+          "sha256": "0c6646d3e36ac8106fade96abeeed107158cce7d448b6a74af1cdcddaf819561"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкаОткрытияСпискаУроков.MD",
+          "sha256": "7b773ec04b69bbb823332e51b9f37f4b8086e85e25ff65bf69d31aa8ba13a000"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкаОчиститьРаскраскуСтрок.MD",
+          "sha256": "95883a5a0bb882c45a4af8b3c9bc113cd877be2a8ff484a2f51ff45c295c44ab"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкаПеревестиСценарий.MD",
+          "sha256": "a8503b288445e53d6df20df8b7ca2aef50538bc9c4058a9fb0e002e95715c091"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкаПереходКСледующейОшибке.MD",
+          "sha256": "1e620b5a039b5aa45713e51d91e6ca906da54fd1908086c4ad208b806adf0ce5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиВернутьОтменитьИзменения.MD",
+          "sha256": "5a49eeceddd704213c31fceb09532cac29d12eb80c82cc70705d82f04e24bac9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиЗапускаСценариевЧастьДва.MD",
+          "sha256": "7a8ac0df1d7d1ac4ff273305975b989207f53a8cd4b6e6697a20a6c90f32d42c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиЗапускаСценариевЧастьОдин.MD",
+          "sha256": "412f5809c973e02440d40dc35bbe38b121d16a0efda87f1aea9bb643443d75e5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиМасштабаИСменыТемы.MD",
+          "sha256": "aff81dc4306d8d7559fed021cbba89f7e5feb7ee3df722e0868ddbd83953736f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиОбработкиВыделенныхСтрок.MD",
+          "sha256": "7302285ac38458fe0d13efb854a928dac4c86141170fa1b6f40d003f0e08bfab"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиОзвучкиИЗаписиВидео.MD",
+          "sha256": "17bb5be9a5434af1b0f82e4feb68148e3f6e114d5f34c4f2c24b9dd73cbe8f98"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиПодключениеКлиентаТестированияИЗаписьДействий.MD",
+          "sha256": "fce57977cbabec22a2543665727eba7cbc49e7aba605332feef09413f7d1b04f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиПоискаИЗамены.MD",
+          "sha256": "efafea096ec826b479fb82395c6c223ac4e5602c05e5888d2a699667973130c6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиРаботаСБуферомОбмена.MD",
+          "sha256": "962bf36e332d6ce05bb4ce48953c2081adfb00c96f46c78d172517562e4dddb9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиРаботаСТочкамиОстанова.MD",
+          "sha256": "bf67db8195ceb668fa1d443e93777f79321e8adfa8aef190030dd6ee2721c8b1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КнопкиСвернутьШаги.MD",
+          "sha256": "ba6cbe645703e1cafc992fb4af2e21bf20678398543a9047db651eb9b12aaa8f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/КраткийОбзорДоступныхИнструментовПриРаботеСРедактором.MD",
+          "sha256": "b85dd51c61692c917c5d1f058ef7c489efd084b1c75f5c715713b5c32a84cc92"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/НастройкиВПанелиРедактораДругиеНастройки.MD",
+          "sha256": "7bc4bc82f9f372ecd426c8f56b663aee198841b3b3cba14e8ad58b198badc7ed"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/НастройкиВПанелиРедактораСохранитьЗагрузитьНастройки.MD",
+          "sha256": "c4dce1ef853f3f8cd62cd00ea811c3d361c30738b079adb796187268c98e0ea0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/НастройкиПриРаботеСБиблиотеками.MD",
+          "sha256": "0f8ad7c742a968934024662a0de350363f154c3f2a96f4d597d75271b3bb3483"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/НастройкиПриСозданииНовыхШагов.MD",
+          "sha256": "035ee6fa54ee66374afcef43ec55ee41bdddf12b7ce1144b8a4d5ec1846f7e00"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ОписаниеПанелиДеревоКаталогов.MD",
+          "sha256": "fd2e95cdaa2b6993f3e5aef58dc3684ed410826a741e854b74a99205b9cac3f5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ОписаниеПанелиРаботаСGit.MD",
+          "sha256": "c22e907cdf6eac892bce64d5b4c64ba81b469ec3ecb4a0c75113819992734ba8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/ОсновныеЭлементыЗакладкиЗапускСценариев.MD",
+          "sha256": "3cc0674f538ecef3b4675a0b8766e4afa80fd8f4633787a663458c20407eb199"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава02/СохранениеСпискаКлиентовТестированияВНастройкахПользователя.MD",
+          "sha256": "5ed6dbbf0c9aced01e1deffee5f77f32e45a3bc6097ee073a03aaa71b7bdea81"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ГруппыШагов.MD",
+          "sha256": "d0272f1db4b5ac13685b2ab7d8708b99755247ef3a5dd78118c2937e1a9d2477"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КакУстроенFeatureФайлЗаголовокФичи.MD",
+          "sha256": "96c3c169ab4c6a021c622d81512c9020c3bbf1560b3fc420f62d7a31caa700af"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КакУстроенFeatureФайлСекцияКонтекст.MD",
+          "sha256": "896e4ed768d7bd18da8275e52f1b71af641fa5afcf8840cf176a2d55358a186a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КакУстроенFeatureФайлСекцияПеременныеПростые.MD",
+          "sha256": "f12993dc05f2c06716c3f222d2cd3605e8a199f5773c265952d0b8ff2d760b8a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КакУстроенFeatureФайлСекцияПеременныеТабличные.MD",
+          "sha256": "18e91100c1fdd58797da891cf9737377737125f76315f01bd96bb7fc08203276"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КакУстроенFeatureФайлСекцияСтруктураСценария.MD",
+          "sha256": "76dc6fae8ca871dbeda3308e3cf89c699f2633dce482ad6646ea1c73d2314984"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КакУстроенFeatureФайлСекцияСценария.MD",
+          "sha256": "615c88ad7a637b2d7979cbf4d7c727532142a353bbecaebd9de3b89585a03b9b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/КлючевыеСловаШагов.MD",
+          "sha256": "21f017f04c9e56958a4d310cc9938833f8c73d0d3b0dd47e26ebbeee3aa346fa"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ПараметрыШагов.MD",
+          "sha256": "41ffc4904073690e8ead0519dfec911c514e76b3540f4ddefc927c732397a419"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ПередачаМногострочныхСтрокВПодсценарии.MD",
+          "sha256": "9821c2d01de4f6a48c405602f8bee69215ed84af2671e23ebfd99c05ff262400"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ПередачаТаблицВПодсценарии.MD",
+          "sha256": "b615f012ed02d4965d7ecf5903d3c1f4f446e23432554e6034c4fe1505d9f58e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ПодсценарииЧастьОдин.MD",
+          "sha256": "9c61cdad8c6f98e1fac6ac01b6304a696a69db43a206005c68985dedff041aaf"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ПопыткаИсключение.MD",
+          "sha256": "2f9d2627a40e37d97d2103f9d929c6a42252f65557b49b2c8040047284800020"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/СнипетыШагов.MD",
+          "sha256": "80b570f887e750c6f65aff2adf9e77a0f252febcfa3c16034553325da33c5173"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/СпецсимволыВШагахСценариев.MD",
+          "sha256": "483ee29be3f939e538c7bb8607d2a32942e7d8f71f9265f786c43c0503474b01"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/УсловияВСценариях.MD",
+          "sha256": "1da7af85975db3da22a55e9cb5e3cf0ee8ce97146c6a752e6ce34f58927e22c5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ЦиклыВСценариях.MD",
+          "sha256": "a7249270b764cd629c14c39ed6dee36c38fd546a5b4cc2861e53b27202091402"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава03/ЧтоТакоеЯзыкGherkin.MD",
+          "sha256": "5cfd7cb30bc6a4313d1f92651435c56c1a3a21748d9881adbe9314bbe4710f19"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава04/ДеревоШаговДругиеЯзыки.MD",
+          "sha256": "2331e46f8acd6b40e0ae685ae9d1a745c006f2878e9ec37fea2208d3fde89489"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава04/ОсновнаяИнформацияПоДеревуИзвестныхШагов.MD",
+          "sha256": "1972e15b6416d3634979bd0ea21d7fa1d77615507a6d4d1d808eb3de6ba33586"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава05/КакРаботаетИсследовательФормы.MD",
+          "sha256": "8d1b98cd51a547adba478194b5bb8687411b91f8808ac2dd11643fc8213303e2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/ЗарезервированныеИменаПеременных.MD",
+          "sha256": "1bd5908f6dfe97c0ff321e118cef599b3fe1ebc22dbf5c464090ff998aa0b4dd"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/ИспользованиеПеременныхВнутриПараметровШагов.MD",
+          "sha256": "347376487d2f638ef35dc0919353079628095da93cdef1d586e4124c8e536bc9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/КакИспользоватьПеременнуюДляВычисленияНаСервере.MD",
+          "sha256": "5f113ad4c9d85f2c8c2cf49d52b9b348cbfa96855476fc7e12526b74320bd96d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/КакПараметрПодсценарияПоместитьВПеременную.MD",
+          "sha256": "4923cda4615ce809f40d92d8d34f89add8409e03e4424efe330b8eaae2a9b654"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/КакПосмотретьЗначениеПеременнойТаблоПеременных.MD",
+          "sha256": "4c022d03f861f4e11c967b0a47a5d8267ff6b4918d83a96736b101024bebba08"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/ОсобенностиПередачиПеременныхВШагиКоторыеВычисляютВыражение.MD",
+          "sha256": "217832a3b08d03922cdca76aa1d5d7e3057b3ef1921e08e4cb5ce10735c65328"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/ПростойПримерИспользованияПеременных.MD",
+          "sha256": "9a9a624e1bead1c84ddfeb171b9f3f3ce25a8114a9dff6909a580d7ae4f624c0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/СозданиеПеременныхКодом.MD",
+          "sha256": "cc40cd906f44c012276df4bcbed0b0e8f5af68b245e829f5cbe7b8a653fbb0de"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава06/ТипыПеременныхКакПолучитьТекущуюДату.MD",
+          "sha256": "3ffc6e8aaa22a8bfbc2d674f86dde8becde275c5f817e02d0df9f97537f77f97"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава07/СозданиеТестовыхДанныхОбзор.MD",
+          "sha256": "29dc4446e11b6af9e38501448354d5565f80813962547b36aebabf8b45f9c192"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/ВыборФайлаИзДиалогаВыбораФайлов.MD",
+          "sha256": "ae2916adff537226037bf23794716a5df4967a89b5b78d4a6b8bf115afe59bcb"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/ГорячиеКлавишиРедактора.MD",
+          "sha256": "d480192b22f93787637279cca2fb3ac0d59ad846104c6f75fde8ae740395f61c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/КакВСценарииВыполнитьКодНаЯзыке1С.MD",
+          "sha256": "4c4fdf8162e618c397e200475f1817d86cb0fe7dc87388ac69dc6ba451f0b628"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/КакЗакрытьБраузерПослеОкончанияВыполненияТестов.MD",
+          "sha256": "c1568bf63f294528bcf96a4b2e73166c21ff3935c3f4bd7110a5b1f834b32ba8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/КакЗапомнитьВПеременнуюВыражениеНаВстроенномЯзыке.MD",
+          "sha256": "34b467443be04ee863aa104b6781e89f90624d87fb98a131245513731e5dab25"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/КакИзменитьНастройкиVanessaAutomationВСценарии.MD",
+          "sha256": "6e6f084e459bc5d076e560febffb4853a56bc2d7826a90a8cea47bb1ad3e8306"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/КакПравильноПроверитьДоступностьКнопкиПоля.MD",
+          "sha256": "09b7bd5487166a8c0e6ef0e1308609a8b0777c9f5353098fc49ec59a86f74a9e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/КакПрограммноЗаписатьЭлементАПотомОткрытьЕгоНавигационнуюСсылку.MD",
+          "sha256": "d43c3f4eaddf4481273298a8833338950ae08c760d06e1568fee32406e40b871"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/ОсобенностиШаговПриВыбореЗначенияПоНомеру.MD",
+          "sha256": "bab684f9a23b35b15d52f1cc02be3d6f02ad69e5d2e461dba35ccf32d2396259"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/ПроверитьРавенствоТабличногоДокументаЭталону.MD",
+          "sha256": "ecd85a9c0229fb9f013e4363cd01cd3561f9d9367cfb0b119b74bb2b96141390"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава08/СравнитьТекстФичаФайлаСДругимФайлом.MD",
+          "sha256": "d4a5c3e24eeee3202a8b452e1e85c8e8715820d23fbf4b3e926573fbc0745bc5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава09/ОтчетОВыполненииСценариевВФорматеAllure.MD",
+          "sha256": "43822b5a35d3721dc6f0981b3d15925a5e517f35fc06bb2af56efb2851714f2b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава10/АвтоинструкцииОбзорВозможностей.MD",
+          "sha256": "5dfc867dd995e510e2df25437b11535574125c3bacdfeadc12d90ab342dcfa1b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава11/ЗакрытьСеанс1СВОбычныхФормахUIAutomation.MD",
+          "sha256": "4e5f25ca06fc82ae68a2e8020f28dbe73b653a67c0a7b1c13eb48ba77f0e9976"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава11/КакОткрытьОкноВсеФункцииСПомощьюUIAutomation.MD",
+          "sha256": "187356ab250be9e7e9eac73694215477bd3ab01b7441e25b59f0f63b2bb7a1f9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава11/КакОткрытьОкноОПрограммеИПолучитьДанныеЛицензий.MD",
+          "sha256": "87dd1f8e73c2a22f807db95cd8d882bcae7f3020c7d7b61abb022da4666f4d6d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава11/ШагиДляРаботыСUIAutomation.MD",
+          "sha256": "553bcdc784f4faa9bab5c99eee39ae6fad4cf9ea4c42675ad693ef44fa9b8d76"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава12/ОписаниеРаботыСРасширениемVAExtension.MD",
+          "sha256": "4c4c2ad109a34dd07d52d1184c4600ee5bf2c72d0dafa7b8f7d5cc3ae3cc114d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораВыполнениеСценария.MD",
+          "sha256": "5791db81b6f67cb23846612a09a23e1cd1831d4a5ccea6896623e81576090167"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораКонтекстноеМенюMonaco.MD",
+          "sha256": "943c66764ca7b43159159f8fa21765da9cb0b066ae747022b1c6213a9c328319"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораОткрытиеФайлов.MD",
+          "sha256": "a04d9bdd996b3f900039f5421632146bd3a840cdfc720b3d2eb9566056f907a8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораПерейтиКСледующейСтрокеСОшибкой.MD",
+          "sha256": "3f2227a1aaf26709e31d89c9b689dfe1fff0c4782a892821ebfe843c5a9c750a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораПодборШагов.MD",
+          "sha256": "fdfadd464c43550ba78e00f8e4916e8e1daa14047b6a794078b94cd7cd818bf4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораПолучитьМакетПоТаблицеGherkin.MD",
+          "sha256": "a102eed50de3a36cbd89a94ec86d15882226f3099a1f792b5b1a81d320fbfebd"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораПолучитьШагиПоДаннымКлиентаТестирования.MD",
+          "sha256": "5a1d32c7f36ee3d9e7f218688d10a21b9ef0d45ad1567779d64b4d99960b32e7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораРедакторТаблицGherkin.MD",
+          "sha256": "6da9ceae1239f66bdae03de6a5a3a097d9501a4de2581b5d2d4c237f2c86374d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.040.1/Глава13/КонтекстноеМенюРедактораТочкиОстанова.MD",
+          "sha256": "edf5be74d5276a0e989e7fb470dfe0f45277de30f7a96be8c154f9fd1520a322"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/index.MD",
+          "sha256": "759a331856b3062a09cd644a038d40b19b26b92fac110fc1da2e26f672207a67"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава00/ЧтоНужноЧтобыИнтерактивнаяСправкаРаботала.MD",
+          "sha256": "08c95d4028b7a56db37d7b64b149a9682b48d21369c65d0217db62f972e4319f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава01/ЗнакомствоСVanessaAutomationОсновныеЭлементыФормы.MD",
+          "sha256": "566d8affc23ab28adf3e6eb2a3e0adc6289af3c34e82432598edbd3f0c8375b1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава01/ЧтоТакоеVanessaAutomation.MD",
+          "sha256": "7eb3993ffb0bb882f823923f9a9a0416109c2e5e3408949f5d307cf2da0197f2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗагрузкаСпискаКлиентовТестированияИзФайла.MD",
+          "sha256": "34c9d0bb8d42dfe5c62bfca4fb1e020176715e4da218ed628e27a4596a92b400"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисVanessaEditor.MD",
+          "sha256": "8bfe6ccf8a67d97cef96c365455dcacbddb2dda2f6e7bfcbfc18a3b9910174ed"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииHTMLИMarkdown.MD",
+          "sha256": "2690ab3cbacd06fd5578191c4ddd6f2b537b712fa814b0d3740252821134b6db"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииUIAutomation.MD",
+          "sha256": "d20f0078aa225b3e38d43bfc2031f4328688847e914277b94eaed6354375b0b7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоКэшАудио.MD",
+          "sha256": "d1ee50604f0ca217854172e2ec10851fb0d58051e0a78e2a0034f598e6ecdea8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоОбщие.MD",
+          "sha256": "f634431c27274cf4bb7ac1862bf7c983a730a5aeeadfe0314da963b113c132f5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоОзвучиваниеДиктором.MD",
+          "sha256": "b12ce33fbdae30b5445ea17c49bcab83f5f27331789b1222a7f568d5cc65a524"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоСловариЗамен.MD",
+          "sha256": "16f6910dba199d264203da5cdb3603215c53d20d70ff095ed85e26696ed5d3a1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииВидео.MD",
+          "sha256": "6f14d15d3c1533e659d61667840ffd57e811d60a8cdd5fabd88746aee4f85343"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииПоискКартинок.MD",
+          "sha256": "b73d9c83e86aa5ea519fcfa4282237f15afd579f405852ede3fb6c4726b344b7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииРаботаСБраузером.MD",
+          "sha256": "e400c4637e7150f58489964d70baed3e5439b4e1f050e69360ca4843dc0c442c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииЭмуляцияКлавиатуры.MD",
+          "sha256": "33c2bb906a9dfcb9ef2f46c93d8b68d64efae79daf5a16c2a7f8fa15437de840"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисАвтоинструкцииЭмуляцияМышки.MD",
+          "sha256": "cd43b601674bd6a214ad3e9ff99f0c1774b04342d29746213ab2c10c02b477c5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеПриВозникновенииОшибки.MD",
+          "sha256": "b248606ea06f7de1aef82994c55a02ed24ab698e5bcea857e1c759ff7008106f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСкоростьВыполнения.MD",
+          "sha256": "a3c9326ce6635efafd800416f498670be8ca7b6450145f3f3017cc0a6e13525c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевЛогированиеИОповещение.MD",
+          "sha256": "bb5450aa9bc728d05abf39511c091bd3c80d5a6e64f3fb582afe66599568c6b6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевОбновлениеДанныхВДереве.MD",
+          "sha256": "ef2cae83175379dbd50766fe3c6463aeaa503ff57586a58bcf8104170cd0259b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевОбновлятьСтатистику.MD",
+          "sha256": "5f06af5ce63ab272d1c81b6780181c5d81d17c3037920ae0addb93ed68727232"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевОстановитьВыполнениеСценария.MD",
+          "sha256": "179993fa932ac150cb1de9669c90eee4ac1bf138322e717d12504690bf0fd2a6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевПрочее.MD",
+          "sha256": "d7c76f6b993735c7a489e84f73bfe7417fa0b9396e6d692e496956bead7d9ecd"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевСтабилизацияВыполненияТестов.MD",
+          "sha256": "88dc3224569346ff820253190d05e424adfec70e44ba246ff3d76c1f1ea5be12"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисВыполнениеСценариевСтатусыСценариев.MD",
+          "sha256": "6968c932c8c0404f9ca36f4f14b6d6c63589adbb790372275e25bfa0a851d66a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗакрытиеКлиентаТестирования.MD",
+          "sha256": "73e44d04f15b6096377af230361afaa78c8cf8a6a942f2848f1eca2d5e47992e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗапускБраузера.MD",
+          "sha256": "6926496b33405b1b9ee1b5c73db438b20f5787140914e8cc8126efcda4ec6da8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗапускКлиентаТестирования.MD",
+          "sha256": "a7983acabe56ac40da5ef293832b0a22ed6b124df5a95f92cab9da57cd463828"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияМобильныйКлиент.MD",
+          "sha256": "66f71b500cb86078cf252f1ce2234ba913da74c7fdf86c7628cdec8743b8e737"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияОтладкаКлиентаТестирования.MD",
+          "sha256": "bf822752c81dbdd1ff65473d3736c18643e7c83cc9d5327731bf255ed8a23688"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОбучение.MD",
+          "sha256": "5a9bbd1244c1bdeb75a8aa645493ca8c2614d25db1d156e58356673c0bc2cef2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеВнешняяКомпонентаVanessaExt.MD",
+          "sha256": "e49aaa26809b801683ae43fc046e9e9fc08149a37d9232025e347a9fcfbf59f3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеДымовыеТесты.MD",
+          "sha256": "1aeb116d6dfa76bd8b806ce9ec0115841e54f1c84ba6f891e4de74f8904bfea5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеЗаписьДействийПользователя.MD",
+          "sha256": "75c2e5372d5dc61965788cf0140953395a0892fc2beb0806e56a25fec4838eaf"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеОтборПоСценариям.MD",
+          "sha256": "5a2cbdc3e84213958397484cad5cc414019f84e6d66ce34238fa20efb1feb173"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеПрочее.MD",
+          "sha256": "53e8098cabd82a7fde2f9d2645e034015864e4514a09b6e48bcb33a498da8460"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеСбросНастроек.MD",
+          "sha256": "026d83e451b09a23b642eec62f9892cd4a7aff15121e124608f7264050d9059a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеСистемныеКаталоги.MD",
+          "sha256": "b8c3cf15f9162880e3549ae44a94ec6b2f3b7a5603e6908cdd62b0b81672cb44"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеСистемныеНастройки.MD",
+          "sha256": "08563bf5e6925b35ff228e2b0f6cfb0bf97b724714a54b9f6a85b2f1c1eab6c0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеТеги.MD",
+          "sha256": "b2840917e53885f6210ddc5294ebf7f1159c3987aaf48c811222d5476efdd055"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОсновныеЯзыкФичаФайлов.MD",
+          "sha256": "88605da4de046dca1d467c9c54a90e7a4cc34398ce3e772e7c392c50897eb0df"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureМетки.MD",
+          "sha256": "93bb9b361765834771d762b4710c2451ea35b1a67a95142586ca708d3b11890d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureОсновные.MD",
+          "sha256": "d85b0f0e3479639c866479c02f5b1a50f3a4ca8a104764463d298833b6861809"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureПриложения.MD",
+          "sha256": "3e0f051b82d5a066b11d2019a597e9b20b06161c07d202e4925e68fae797e85a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевCucumber.MD",
+          "sha256": "9f7855bbc4c52cacbb1f0f4a8bf8a6fb56289410c37cc8dbf4b8f094567b6c39"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевJson.MD",
+          "sha256": "bd8d365c9776db311186ce7f72ccb2b48c9657a876bff2e8cfaf5bbe7fa040b2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевjUnit.MD",
+          "sha256": "e6cf2b458b44b83a022b3b88846244f191f7410ffb129438a1b253a590cff9c8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевВидеозапись.MD",
+          "sha256": "b17ba271e7c3f36666a2d73cd05caf356f0535f9a630642197360b31fb9bc55d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевВнутреннийФормат.MD",
+          "sha256": "3579acd884032313c8d127919766eb72eb58dc7b6d8060adbaa7428a0645fcd2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевЛог.MD",
+          "sha256": "ebe3d5235350caea16b74a69ac6f8f31160bb082794fcba9ed7f7596defa7fe7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевОбщие.MD",
+          "sha256": "6b68c08206f7ba6f78c0fa721c503dd30ea5da4a36556a2c82299e4d483e7fb2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевСППР.MD",
+          "sha256": "abd97e893de7e86853a4f3547049586460d072ede13c78f0b4acb3a0b99fda10"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисПрочее.MD",
+          "sha256": "df8778a0189cc67642015f5975c57e156fe89e9e5b6c9b8acccf4b0df9d62a1a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ЗакладкаСервисСкриншоты.MD",
+          "sha256": "817ebd12438a4bad10d9a639d0c05e6af4284ecb790af79f0bd56ce3882d3a69"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КакУстроенаТаблицаКлиентовТестированияВводная.MD",
+          "sha256": "21900a538f96aea0dfcf453aff268fc8e3a512c9e136ee5164d49e7a94bd9b9e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть1.MD",
+          "sha256": "8cac2592fa39686f2672c226ff35d6c69a11f83bd18e8a613c038e74b7f9781d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть2.MD",
+          "sha256": "a4507506954d654ffe06c4208f3d557ac594d3dd48f5cebb6d66e019be1924e0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть3.MD",
+          "sha256": "253610aa3c09871453a39d1df5de76fa040c4999295da0bf53849743b5a47f02"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть4.MD",
+          "sha256": "e776b69cdd670da416c55a7ba980d5cf59487b7466cfcd0d96815380b052e4c3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкаОткрытияСпискаУроков.MD",
+          "sha256": "0f695bc5bd2468eb419d9216d5247ca62d7cde94e2ca23b59deb37c306494867"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкаОчиститьРаскраскуСтрок.MD",
+          "sha256": "e22e631a600ced420df1cdd7b480419f5a350e372b9eac7dada33e104bfffcfd"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкаПеревестиСценарий.MD",
+          "sha256": "61d418fc7149aee0207ea65a656d377acbc707b1397f6874d2410433a4ccd099"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкаПереходКСледующейОшибке.MD",
+          "sha256": "0bdc19189b9603045f20ba3e67b4fbff9d650749341878f908c57583cd9387f8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиВернутьОтменитьИзменения.MD",
+          "sha256": "a337d211f4bdadfc19c27dcc0464c203902ba88bf5f275e7697c5cbe85f7d896"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиЗапускаСценариевЧастьДва.MD",
+          "sha256": "62e6b61eb5f05d40fe72fdfb80910fc5a715a646b41fd72a2ce28e6c80ac03e8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиЗапускаСценариевЧастьОдин.MD",
+          "sha256": "b51701a137b5f35b9c68435d04a1b28ef8c7b6dd4e21f78f0a512f323b8db361"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиМасштабаИСменыТемы.MD",
+          "sha256": "28379373c8ec559bfdabb1084ff1c2672d3e93af2d7110462a8d1e7728bb86f2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиОбработкиВыделенныхСтрок.MD",
+          "sha256": "f6d2d47af522d2cd541a20e7a540887f4140475489f53abc1ade6e9a5a020374"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиОзвучкиИЗаписиВидео.MD",
+          "sha256": "a3bb56e3854ac3bff3e8935340c88ca91410e5022c4337d6295eca5cfcabe6a5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиПодключениеКлиентаТестированияИЗаписьДействий.MD",
+          "sha256": "a90c780ba54cb6026ee67bae30cbcf744d94576a60cea41049e6db91bb2b761e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиПоискаИЗамены.MD",
+          "sha256": "8d1b3b1f640d1001fa100d40e8a3d8bef2f7a14d0a3f6988f7e5b41ee6739959"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиРаботаСБуферомОбмена.MD",
+          "sha256": "69b458a1ffb14d06637990716f56c9a2364ec0c5fdff5ebf1c28d3d491508c02"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиРаботаСТочкамиОстанова.MD",
+          "sha256": "d96bf016c6514ae718af1454ff872ea5d12402a595e7e3afa6ba4f435e8c789f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КнопкиСвернутьШаги.MD",
+          "sha256": "b4c2c6d35419ac0f1a7ab9cd8b8f58e95acd0e98b7049e94ad8f937cf2106c1e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/КраткийОбзорДоступныхИнструментовПриРаботеСРедактором.MD",
+          "sha256": "387d6cac8034ab904db85b1e5535c02666992e70e1779fb3cebfb762dabc2e01"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/НастройкиВПанелиРедактораДругиеНастройки.MD",
+          "sha256": "99ae406d6debe99808ebb784985f95a66e2284779cd0bce4582fd2e3333e6282"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/НастройкиВПанелиРедактораСохранитьЗагрузитьНастройки.MD",
+          "sha256": "497425b5d627ce85d5ec8e4fad77e01d03f6c57654a932103ae0e8b25657c53f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/НастройкиПриРаботеСБиблиотеками.MD",
+          "sha256": "4e8b9ff31a0301fa15d2f2a4530b89165302f97e1c6d837835cfc9d251af2566"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/НастройкиПриСозданииНовыхШагов.MD",
+          "sha256": "34bc37f951cfde74f107d986bc1e7d2add54411c0e252c4788e88248a2ae7d9e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ОписаниеПанелиДеревоКаталогов.MD",
+          "sha256": "34b096d9cbaf06f348d7a281b0b9b56cce0f30346089c7991933db35a7dc780f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ОписаниеПанелиРаботаСGit.MD",
+          "sha256": "639dfd1ec3bbbc99187f14586ad524a7382bf8bdd0e9b78358749aee69e96563"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/ОсновныеЭлементыЗакладкиЗапускСценариев.MD",
+          "sha256": "fa7acb2e7348f57177e34440569450669e4452f5fb9562b32197d2a9ed07a1ee"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/РекомендуемыеНастройкиПриПервомЗапуске.MD",
+          "sha256": "2fe6c60bd90b331c5aea205dbd28cc20f1632d4c49b79feeede1ed7f2bd3bf60"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава02/СохранениеСпискаКлиентовТестированияВНастройкахПользователя.MD",
+          "sha256": "ad5531deb1079ff89a26a3e0782047bb4fbf9cbf063257ac45a1e7edeea89770"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ГруппыШагов.MD",
+          "sha256": "1995d7075652ebbe25ab37d1a3ede582dc187d49d1b640e12ebb506ce4ccb3c6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ИмпортПеременныхИзДругихФайлов.MD",
+          "sha256": "1e33b7a81e846fa5fce160e75e8cf4002a5f85c6944769d53134ecd0d857ee51"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КакУстроенFeatureФайлЗаголовокФичи.MD",
+          "sha256": "c36f91cf4735df327e6b6abb60dafab6d1ca5fccf08e607da836abd850d87ab3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КакУстроенFeatureФайлСекцияКонтекст.MD",
+          "sha256": "453641575e0ac99a6e1fcf53cbf1a26951ac03349bb2b43501574fb5e441eeb1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КакУстроенFeatureФайлСекцияПеременныеПростые.MD",
+          "sha256": "1cdbdb5533a346540769aba2af16dd590ffedd05da5cf5244e31e77f493d0a7e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КакУстроенFeatureФайлСекцияПеременныеТабличные.MD",
+          "sha256": "305ecf598c8f4988bfe0273df38dc03d740bfd12e7947580449a2471d9ade720"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КакУстроенFeatureФайлСекцияСтруктураСценария.MD",
+          "sha256": "9e6d4d9920d89ec4ff3c21ae4c09ef6085091172defc9cb196739cad79eeb4df"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КакУстроенFeatureФайлСекцияСценария.MD",
+          "sha256": "555009c7eeb0ea40437ca5d1701951af2850320e2c983a18ccbb17ca74909842"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/КлючевыеСловаШагов.MD",
+          "sha256": "e004f615428b6d7befe1524925f91f2ee697fd544f9143810135098173f10b6e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ПараметрыШагов.MD",
+          "sha256": "43bff665f1248b6176a0647c58e817dce5c114aeddad85e455db173796a6b1b1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ПередачаМногострочныхСтрокВПодсценарии.MD",
+          "sha256": "b79ae8c0da0cf8c8ef272444c5efba6ea4e2477a2b8644f33f84f9f0ebcec560"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ПередачаТаблицВПодсценарии.MD",
+          "sha256": "49c4016c6747185f974b005e38a9e455ca6b903699c760a25901954a93640947"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ПодсценарииЧастьОдин.MD",
+          "sha256": "0e6facabd2f825fde231e6dc2cb301207450832b03dff5b19cc0e6d902b75f76"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ПопыткаИсключение.MD",
+          "sha256": "6d398d4e40d7b629a75e5854183ab4e99e4d52017702ac8046c7717dbe9b0492"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ПравилаСозданияИменСценариев.MD",
+          "sha256": "0d6c4de24ffa1bbcbe48e7b9486f3fb3b846a2236c0212a7d2b9505492962990"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/СнипетыШагов.MD",
+          "sha256": "79d574ce64b7fa95ec03c2b809e802aaf0ec26549fa45b89f91de214015a3b5d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/СпецсимволыВШагахСценариев.MD",
+          "sha256": "19999ef5e45192ffe038d2a8b6f6e797beeff02c518a28c6ebc5d2a67e1b5048"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ТегЗаписиВидеоВыполненияСценария.MD",
+          "sha256": "cd565f9a68e3ce6b656dd7d59ffd65e3b9a90654e14c3c9504d64e322cf4bd8d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ТегСнятияСкриншотов.MD",
+          "sha256": "57baf63bd633649762b8493b36980066c5c00ed789b6e7f52f76fff9c7075ee0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/УсловияВСценариях.MD",
+          "sha256": "87ff0aa0779f59a7c7db6f0763dd380df4d5619825366133be61fef452577a7b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ЦиклыВСценариях.MD",
+          "sha256": "133d3130a800342d4f67e6696cfddd276a617cc463068822f49547cf13e42fd7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава03/ЧтоТакоеЯзыкGherkin.MD",
+          "sha256": "a268f1185716e04997b49759ac99ced26a3e4fd1f68d812bb3dca19deb68efce"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава04/ДеревоШаговДругиеЯзыки.MD",
+          "sha256": "31103a7fe27e33cf43b22315ebc6e7b9d34f4540af557dc07368addd1c8d2d31"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава04/ОсновнаяИнформацияПоДеревуИзвестныхШагов.MD",
+          "sha256": "4f7c2e7bbf9218bccc51d03326489235f9b1e38c99f37092e28d8172cc7e4dec"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава05/КакРаботаетИсследовательФормы.MD",
+          "sha256": "76b4b4db1e40619dad28a5052929bcef94dfbd22cab1cad80df74f00bf00e4ba"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/ЗарезервированныеИменаПеременных.MD",
+          "sha256": "3f67a2c33553ca1e16f14ce4c6b12a3aed791687180fdcbf343532f2c48260b6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/ИспользованиеПеременныхВнутриПараметровШагов.MD",
+          "sha256": "5845afcf758c430e7409694182de51f471c0a0643c56d9e2bc3f72667e44ed2c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакЗапомнитьВПеременнуюВыражениеНаВстроенномЯзыке.MD",
+          "sha256": "77d80192ee545e89d4d532ec5410c00730b6ed02aa20e356948758fddb909939"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакИспользоватьПеременнуюДляВычисленияНаСервере.MD",
+          "sha256": "5cb206c9e2f30108562b569b5e2fe4dfa57cb8897a917fedeb314247523778c1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакПараметрПодсценарияПоместитьВПеременную.MD",
+          "sha256": "96456964d4556e683b1a5b261c6d9f1dfef6241a4f317eba8464a62538e6def2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакПередатьГлобальныеПеременныеЧерезФайлVAParamsJson.MD",
+          "sha256": "6f7b220b21b2b2469e847670d744bb504fcdf979498e3dd85ea7c2a65899da80"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакПосмотретьЗначениеПеременнойТаблоПеременных.MD",
+          "sha256": "6c8fa1afdf24c0f18fb40f1d3ba5a7717206465511c9c8b255b0185938d4c62f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакСравнитьДвеПеременные.MD",
+          "sha256": "34efe51558d25e77d25148c4905199e9485acfc43491a343ef520d0ab098d9b2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/КакУдалитьПеременные.MD",
+          "sha256": "ed5df816311535a1152b0251da28efe7268067eeadfb4126c38f5b3eea2a9b47"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/ОсобенностиПередачиПеременныхВШагиКоторыеВычисляютВыражение.MD",
+          "sha256": "3a3db516ed646d36bbe477908f25e42bf4735430cb22432213ade76c5561c91b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/ПростойПримерИспользованияПеременных.MD",
+          "sha256": "84722639d373d382d8ebe0a162484956aa694e5d0f07180e6d5258c947dbf17e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/СозданиеПеременныхКодом.MD",
+          "sha256": "bf7027efb4157e87ad9318f3d724555ce93fc1afe02c9ab8f375a96c29be2575"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава06/ТипыПеременныхКакПолучитьТекущуюДату.MD",
+          "sha256": "de583c32802ecf344acb65a0dd9842bff0f4c5eb330628bfee888cf2a53c010a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава07/СозданиеТестовыхДанныхОбзор.MD",
+          "sha256": "1f0c1596ebde773892b1b8582764232a4f90e24c708a31e801f464cadb6cde96"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/ВыборФайлаИзДиалогаВыбораФайлов.MD",
+          "sha256": "baf99f2585ec5380e9ce0604fe66974dc6bbcfab5b73e8259fdcc3b26a2ff83a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/ГорячиеКлавишиРедактора.MD",
+          "sha256": "6345149d75cf140c8fadfc2aa899628702d609208d5a35a6b17f099d17c5c583"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакБыстроАктуализироватьШагПоДаннымОшибки.MD",
+          "sha256": "c945c7e69c42124e8c692699c57c3281aa16d5f42982a59858519ce2b78b1a2a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакВСценарииВыполнитьКодНаЯзыке1С.MD",
+          "sha256": "d82f0f05cbd226e4872f7ceec6794524e6ba11f72dd5ecc82e9e311242e77fd4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакВывестиДополнительнуюИнформациюВЛог.MD",
+          "sha256": "89832a27b1974dd998ed5b9d2d5abdf0b9d8cc7fa4ab97a5f9dfd74d1a3e9acf"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакВызватьСохранениеВФайлТабличногоДокументаИлиПоляТекстовогоДокумента.MD",
+          "sha256": "323de47a5bff3a0a64d54366fe670f2b9e7481aca4f6ccd2be6a39f6f2020f1d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакЗакрытьБраузерПослеОкончанияВыполненияТестов.MD",
+          "sha256": "f495c5d7248c9aab546fd5660e90cdbb0361665cea3cce314264159c0a0bbb85"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакИзменитьНастройкиVanessaAutomationВСценарии.MD",
+          "sha256": "9d29f4f0b2d16bdd902edf53abd2acb93db74d3ca803bffdd707f495bfca41ef"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПолучитьПодробнуюИнформациюОШаге.MD",
+          "sha256": "1b2a0d7e9e55d7a9cb5aab5fa5741cfb1a348c59679708d3cf7a9e4b1a4a9e9d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПолучитьШагиПроверяющиеСостояниеФормы.MD",
+          "sha256": "4587b1f85eeacfa482e2b82787fc033005d3eac4fe193ee69daceeb5bff15f46"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПонятьЧтоИзменилосьВФормеЧтобыДождатьсяНужногоСостояния.MD",
+          "sha256": "a6532e3a4626ef5efa856a26a532ba96c52a8cbfca2a646e21717442586014af"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПонятьЧтоПошлоНеТакПриЗапускеТестовВCIКонтуре.MD",
+          "sha256": "75b3adcbdb9fb1921fe695c16ab899bc994f53835c68bc1fb32e9306678d586a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПосмотретьПодробныеДеталиОшибкиГиперссылкаДетали.MD",
+          "sha256": "f014982853d26e802ab1211028048ca138a6a9c67f72218ae504505f3fa3091c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПравильноПроверитьДоступностьКнопкиПоля.MD",
+          "sha256": "fee6de012aa23c2d76578f1c265c11f17bfa1a7ba039b2d0fed88e5ac260156b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакПрограммноЗаписатьЭлементАПотомОткрытьЕгоНавигационнуюСсылку.MD",
+          "sha256": "ecc1228ac76fcf3ed20f1f1b8e9df1dd7c798a17303c2ed1d9e12f188ef2bde2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КакТестироватьHTMLДокумент.MD",
+          "sha256": "9deb3d65b1c57f7dae45180546234041594f2c8cc98d64f0cc708a1f7b3dacb7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КогдаВШагахМожноИспользоватьСимволЗвездочка.MD",
+          "sha256": "a9e84551b6e10d0e533833d203b432fb96009668a9ff5115dd0fcc4ca485fc81"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/КогдаНадоИспользоватьПаузу.MD",
+          "sha256": "a72d82b7fd8415a093bc88a6faf5e39fddd3bcb6702d81cc99156fca7de3757e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/ОсобенностиШаговПриВыбореЗначенияПоНомеру.MD",
+          "sha256": "fe350d7069b7681cccfb5bb99aedeb53638bc433bd446865d939374e9f6e56c6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/ОтображениеКартинокВРедакторе.MD",
+          "sha256": "90b83a0e4772c8608d2a06bc51b5ad771d570268f2da8802aef6314ff4d9a2c3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/ПроверитьРавенствоТабличногоДокументаЭталону.MD",
+          "sha256": "7475efd2a5bfe549476f71e8746146d3a68101375b75138fb600b90b12be34ca"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава08/СравнитьТекстФичаФайлаСДругимФайлом.MD",
+          "sha256": "6ec306cd6cda6240ad3e7cc40d9c4b36e9df98b713980931d5a04d702310ada4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава09/ОтчетОВыполненииСценариевВФорматеAllure.MD",
+          "sha256": "d2b569901c85c003dd3953b3b1abd881b7ccbcf6947313483f8b80c9f2710205"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава09/УстановкаМетокAllureИзШаговСценария.MD",
+          "sha256": "43cfd53d4baa6c5ac01096ff474e2f54a3666fb15f88ee920a33a75ed2bd576a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава10/АвтоинструкцииОбзорВозможностей.MD",
+          "sha256": "8dd517af5f30839f8b3babfc25c59e91009ae19b6e50378256bf077334c5c0a1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава11/ЗакрытьСеанс1СВОбычныхФормахUIAutomation.MD",
+          "sha256": "7f725204c7055da9e5e1ad68b8de73590599a9c5cf7dbe045e38dcfdb226f854"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава11/КакОткрытьОкноВсеФункцииСПомощьюUIAutomation.MD",
+          "sha256": "b9aaf377dc1f1cf80bcaf6cde53199504478d61e10be091eb55e9daab6402849"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава11/КакОткрытьОкноОПрограммеИПолучитьДанныеЛицензий.MD",
+          "sha256": "02905958e6afb0d0c73925cc57b854d398a5ece5b33569664c413f79c23382d3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава11/ШагиДляРаботыСUIAutomation.MD",
+          "sha256": "f88e5679fae6e3ce7e2d3cda6c16b994e847f89d98b38619069d2f4b1ebf1b4f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава12/ОписаниеРаботыСРасширениемVAExtension.MD",
+          "sha256": "85530c25d4ca2ee27ea5336e8fb6e84f70079f21f8b92791a699fbf2db51521e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораВыполнениеСценария.MD",
+          "sha256": "876efdab9c9ba2eccfef65a9b2236c62ff93dd2a714ecc4891c734b612650988"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораКонтекстноеМенюMonaco.MD",
+          "sha256": "12954d294250d3f7ad4d61f891ab81d03e465c9617cac675e1b2a6e956bc239c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораОткрытиеФайлов.MD",
+          "sha256": "63f75d5ea9375b03dcb763c55e7d7532398aa3ce736755a8d36c92905ff0e2fa"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораПерейтиКСледующейСтрокеСОшибкой.MD",
+          "sha256": "00bfc690f2810a0962ecca58ae6d65f23b64e63fe7d6ad0be506b566fcc54c50"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораПодборШагов.MD",
+          "sha256": "daaa7a3bfb125a89ef24d71179424a821a3ebb9bf91625c76ed97e3c93f81614"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораПолучитьМакетПоТаблицеGherkin.MD",
+          "sha256": "45c4aa730c4decc883490448f69cca01a050d972ffd5df6fa2cf8867511a2197"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораПолучитьШагиПоДаннымКлиентаТестирования.MD",
+          "sha256": "f8da1ad395e98e8b790b76f1620aa6865c19a54b36b6a17125ad6329e9cf006c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораРедакторТаблицGherkin.MD",
+          "sha256": "5a01c07b5b67f6ab18611d5baf2b2db3bd3707bc1f233066452f5ccc38ffc216"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава13/КонтекстноеМенюРедактораТочкиОстанова.MD",
+          "sha256": "de68431d3a4e9cd48f0d65638ca103fd605bc7e202e10b1aa9613f2c24f761c8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава14/ОписаниеПрямойРаботыСБраузером.MD",
+          "sha256": "e98b70874a299322bd21ff8708a76ec57f68f009078b77476bc16d6e17e369b5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава15/ПоявилосьСообщениеНеизвестныйИдентификаторФормы.MD",
+          "sha256": "5ea59e4c191e623e03cf9eee0adef08faae06d1fdfdb2fd4454f4ae962ee89b1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.041.1/Глава15/ПоявилосьСообщениеОбнаруженЗапретСинхронныхВызовов.MD",
+          "sha256": "0a784173aea48e9bd888f9e505e37dd04c5c48e5fd57871e91a48e7b928058a6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/index.MD",
+          "sha256": "67dc7824c5ab5173427dd77072bd459dd55d5c20814e66f3921a97aba4c58ac2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава00/ЧтоНужноЧтобыИнтерактивнаяСправкаРаботала.MD",
+          "sha256": "32ffd2e0a2abde961e1139a2aa9079b386db8278d454a86aab4b2da2a90dcf92"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава01/ЗнакомствоСVanessaAutomationОсновныеЭлементыФормы.MD",
+          "sha256": "86bc6023d883bf9dc13a54a3ae66760f43102b8440dd7dd6abdb755477cfba10"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава01/ЧтоТакоеVanessaAutomation.MD",
+          "sha256": "25af7c3827f6e4c8fa74f5f8c446578776df56e310b57bd9ff8c8888c3d82125"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗагрузкаСпискаКлиентовТестированияИзФайла.MD",
+          "sha256": "2167b302caf44eed2c1d39ef9b91c27aabf2fe87e1cf9a590f8bccdf69884ddf"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисVanessaEditor.MD",
+          "sha256": "b999dd58ee732a257e8d50e5c1d383b9812cf75863fbda2be070bbd5060b3880"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииHTMLИMarkdown.MD",
+          "sha256": "2057c168715d12f87660b9442197e5f934a86b56fbf91161654f06c06bf795db"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииUIAutomation.MD",
+          "sha256": "a0cdb512bde640533c5e9a9ea76e5a3e4a584ab00c7f1e3fa1e637315498a93c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоКэшАудио.MD",
+          "sha256": "87282eb0a3216b782006dbc6466ada58161dfe6f3c89391e778e0efc05d2a04f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоОбщие.MD",
+          "sha256": "22892b154c388923ec05237bcaa589359ad7f092aec7828f97d52787337a725a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоОзвучиваниеДиктором.MD",
+          "sha256": "536564955e6b072531451aed3915ab59980dd2d047e5ebad46c56eb432e4dd18"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииАудиоСловариЗамен.MD",
+          "sha256": "e4bc0433272c73d72dad52571791bbf692eea546fbb1b0b0080ff6d8b634d57e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииВидео.MD",
+          "sha256": "7383bd915b2e434fa6451050a5e99116388c636b295bc9f70305e7c673ef5a57"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииПоискКартинок.MD",
+          "sha256": "23683280deef8cd43018f662e63b907ed13b028ca43ab9ff1c8b8b1724b1340e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииРаботаСБраузером.MD",
+          "sha256": "70c949c28d5e38f9be739d6c14596d36f28fe11c2713024c745684bb6388b6dc"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииЭмуляцияКлавиатуры.MD",
+          "sha256": "b60246c14b4f354ac24631e3d307f7b7833ed71a3983ade4001cb71ce0b198e8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисАвтоинструкцииЭмуляцияМышки.MD",
+          "sha256": "b2ceb877c7676b3e929f09a45681bdff232bb61a495c5d13d9a21d9d0599b098"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеПриВозникновенииОшибки.MD",
+          "sha256": "58299c3a4e6495bc81dbeeede7163e752f5fe0de2823817f75ee48d609395737"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСкоростьВыполнения.MD",
+          "sha256": "a7dfe04911a1d33c96e8e57890e8c27c4ccd54bfa441d31b7e16166bb91a494b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевЛогированиеИОповещение.MD",
+          "sha256": "5d57e860174eb329350725b4bc963eb8892543140a4e9bf0551d82f90a99871d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевОбновлениеДанныхВДереве.MD",
+          "sha256": "098d8c004620734e8f959223551655743e3133c2674d1e73229979c5d4cbfe0f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевОбновлятьСтатистику.MD",
+          "sha256": "311e8ced06e154928efd594e41b2ce4d16f2a19005ff79139af5fe9243f42b6b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевОстановитьВыполнениеСценария.MD",
+          "sha256": "a0d44581aa30d3165aa078cb6dbbf0098089d89326063be9d8d1f43c204c7448"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевПрочее.MD",
+          "sha256": "86a41d704fbfe07f7bb70173a5c0bfbc258b37f2d61e9b8b348a2bbcc2843267"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевСтабилизацияВыполненияТестов.MD",
+          "sha256": "e2db7db106edc87c12755a6f87bd19c5d8855c1dc14d4940aeaf5d8410bd08a2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисВыполнениеСценариевСтатусыСценариев.MD",
+          "sha256": "4cfdcd5d6dbca4ef43bf644411cd4f7089c0406c4f350bfc30a6178313d7e74a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗакрытиеКлиентаТестирования.MD",
+          "sha256": "44731755e28e561b6fdb717391e0c2fc63f8153f93d7b99149923d6281edc8a8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗапускБраузера.MD",
+          "sha256": "15f990bfb80c3464cbae72d6483c13821870f36062ff085d16319acfe74cedc5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияЗапускКлиентаТестирования.MD",
+          "sha256": "540aa3d99bb23dad9b019048b754946a84433e59a7bb5a582390036550eb3638"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияМобильныйКлиент.MD",
+          "sha256": "759d57e89f00634f7127f23674bc910bc80748e121a73e8dc0ef1c86266808b8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисНастройкиКлиентовТестированияОтладкаКлиентаТестирования.MD",
+          "sha256": "7be71c89715e151a7a4c7383fe711b3d944e66203fa30c3f25b3765dedc0f0ad"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОбучение.MD",
+          "sha256": "86b392725f001e3af05fd77e55100bf979dfce178c4f89f1a1046eb2dbc03bcb"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеВнешняяКомпонентаVanessaExt.MD",
+          "sha256": "6599f8253e2a9c55b0e00e6eedff870c0f5ddacb9e69b30d2dbc02051a408ef6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеДымовыеТесты.MD",
+          "sha256": "360a1cba3f538cad311fa76e1bd3bedf38206d695444e6ba537f56c6a02cb29d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеЗаписьДействийПользователя.MD",
+          "sha256": "4af4af451f4f902e625a92c2b57f96319eff99114e400dc86f730d63591a9fb2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеОтборПоСценариям.MD",
+          "sha256": "a3e3613df1dbc426511948e0eb70e8eae03d24ab5aed465bfdaf18780e45c6b8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеПрочее.MD",
+          "sha256": "156370590d06982168548721b8b85f1480bc6079fe5a943edca851c24ffcf7d4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеСбросНастроек.MD",
+          "sha256": "83b32fc01eec072c5c9520b346810b9d1cafd5c8b28971328dd5ee6fd693c3c6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеСистемныеКаталоги.MD",
+          "sha256": "51a2f224c201d6e229ae868a11e1f92313caedf027de7fad7d36dbbc5cecae22"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеСистемныеНастройки.MD",
+          "sha256": "8e9c1ba106ba7930ffcc102128941e0fdd43fec4426bc038e12f79e0c469125f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеТеги.MD",
+          "sha256": "e7d40125469ca90c1e5098cbdbec2d42046fb8878ee10c6b2f16a6028dbc6cba"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОсновныеЯзыкФичаФайлов.MD",
+          "sha256": "81514cf727cb2d5d1ba3a79ee81e714302103b5257b9d9606591ff5c5c9f26ef"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureМетки.MD",
+          "sha256": "466c27aa07c1e1f2a149aae62b8cf6501c9f255d3a6beb8b7dec8dd8176ef990"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureОсновные.MD",
+          "sha256": "c40e25c9b12f81ec6c5a7390cad3029615e696a2b675743f628ec8432874d3de"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевAllureПриложения.MD",
+          "sha256": "8919b91e0cbeea1ef1be88582daa82bb25d959a6d49bd6a7353ad5758f750697"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевCucumber.MD",
+          "sha256": "708771a1c6e90d462657c967eab304192b611a1bc3b0277138c8789e05086c2e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевJson.MD",
+          "sha256": "4d2c76ae280f0f5f6553b091a434ea96187759af3c563ea4b44480b042c97404"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевjUnit.MD",
+          "sha256": "d24087cdcf32b6cd28ac52aedc76f259bebadde108c4a6ee66ad9e35c60ce7d0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевВидеозапись.MD",
+          "sha256": "b0c6d885811d91273e4d58dd7286a18f7ada45b43db667bfedfbb2bc4ff7c035"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевВнутреннийФормат.MD",
+          "sha256": "567354ef74063538f468bda7c8a53d46e3b29c5522360061a43f545a9ff0c2f4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевЛог.MD",
+          "sha256": "7c4c24f53b36e97bda4214d6a6563706fea77477c1f936be73c4e4d723a13f5e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевОбщие.MD",
+          "sha256": "cd24eae4dd6852257702c5fca60a746ce07d5c2527ad28a89f2d06fb43a7489d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисОтчетыОЗапускеСценариевСППР.MD",
+          "sha256": "a5eb6baf1be4fbef8d0f4afdeadffeed713997a177185ef97f6be79c40543269"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисПрочее.MD",
+          "sha256": "a1e764e1bba897affee02d9652d9ce025528b12df8a8605813ae3e9f77c90ea8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ЗакладкаСервисСкриншоты.MD",
+          "sha256": "5f5b1b04d126d570d5089a348ad5d18fb9e966d81c9ffaef8fb1bc20a4fa4af2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КакУстроенаТаблицаКлиентовТестированияВводная.MD",
+          "sha256": "ad616ad6fdd57d25a846c6dbd4af2f4126775e32c151a84252e2346bef1a46d5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть1.MD",
+          "sha256": "cf477b13b34369ac99daf38798f991378284693744d0fa4b6116ed1e16c7b402"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть2.MD",
+          "sha256": "1217eb7c0e523423940089cd340279ece7590082fd3d7828496ba93886f31d7d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть3.MD",
+          "sha256": "227b3e5128cb215907da6c2a853415032d49cf6bfe7920bcf14652c2e0da4d33"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КакУстроенаТаблицаКлиентовТестированияКолонкиЧасть4.MD",
+          "sha256": "4626a3f16ce389c882ae60ce51a3143250e851b82ed10c73b7ae16806227e4e2"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкаОткрытияСпискаУроков.MD",
+          "sha256": "ddba2329386891d0dd440b226ca492e71d93c29f4e8cd6cf8bcffc7ac370822e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкаОчиститьРаскраскуСтрок.MD",
+          "sha256": "6727bbb6a87ed25653ef1dd82fa532df4d58678b5cb2867bd4b5616874c0f80d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкаПеревестиСценарий.MD",
+          "sha256": "2220237b1347949e95d6077ef2ff8d0c33041a1c40b3bc2173ba2de5de21a722"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкаПереходКСледующейОшибке.MD",
+          "sha256": "a148d4d8c6fcc574336b56e61b4b5c72131eee533d16ff64dbf2150c62ba357c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиВернутьОтменитьИзменения.MD",
+          "sha256": "a3ef7581492a9e5a79f38c7cc6afeabdfc00f1a3044c7e240e2da41352ead7c8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиЗапускаСценариевЧастьДва.MD",
+          "sha256": "fe6b48db1623843702a177897f8bd5de216bdcbcde5004ae0e20da58cdf442d7"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиЗапускаСценариевЧастьОдин.MD",
+          "sha256": "1cf02c41bdd1b30cf9485838a0589847dc0e48802ed3dd35cc0d81e6d64975d0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиМасштабаИСменыТемы.MD",
+          "sha256": "4e0961f48e69d64a2e5e40d487749cd753f659d48f52e2c07b4f0517197f2896"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиОбработкиВыделенныхСтрок.MD",
+          "sha256": "4eae2e3c818768201de4f8ace4bacb052999645400368e26a6af0e1c825f2ca8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиОзвучкиИЗаписиВидео.MD",
+          "sha256": "7fb70c23115beb046783b452b2f3bb9b4c4984ae1080d92aaed1737aaeb67709"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиПодключениеКлиентаТестированияИЗаписьДействий.MD",
+          "sha256": "85c25a1471bca1204f3ca179cab81cc0bd6086b7d1b8eb6ae9577d516b836b11"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиПоискаИЗамены.MD",
+          "sha256": "f6bb3c461cdb326b1fe94b41c2bbe88e4c096d616846ceea6010877515cdb746"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиРаботаСБуферомОбмена.MD",
+          "sha256": "68541c63e5f238adf25a018879553d1bb627aa3e5e322af983850673e00396c9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиРаботаСТочкамиОстанова.MD",
+          "sha256": "4c2d27a7f3c45cd617973da20dda6c7de94bc5b2b039eca150ca247e2aaf5ab4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КнопкиСвернутьШаги.MD",
+          "sha256": "d4df5d1cd79134a42aa38bc49a6664f71a68c48a17a0f03751224d23fa78ee8b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/КраткийОбзорДоступныхИнструментовПриРаботеСРедактором.MD",
+          "sha256": "4c085e80ca3b388909333bf585b62f579e4960917c3f11b63b1f8db7100fadcd"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/НастройкиВПанелиРедактораДругиеНастройки.MD",
+          "sha256": "710d6ed0a9aecc6c89c172abe49a6d5ca0af6605e32297b595ba863c9b1ffe53"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/НастройкиВПанелиРедактораСохранитьЗагрузитьНастройки.MD",
+          "sha256": "4dc1a179440674bb474c0957fb73cd07385c07efe49e8ac3ed14e066e6d58ad8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/НастройкиПриРаботеСБиблиотеками.MD",
+          "sha256": "208d25798f46b04a64ccce0c64bfee0a9c4fa8dd3a068d8d22ac6b9f4cc8cd24"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/НастройкиПриСозданииНовыхШагов.MD",
+          "sha256": "15746e3343077fc371153e6043f54bf38e3db763ff6bbc3e064d091dc7d13124"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ОписаниеПанелиДеревоКаталогов.MD",
+          "sha256": "38cd8627ad159e453cac23c1e01ba7d5baeeaedfdfa88637fdc407d836012f7c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ОписаниеПанелиРаботаСGit.MD",
+          "sha256": "ede1fd2ad325dd687b866336b652bcb61ab757dfbeb954b45fa817c2e3250580"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/ОсновныеЭлементыЗакладкиЗапускСценариев.MD",
+          "sha256": "b39b712559e587628a607146b151fbfc09b2de41339d827dc630d650417fb714"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/РекомендуемыеНастройкиПриПервомЗапуске.MD",
+          "sha256": "52b758e3fb0dbc575bbc10a2796ab622aa935ee0ffa7b21d1cecaa729264ed22"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава02/СохранениеСпискаКлиентовТестированияВНастройкахПользователя.MD",
+          "sha256": "b6cf61dab33dcf56d54c34e5929c78e733bdd1e247b665260f54dfc405848ab4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ГруппыШагов.MD",
+          "sha256": "98e0844a84e27f7fb9be459d75f10dffd1cc1fbd99edbd6b1a3dc7f56d68e096"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ИмпортПеременныхИзДругихФайлов.MD",
+          "sha256": "7e2ac0e845841d8187aefa17290e522533752b0f4b1ee1936bf42756bfd7eb49"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КакУстроенFeatureФайлЗаголовокФичи.MD",
+          "sha256": "332c4f6fbcf16c7f6bd385e5709c57aa3212d91fd68774c074157d1c453ed848"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КакУстроенFeatureФайлСекцияКонтекст.MD",
+          "sha256": "3f19a384447a6636458517597e5e43f3b59339147fc217387db04e9abaedc315"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КакУстроенFeatureФайлСекцияПеременныеПростые.MD",
+          "sha256": "f6377bdff057b94560ebf02e7df0e31edb619ec6534079ee6b6fe57cd832dda9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КакУстроенFeatureФайлСекцияПеременныеТабличные.MD",
+          "sha256": "92589de10be27ef141be3e33a659c9124f45ed43d3e841a5f89231d9476b554a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КакУстроенFeatureФайлСекцияСтруктураСценария.MD",
+          "sha256": "e3971f06a920f988ff093c97e258f8d2fb4fabe62e5f4af98b2099d050cee62f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КакУстроенFeatureФайлСекцияСценария.MD",
+          "sha256": "ca6fe94e4896b4c8baa999625f12e5bfbba18e08e823397b38bb7a2c9845a2b8"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/КлючевыеСловаШагов.MD",
+          "sha256": "c596fca87fa2e4d15cc8e9fcffa6743404cad6d023ab2491342bb681d377a12d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ПараметрыШагов.MD",
+          "sha256": "3439060be2df1c36adf7e4eef46d26b6f5637833ab07471bbe18bc1cd8942e4d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ПередачаМногострочныхСтрокВПодсценарии.MD",
+          "sha256": "9f771c17b9d0e9cab7de63df5fb3580dfa182239b9622aa69b410c82ff2c2298"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ПередачаТаблицВПодсценарии.MD",
+          "sha256": "0f3c0614b2897e85abae36ea12c6bcd1908914018277746b082f039b61e12ac9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ПодсценарииЧастьОдин.MD",
+          "sha256": "5ac0d6d83e94832caaf48a1c9c68168df7eebb44154a44f3e1e93d32ce53e221"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ПопыткаИсключение.MD",
+          "sha256": "401feba838e6cc6629717468c15aadfead67f4799523d6454699034923a2ef49"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ПравилаСозданияИменСценариев.MD",
+          "sha256": "3b465124c5d57612af590ac28ccb244841c5c33885ff295417a3867417d58cc1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/СнипетыШагов.MD",
+          "sha256": "b5b98563e03dd74486fea3259c32e68cfad2f05bee519a01df25c7fa2f215522"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/СпецсимволыВШагахСценариев.MD",
+          "sha256": "875e6bc2112417fc1763a45916327aa929822495a213c7297197c4284efc21e0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ТегЗаписиВидеоВыполненияСценария.MD",
+          "sha256": "6a909db7936540846bac7366b55cd13673adfa14defbec4373c95bd3648fda45"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ТегСнятияСкриншотов.MD",
+          "sha256": "4d40b28bd56c58e38f432a62b44edb30e253ec8019c944ee302b3470016efa96"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/УсловияВСценариях.MD",
+          "sha256": "869a0b1af8befd9c88d55b70fff39fbad00f9cd7fa6703ce5700a9db83b56684"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ЦиклыВСценариях.MD",
+          "sha256": "4db27c2bea1d74ddf72c14394da52742875e8399cd49dbbdd6c2b50289cf4c96"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава03/ЧтоТакоеЯзыкGherkin.MD",
+          "sha256": "345152c4acc27d93331011fd3ae9ff4dfbef6a15a32d956af3cb73910de66476"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава04/ДеревоШаговДругиеЯзыки.MD",
+          "sha256": "3477b4e10620d9f013a2f5d1f1b4ff82117ebf58781ce2ca21ac5acc6742a544"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава04/ОсновнаяИнформацияПоДеревуИзвестныхШагов.MD",
+          "sha256": "ae8ff03905c5bb9a009e2b42766ae344b899e3645ab0259cd433171fd84285f6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава05/КакРаботаетИсследовательФормы.MD",
+          "sha256": "cb3e8f7a6b7fc0ca0c8b2b88cc750aa93a35fbd7988d8594e246e8d52d8ceb85"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/ЗарезервированныеИменаПеременных.MD",
+          "sha256": "7f7e10eb4e153232cada93f0e04d5e803ffb36071f989d5139c3d75aa35ba36d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/ИспользованиеПеременныхВнутриПараметровШагов.MD",
+          "sha256": "494a4bb742acec464973b7a0d4509ce89d70e8d7cf69d507e5e555e2eb64a169"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакЗапомнитьВПеременнуюВыражениеНаВстроенномЯзыке.MD",
+          "sha256": "8aa7fc46f1abb961140c5035d33caf05199d142a999d22739321d121943f22d1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакИспользоватьПеременнуюДляВычисленияНаСервере.MD",
+          "sha256": "e5c8366693ac0053f332282aa7f9f581236cde0370c7da2e2e9c7247e3af2ce3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакПараметрПодсценарияПоместитьВПеременную.MD",
+          "sha256": "b1eca9fe48c49ff3de27bdfd614f6b87b8adcfe5fb355a9340687af41d7b0c1a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакПередатьГлобальныеПеременныеЧерезФайлVAParamsJson.MD",
+          "sha256": "cec0dcd79b8d367270dfefa055ea7f1f24c10ec47cddd1624e9c0878007f1c15"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакПосмотретьЗначениеПеременнойТаблоПеременных.MD",
+          "sha256": "aa8b2f27a73fa644db6237bf4ead84d149f2004015b559a995b1503ae2a66114"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакСделатьЧтобыПодсценарийОтображалсяВДеревеИзвестныхШагов.MD",
+          "sha256": "9ccd33e9b867285fb5d0d6563a910221b17ab1bf1291ee5f181fc306287e807c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакСравнитьДвеПеременные.MD",
+          "sha256": "4b1aa168731fffbdcd878dd93b65970850f10315ed1e244064590f5d03832620"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/КакУдалитьПеременные.MD",
+          "sha256": "9b4344745c2394a9856780c7bf6c358244ddee0bfd71ea568f471a5f1d0ae975"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/ОсобенностиПередачиПеременныхВШагиКоторыеВычисляютВыражение.MD",
+          "sha256": "23b836cdcdac8517dbec5d99cbf5ece3b63976aaf4eaf4c80f209ec51d35e264"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/ПростойПримерИспользованияПеременных.MD",
+          "sha256": "26219df78314810c50d1fbdfdb8d65e1a61267549459f5a2f47b1bac1fd5f9f6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/СозданиеПеременныхКодом.MD",
+          "sha256": "9188e1a19619d6519dce0971fe48b0031098424f180c4472aee878f429bdd141"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава06/ТипыПеременныхКакПолучитьТекущуюДату.MD",
+          "sha256": "968ea0f64ddf33be89d7d9811d2a9a2a453ee4bb7d2a2081ae03aa674c32d55d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава07/СозданиеТестовыхДанныхОбзор.MD",
+          "sha256": "ad82c9b5f524289eb0e7254d436b8165ed600ab15528d7c66c439d887a563b02"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/ВыборФайлаИзДиалогаВыбораФайлов.MD",
+          "sha256": "83f9ab69f9a85deade1581170c8d18faa108d6d1d7c64dcf59abd62c71a90973"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/ГорячиеКлавишиРедактора.MD",
+          "sha256": "3d9c4fc7afadd94d9e7291a32ee0bd646cf100571b8ae2fd22fab768d9918043"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакБыстроАктуализироватьШагПоДаннымОшибки.MD",
+          "sha256": "9e67c129509b3f48e27149acb43801f43762a02be51535627d6289a0daca639f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакВСценарииВыполнитьКодНаЯзыке1С.MD",
+          "sha256": "da3899debc9dfe488efcc5b4a29ec77ed2039a36bd4973d93478834343d0dac4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакВывестиДополнительнуюИнформациюВЛог.MD",
+          "sha256": "9448fcf2573970bbb50b661c1453b81a486c9d56f227db0c99965610bbc1e70e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакВызватьСохранениеВФайлТабличногоДокументаИлиПоляТекстовогоДокумента.MD",
+          "sha256": "b3410cbce90dddac3b8eaaaad9a59572f7bf60b6ae01082079394c5b2ad458ce"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакЗакрытьБраузерПослеОкончанияВыполненияТестов.MD",
+          "sha256": "099700699d47849d9294cd97e8c182d9a61ded707289282f4f5879ae24fc1433"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакИзменитьНастройкиVanessaAutomationВСценарии.MD",
+          "sha256": "02ab62d0d60e81850f75eee0b9bab0d85814686a54437c8de7d454479bbbe183"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПолучитьПодробнуюИнформациюОШаге.MD",
+          "sha256": "b3acfeccfefaa7ba7b999b4d60f5a756c13dfa3fc5d353042092cf7c31496e99"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПолучитьШагиПроверяющиеСостояниеФормы.MD",
+          "sha256": "bfba806eeef4ae0d9290d387a1c32be4620e7845014e38d087493b765c3a013c"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПонятьЧтоИзменилосьВФормеЧтобыДождатьсяНужногоСостояния.MD",
+          "sha256": "51200c14224dd2213b82e74c9b714a7c016e1c9bd018bab1d61d115c8cdc3d6e"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПонятьЧтоПошлоНеТакПриЗапускеТестовВCIКонтуре.MD",
+          "sha256": "8c7e013368f97695b5b1651fba22f70f359b57ff59d458344419432c4be0cf0f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПосмотретьПодробныеДеталиОшибкиГиперссылкаДетали.MD",
+          "sha256": "923fd96f0b9c5b6f4dfde1717fa93f44af659fd1bb72eed40ff996388a4c1c41"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПравильноПроверитьДоступностьКнопкиПоля.MD",
+          "sha256": "19696ead9c5eb19c4dedff9cac36261f77247986922dbd4de5086935db4f514d"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакПрограммноЗаписатьЭлементАПотомОткрытьЕгоНавигационнуюСсылку.MD",
+          "sha256": "ec9dc0b5019e588cb77f4390c2e59c48a1c1d84c7d6fd374108cec5a7ae9e001"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КакТестироватьHTMLДокумент.MD",
+          "sha256": "5b5da3f8195f5f9a20c28312d5ced86d0ad90f3c63cab7250fd5f4ebca6bb7af"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КогдаВШагахМожноИспользоватьСимволЗвездочка.MD",
+          "sha256": "ce419e10c119822bf3c59ae2e9c9564db1c7f1aa1dbdf43fe8abbd555c9d2e9a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/КогдаНадоИспользоватьПаузу.MD",
+          "sha256": "2d3aacc9ee3a1430a47ac0e2a9159a4f827207251e25b2345a8244e08af299ce"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/ОсобенностиШаговПриВыбореЗначенияПоНомеру.MD",
+          "sha256": "3314a0a014676860f0e01f5e689b3dc9862ace5e6a186b61a6f8aaf41909063a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/ОтображениеКартинокВРедакторе.MD",
+          "sha256": "4b2b9ffc796acc53305b192c13de94cae92bcd21716b1ff3e9c5363c154717b1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/ПроверитьРавенствоТабличногоДокументаЭталону.MD",
+          "sha256": "445a1a552b648b72e52a5d292742d0f5f92f8a8203b09c140d7d2fb21f318a30"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава08/СравнитьТекстФичаФайлаСДругимФайлом.MD",
+          "sha256": "a28904bc1b9281d9ff22e6f1984649fbeaf993c612732424b015aeef1d22ced6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава09/ОтчетОВыполненииСценариевВФорматеAllure.MD",
+          "sha256": "4e5310a946ccf14c56d87ed0491a917ce71a70769dace0dc42b2bc5438e4754f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава09/УстановкаМетокAllureИзШаговСценария.MD",
+          "sha256": "f4388105de98cb3f8a6ce226cd6bf87f6802c6832d264eb428114f773c623cc5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава10/АвтоинструкцииОбзорВозможностей.MD",
+          "sha256": "e6491161e4acd660b62fc70f7bd529651b4cea92c4e2474308502cd9cfe066d0"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава11/ЗакрытьСеанс1СВОбычныхФормахUIAutomation.MD",
+          "sha256": "a55e12dc2fa10afb3b24eba43099d66d02ad7e9037008c0a6a55ca3d872cc9c3"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава11/КакОткрытьОкноВсеФункцииСПомощьюUIAutomation.MD",
+          "sha256": "c117a6fa32a543eb0af907cdda159096891b8654bea97828467aa7a9e26ef6b6"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава11/КакОткрытьОкноОПрограммеИПолучитьДанныеЛицензий.MD",
+          "sha256": "7b1ea46aebdde4b3c85e3f4346dd175bf84ba8e11478cecf4cf0cbefce922bf1"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава11/ШагиДляРаботыСUIAutomation.MD",
+          "sha256": "e654d5d4e5b8667401aa9a1866cc5566fe217d3efcbd4e475f44d3b12e1881af"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава12/ОписаниеРаботыСРасширениемVAExtension.MD",
+          "sha256": "37199a859f47f72fd1ffdf14e3aa2db1949361680fcb0eb987011a18c1314c07"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораВыполнениеСценария.MD",
+          "sha256": "89a599c885aecc5b9aa93969cf221a38603033f14322bbd5d8216a0df3ecba84"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораЗаменитьШагПроверкиПоИмениНаШагПроверкиПоЗаголовку.MD",
+          "sha256": "32d2b0563e6d5abd7769f7f3e674d2ea4d53405b94c30c901f72281a5083e9d5"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораКонтекстноеМенюMonaco.MD",
+          "sha256": "af74b71fa79955c3e1a4826f1b68af86ff99b8656e52f33eff78ff5fa080cb40"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораОткрытиеФайлов.MD",
+          "sha256": "d5a9d6a3f6bb64420d218f22b348a5800b7eab2c37710f5e114dd76af1348152"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораПерейтиКСледующейСтрокеСОшибкой.MD",
+          "sha256": "4f20b0d7f76a0fb1b59ae316ff15797232d4eb147639bb36ee17d177036da195"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораПодборШагов.MD",
+          "sha256": "abb72360d9e712a257e4853b329a569b67c9ac0bdb115187b57bfbfe35d4afc9"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораПолучитьМакетПоТаблицеGherkin.MD",
+          "sha256": "30ff7414e4e68c3e4dc641601f65e992738aaa2ad47c7fff65a97ea70c8e276b"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораПолучитьШагиПоДаннымКлиентаТестирования.MD",
+          "sha256": "ca1d2ddafd947e1a4ad64f2ab49240bf2eea049832a054c90b26de5698f4a784"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораРедакторТаблицGherkin.MD",
+          "sha256": "2bf2a075a62c71ee869d274837a7214c62435d82438be362b9bccbbc6fca94dc"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава13/КонтекстноеМенюРедактораТочкиОстанова.MD",
+          "sha256": "f8ec2276e9851e8180f27844c0ba4f2303f01bb8d3e011824408e2c11044acda"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава14/ОписаниеПрямойРаботыСБраузером.MD",
+          "sha256": "57bd8997b7e8387459bdc92afb89de1ad750662dec3c09b97c2927178a21599a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава15/ПоявилосьСообщениеНеизвестныйИдентификаторФормы.MD",
+          "sha256": "4fb4bb8f08fe8fda37d55ca3f49d1cc34f3c15508cba90ce1cbef075ccf2fdef"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава15/ПоявилосьСообщениеОбнаруженЗапретСинхронныхВызовов.MD",
+          "sha256": "e97259c752d415525fafc35ac73f5dfd8f62f50e560b829868bd49007bf4b5cc"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/КакВЦиклеОбойтиТаблицуОбъявленнуюВСекцииПеременные.MD",
+          "sha256": "5b52a103dfa74930a581ac36299cf84c79e2ee6aadb4f66658d2b1b2c1f8a87f"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/КакВЭкспортныйСценарийПередаватьМногострочнуюСтрокуВКачествеПараметра.MD",
+          "sha256": "3da8a749696f3d8df783766f05ccae237d5309556282903afacd02b78fa3616a"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/КакПроверитьЧтоДокументПроведенНеМогуНайтиПодходящийШагВБиблиотеке.MD",
+          "sha256": "b89995bd409486edf3ede428f154080fbe6c0d19ed4e5a881496cbba9957fe11"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/МогутЛиТестыПокрытьСценарийРаботыПользователейВНесколькихБазах.MD",
+          "sha256": "cb6653f50036feaa3e3fc35d556d74daf9f3e866a25dbd35306daa6a75f3e494"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/ПочемуАсинхронныйШагСЯвнымТаймаутом.MD",
+          "sha256": "42ccc6cdeef28fde6123f5b819da621919d926444d9dbd625bafc46a7ddffe78"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/СоздаватьТестовыеДанныеВРамкахСценарияИлиЭталоннаяБаза.MD",
+          "sha256": "681314b4cdcf91c52584b5e0e1d2bbae509c884746a0e6836a939052950cb5f4"
+        },
+        {
+          "path": "docs/MainHelp/1.2.043.1/Глава16/ХранитьТестовыеДанныеВГитРепозиторииЭтоНормальнаяПрактика.MD",
+          "sha256": "e8141197a1f4568820b560b0e69bc977c8f6560f294baf7ab4115d23b2c3f7f6"
+        },
+        {
+          "path": "docs/MainHelp/New.MD",
+          "sha256": "c39265cf492bfd1b9e2a48f627bc0d5e4912b5fefff35d1e47e94bc44fa58909"
+        },
+        {
+          "path": "docs/MainHelp/index.MD",
+          "sha256": "67dc7824c5ab5173427dd77072bd459dd55d5c20814e66f3921a97aba4c58ac2"
+        },
+        {
+          "path": "docs/MakeVASingle/MakeVASingle.md",
+          "sha256": "bd01543d1afc049e0f66fca1101d10d52547c1fa226a26ee8d6d4fd8affd8ad2"
+        },
+        {
+          "path": "docs/RAT/RAT.MD",
+          "sha256": "81ac26920815a9fef33b40189d0f9ac516de436139fd337af64de2b13aff76de"
+        },
+        {
+          "path": "docs/ReturnStatus/ReturnStatus.md",
+          "sha256": "c3c1de9ff368078c7f81b5167977cbc56004336e19f9df0e54cfa20dc92be1f2"
+        },
+        {
+          "path": "docs/RevertingDataChanges/ИнформацияОСистемеОтката.MD",
+          "sha256": "e224ab4491b97c9f37e96d2dde599b2ca898f82f362e5b04a9352fe8bf53b498"
+        },
+        {
+          "path": "docs/Smoke/Smoke.md",
+          "sha256": "2d7f015f5eaf495085004e066201f80a9bc5d5ad28414b0cf3d9ec49623adaee"
+        },
+        {
+          "path": "docs/TestDataGenerator/TestDataGenerator.md",
+          "sha256": "ca1e4d1e0287f64951d24422a19225a23c35bf29521028a07f7bef374d587f44"
+        },
+        {
+          "path": "docs/UIAutomation/UIAutomation.md",
+          "sha256": "79c7453d89ccd2b83219d6648027a769751bf1a943da76e8694dc20bfbb11fc2"
+        },
+        {
+          "path": "docs/VAExtension/VAExtension.md",
+          "sha256": "49c73b0b02265fa832e87febc02aa6f71d23b8ddbca84907f759d2488b345f00"
+        },
+        {
+          "path": "docs/index.md",
+          "sha256": "7f6cafbbcdb823c8f71b6dbda86ccd8f1997e9bc79395a608f7979f3ae7f30f6"
+        },
+        {
+          "path": "docs/mobile/mobile.md",
+          "sha256": "d7c3f48f90fb6be6049f88ee0685c1cbfc67da52dcd7345776a37648d58db28b"
+        },
+        {
+          "path": "examples/README.md",
+          "sha256": "be08e45a36fb8dbb5ea710fec44f65ac3ddc8beb6eb94d8433fc88dd0720b5a5"
+        },
+        {
+          "path": "training/features/Примеры/ПопыткаИсключение1.feature",
+          "sha256": "bb5660a0690095fccf4b81b6a4c48a4070a6e7f32cfc9eab281f1f84972cbfc0"
+        },
+        {
+          "path": "training/features/Примеры/ПримерГруппыШагов.feature",
+          "sha256": "bc6c9c601ee13e0a0a868438b6a84f889047e111374a30f74c4475bcdc228cdf"
+        },
+        {
+          "path": "training/features/Примеры/ПримерДляЧегоНужныПеременные.feature",
+          "sha256": "20db6183e754dd002acc5644025b6eca8d54770702c9e32ceb0b6c2ea185cb4b"
+        },
+        {
+          "path": "training/features/Примеры/ПримерИмпортПеременныхИзДругихФайлов.feature",
+          "sha256": "aea3c276d94c7d2b4ba592e22065787efee66a67dbbabbc139af2839f314bf47"
+        },
+        {
+          "path": "training/features/Примеры/ПримерИспользованиеПеременныхВнутриПараметровШагов.feature",
+          "sha256": "8cc86667037e8bc890210897b0ed605f7d2713433c9b602eab39f389ddb40c03"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЦиклеОбойтиТаблицуОбъявленнуюВСекцииПеременные1.feature",
+          "sha256": "aa307a285f823ca28d1680a8c47de3d04302c066eae91794bc2b27afd32a0594"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЦиклеОбойтиТаблицуОбъявленнуюВСекцииПеременные2.feature",
+          "sha256": "5e800d600813146f1d711c5125e780d8ed8d308da4528911dfbf165ad93cf1eb"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЦиклеОбойтиТаблицуОбъявленнуюВСекцииПеременные3.feature",
+          "sha256": "6c0d6764d5d74362726702209420668ee7ca4d9a0e3fffff0783984667d5038a"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЦиклеОбойтиТаблицуОбъявленнуюВСекцииПеременные4.feature",
+          "sha256": "658195bf28085b3429125d1af107d42294367c6ff2ef026c349d572e278d209d"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЦиклеОбойтиТаблицуОбъявленнуюВСекцииПеременные5.feature",
+          "sha256": "c557e081e16377c7e73eb726817eb5a519b6a3d8868fa94228623eddcc6d3548"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЭкспортныйСценарийПередаватьМногострочнуюСтрокуВКачествеПараметра1.feature",
+          "sha256": "6a123e6ced318d454783f2717548061369b94061e83c061c163a7f6bf8626fb2"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЭкспортныйСценарийПередаватьМногострочнуюСтрокуВКачествеПараметра2.feature",
+          "sha256": "9c15d6a840dce902d943a6cce2a230eca711b672996020f82eede09245f7a341"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЭкспортныйСценарийПередаватьМногострочнуюСтрокуВКачествеПараметра3.feature",
+          "sha256": "95a8060c85f9d1cd4c84e1763ae109ba95ff0848565bce08aecb8f3c08115396"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакВЭкспортныйСценарийПередаватьМногострочнуюСтрокуВКачествеПараметра4.feature",
+          "sha256": "6fea91a6a113b2c31e3f012669144f6aae24bce3360529b3faef865421172aca"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакЗапомнитьВПеременнуюВыражениеНаВстроенномЯзыке.feature",
+          "sha256": "202290411a4962fb647a09516c369cbf41d191933d00130baf3fa6c8161d6f72"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакИспользоватьПеременнуюДляВычисленияНаСервере.feature",
+          "sha256": "aa768f8ce7f966a3b4bb3a1539b81d48920d13d425fd62d62d055503727b2d1f"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакПараметрПодсценарияПоместитьВПеременную.feature",
+          "sha256": "fb15fc19111053bd9db069c0c0dd5303e2d383e5dd98cf0c32628b4ea215d444"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакПередатьГлобальныеПеременныеЧерезФайлVAParamsJson.feature",
+          "sha256": "e0e8c45117f00224e0b62e18bf2aed16f9c81b21f13568996ba07e64cc9e1ad9"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакСделатьЧтобыПодсценарийОтображалсяВДеревеИзвестныхШагов.feature",
+          "sha256": "51e6b2571f5ad613eef74a7e075c39fdd703c13091cd2947e348715bb2da8831"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакСравнитьДвеПеременные.feature",
+          "sha256": "b54950f62daaab7126a4f82f0759882a809c606210e3fae032f17e871f55744d"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакУдалитьПеременные.feature",
+          "sha256": "a5250975b9ee7dc6ca140ba35861dd97245c68f64a49414f8d021e8ea184d442"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакУстроенФичаФайл.feature",
+          "sha256": "7c20347559c05b957093a1fb7be398da80723c564c30fc503881361acf9f059c"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакУстроенФичаФайлСекцияПеременныеПростые.feature",
+          "sha256": "943e379a3b6a897461ee315cb2dee53c622dbf35b259fe0762a7a54e68494561"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакУстроенФичаФайлСекцияПеременныеТабличные.feature",
+          "sha256": "65fb85cbef0b531771d0c01a803176e481bf8b19a2ac83ea1cb908efe6723b49"
+        },
+        {
+          "path": "training/features/Примеры/ПримерКакУстроенФичаФайлСтруктураСценария.feature",
+          "sha256": "ce686d45b4f6dfa805bd42ec8c3d7111854b00bbd543ef90ae82a7ca030fa2d7"
+        },
+        {
+          "path": "training/features/Примеры/ПримерОсобенностиПередачиПеременныхВШагиКоторыеВычисляютВыражение.feature",
+          "sha256": "34e94a946c3b1e8df9ba093a1c0ceb1cad3a2268921fea1686b466db83605cd1"
+        },
+        {
+          "path": "training/features/Примеры/ПримерПараметрыШагов.feature",
+          "sha256": "667097d733dbf200dadf4951ad0a5d8a7519e61fc72a3a4774126e602ccba811"
+        },
+        {
+          "path": "training/features/Примеры/ПримерПодсценарии1.feature",
+          "sha256": "82429c2ef0f776cf3d15ef0f914a3556ed98c37a185b6e80952017a41235fea5"
+        },
+        {
+          "path": "training/features/Примеры/ПримерПодсценарии2.feature",
+          "sha256": "1e3a9aa64d1ded43b7295e2376bf04826c73b5a3f0c45e07ded47ac6f7f7b8b7"
+        },
+        {
+          "path": "training/features/Примеры/ПримерПодсценарии3.feature",
+          "sha256": "14427eb9e4a115f0c549d7ac5016392663f720581f25f4ae6ecb97886cade403"
+        },
+        {
+          "path": "training/features/Примеры/ПримерПравилаСозданияИменСценариев.feature",
+          "sha256": "935b2f29d369731a952d26fdf7c0d89f923dc01cdfd55224f56ee9d3e6b38084"
+        },
+        {
+          "path": "training/features/Примеры/ПримерСекцияПеременныеИмпорт.feature",
+          "sha256": "1e941dcca897d02269b56cc95b62b6798dfe2e168bd37d915c4d9d47b17c4c1a"
+        },
+        {
+          "path": "training/features/Примеры/ПримерСлужебныеПеременные.feature",
+          "sha256": "598b0d4aa716ae18e37459e7301497d9ba31b0fc6414c9748d6151a5688a8939"
+        },
+        {
+          "path": "training/features/Примеры/ПримерСозданиеПеременныхКодом.feature",
+          "sha256": "51a3bf11d37810287fdadebba1f29889e687bb9c12e7f94802c0e433752f1773"
+        },
+        {
+          "path": "training/features/Примеры/ПримерСпецсимволы.feature",
+          "sha256": "a51d7546a25a4e35e84eedca43f7308b1dcc51718969734fed8efbc58fff5e96"
+        },
+        {
+          "path": "training/features/Примеры/ПримерТегЗаписиВидеоВыполненияСценария1.feature",
+          "sha256": "8175b29b91f1c6495758fb18929fc140a867f317b503b70fbe649a054c0418c2"
+        },
+        {
+          "path": "training/features/Примеры/ПримерТегЗаписиВидеоВыполненияСценария2.feature",
+          "sha256": "08776ef3d5926294330a0add382975df84c24b1e7549fd75997fb9f8dee5a53f"
+        },
+        {
+          "path": "training/features/Примеры/ПримерТегСнятияСкриншотов.feature",
+          "sha256": "7bc63b9f4fc8ca6a186271c83cf9407fdc37b2c1e1eaa003c1a8bc4995523aaf"
+        },
+        {
+          "path": "training/features/Примеры/ПримерТипыПеременных.feature",
+          "sha256": "f7353606d1126025c012c39563fa3d21b79e2bbdd88bfdc2afe1c50f32a22a1e"
+        },
+        {
+          "path": "training/features/Примеры/ПримерУсловия1.feature",
+          "sha256": "290c54a1cc110e00db4f23b05198bf4e3a2cc6ce90cc9f162a2e3dc2fb7b21a9"
+        },
+        {
+          "path": "training/features/Примеры/ПримерУсловия2.feature",
+          "sha256": "04d397ae81f72bdc40c535a0e18965b37f411368ef159b922f42c9a337a45302"
+        },
+        {
+          "path": "training/features/Примеры/ПримерХранитьТестовыеДанныеВГитРепозиторииЭтоНормальнаяПрактика.feature",
+          "sha256": "b7f705d19ca698135ff74c21f2620f44f975a386b656bde6c299f95f472943d6"
+        },
+        {
+          "path": "training/features/Примеры/ПримерЦиклов1.feature",
+          "sha256": "b46061b3a7bcdab181871295da63de7da15a686f38064facad65ba5844313e8a"
+        },
+        {
+          "path": "training/features/Примеры/Экспорт/ЭкспортныеСценарииПростые.feature",
+          "sha256": "1cefe34989b5ae88558cf7b1f8b9cfae6987125bf0c66445f185296add967393"
+        },
+        {
+          "path": "training/features/Примеры/Экспорт/ЭкспортныеСценарииСМногострочнымиСтроками.feature",
+          "sha256": "1c043b4f54ca028401dd9042514028f7db8de6451f9feae3a3c58e814245aa8a"
+        },
+        {
+          "path": "training/features/Примеры/Экспорт/ЭкспортныеСценарииСТаблицами.feature",
+          "sha256": "71c90c478b11a33dd8407b8086ead00672c35e8d9f8cc5d309ec05bfd9e2aebd"
+        }
+      ],
+      "project": "Pr-Mex/vanessa-automation",
+      "revision": null
+    },
+    {
+      "content_revision": "sha256:cdf0af9a3270fd14a3deb967848e48b01a0a4196f53c59d1fca9e58c5f50951f",
+      "inputs": [
+        {
+          "path": "README.md",
+          "sha256": "91ce0b14a4416abb29a10dda16eec6bc799e004528efdc671d3469bf9e0da5c4"
+        }
+      ],
+      "project": "1c-neurofish/onec-client-mcp-devkit",
+      "revision": null
+    }
+  ]
+}

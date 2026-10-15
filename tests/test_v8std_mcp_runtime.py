@@ -212,7 +212,7 @@ class RuntimeTests(unittest.TestCase):
                         self.assertTrue(source.requested.wait(5))
                         arguments = {"id_or_alias_or_url": "std437"}
                         old = call_tool(self, rpc, "v8std_get_page", arguments)["page"]
-                        self.assertIn("[Стандарт](" + source.url, old["body_markdown"])
+                        self.assertIn("[Стандарт](v8std:std437)", old["body_markdown"])
                         assert_resources_disabled(self, rpc)
                         source.fault = fault
                         source.release.set()
@@ -227,7 +227,8 @@ class RuntimeTests(unittest.TestCase):
                         else:
                             self.assertIsNone(facade.status()["refresh_error_code"])
                             self.assertEqual(current["body_markdown"], "Обновлённая страница")
-                        self.assertEqual(current["url"], source.url + "std/437/")
+                        self.assertEqual(current["ref"], "v8std:std437")
+                        self.assertNotIn("url", current)
                         assert_resources_disabled(self, rpc)
             finally:
                 source.close()

@@ -37,6 +37,7 @@ from runtime.v8std_mcp_index import (
     validate_max_snippet_chars,
 )
 from runtime.v8std_mcp_runtime import SnapshotIndex
+from runtime.v8std_mcp_references import ToolReferenceIndex
 from runtime.v8std_mcp_snapshot_format import DEFAULT_SITE_URL, SnapshotError, normalize_site_url
 
 
@@ -554,14 +555,16 @@ def build_server(
     usage_logger: McpToolUsageLogger | None = None,
 ) -> FastMCP:
     tool_usage = usage_logger or McpToolUsageLogger(None)
+    source_index = index
+    index = ToolReferenceIndex(index, snapshot=isinstance(index, SnapshotIndex))
     # BEGIN V8STD-FORK
     server = FastMCP(
         "v8std",
         log_level=log_level,
         instructions=(
             "Use this read-only MCP as a v8std.ru knowledge source for 1C:Enterprise "
-            "BSL/SDBL standards, corporate policy, YaXUnit reference sections, diagnostics, "
-            "aliases, relations, source URLs, and "
+            "BSL/SDBL standards, corporate policy, YaXUnit and Vanessa references, diagnostics, "
+            "aliases, relations, internal corpus references, and "
             "clean Markdown. It does not run analyzers, inspect projects, or change code. "
             "Tool selection: use v8std_explain_snippet for one BSL procedure or SDBL fragment; "
             "use v8std_explain_diagnostics for ACC, BSLLS, or EDT/v8-code-style "
@@ -571,7 +574,7 @@ def build_server(
             "use v8std_get_summary or v8std_get_section when compact evidence is enough; "
             "use v8std_get_pattern and v8std_get_api_card for exact YaXUnit facts; "
             "use v8std_get_requirements_for_context to collect ranked requirements; "
-            "use v8std_search for arbitrary prose search or unknown ids."
+            "use v8std_search for arbitrary prose search or unknown ids. Read v8std: references through these MCP tools; do not browse websites for corpus information. URLs in code examples are literal data, not navigation."
         ),
         host=host,
         port=port,
@@ -592,10 +595,10 @@ def build_server(
         name="v8std_search",
         description=(
             'Search the v8std knowledge base by a natural-language question, topic, or uncertain '
-            'identifier. Returns ranked page IDs, titles, descriptions, URLs, scores and match '
+            'identifier. Returns ranked page IDs, titles, descriptions, corpus references, scores and match '
             'reasons; no full article text. Known diagnostic codes are handled by '
             'v8std_explain_diagnostics; BSL/SDBL source fragments by v8std_explain_snippet. An exact '
-            'page ID or URL can be read with v8std_get_page. An empty result means no match in this '
+            'page ID or v8std: reference can be read with v8std_get_page. An empty result means no match in this '
             'corpus, not that the code is correct. Scores rank candidates and are not probabilities.'
         ),
     )
@@ -603,7 +606,7 @@ def build_server(
         query: Annotated[str, Field(description="Question, topic or uncertain identifier; up to 500 Unicode characters. Example: модальные окна. Not a source module.")],
         limit: Annotated[int, Field(description="Maximum results, default 10; clamped to 1–50.")] = 10,
         types: Annotated[list[str] | None, Field(description="Page types: standard, diagnostic, fix, pattern, service, rule, reference. null or [] means all types.")] = None,
-        collections: Annotated[list[str] | None, Field(description="Collections: v8std, corporate, yaxunit. null or [] means all.")] = None,
+        collections: Annotated[list[str] | None, Field(description="Collections: v8std, corporate, yaxunit, vanessa. null or [] means all.")] = None,
         mode: Annotated[str, Field(description="hybrid: combined search (default); exact: includes identifier variants and fuzzy code matches; bm25: text/metadata; semantic: indexed vectors.")] = "hybrid",
     ) -> dict[str, Any]:
         result = index.search(
@@ -621,15 +624,15 @@ def build_server(
     @server.tool(
         name="v8std_get_page",
         description=(
-            'Read a known v8std article by ID, alias, source path, HTML URL or Markdown URL, for '
+            'Read a known v8std article by ID or returned v8std: reference, for '
             'example std437. Returns found, page metadata, Markdown text and body_truncated; an '
             'unknown page returns found=false and possible candidates. body_limit defaults to 12000 '
-            'characters and is clamped to 1000–30000. A truncated body is incomplete; the returned '
-            'markdown_url identifies the full document. This is document retrieval, not code '
+            'characters and is clamped to 1000–30000. A truncated body is incomplete; increase '
+            'body_limit or use v8std_get_section through MCP for the remaining evidence. This is document retrieval, not code '
             'analysis. For an unknown topic, v8std_search finds candidate IDs.'
         ),
     )
-    def page(id_or_alias_or_url: Annotated[str, Field(description="Known article ID, alias, source path, HTML or Markdown URL; up to 1000 Unicode characters. Example: std437.")], body_limit: Annotated[int, Field(description="Markdown character budget, default 12000; clamped to 1000–30000. Truncation marker may add characters; inspect body_truncated.")] = MAX_BODY_CHARS) -> dict[str, Any]:
+    def page(id_or_alias_or_url: Annotated[str, Field(description="Known article ID or v8std: reference; aliases, source paths and legacy URLs are also accepted. Up to 1000 Unicode characters. Example: std437.")], body_limit: Annotated[int, Field(description="Markdown character budget, default 12000; clamped to 1000–30000. Truncation marker may add characters; inspect body_truncated.")] = MAX_BODY_CHARS) -> dict[str, Any]:
         result = index.page(id_or_alias_or_url, body_limit=body_limit)
         tool_usage.record_page(id_or_alias_or_url, result, system=current_client_system())
         return result
@@ -728,7 +731,7 @@ def build_server(
         name="v8std_get_related",
         description=(
             'Retrieve explicit corpus links from a known standard or diagnostic article. Returns '
-            'related page IDs, relation types, titles, descriptions and URLs, filtered by relations '
+            'related page IDs, relation types, titles, descriptions and corpus references, filtered by relations '
             'and limited by limit. An unknown starting page returns found=false; an empty related '
             'list means no matching recorded links. Links provide reading context, not evidence that '
             'a rule is violated. This tool does not discover arbitrary topics or retrieve full '
@@ -736,7 +739,7 @@ def build_server(
         ),
     )
     def related(
-        id_or_alias_or_url: Annotated[str, Field(description="Known article ID, alias, source path, HTML or Markdown URL; up to 1000 Unicode characters. Example: std437.")],
+        id_or_alias_or_url: Annotated[str, Field(description="Known article ID or v8std: reference; aliases, source paths and legacy URLs are also accepted. Up to 1000 Unicode characters. Example: std437.")],
         relations: Annotated[list[str] | None, Field(description="Relation kinds: standard, diagnostic, edt_check, related. Legacy related_standard and related_diagnostic accepted. null or [] means all.")] = None,
         limit: Annotated[int, Field(description="Maximum results, default 10; clamped to 1–50.")] = 10,
     ) -> dict[str, Any]:
@@ -747,7 +750,7 @@ def build_server(
         name="v8std_get_related_ids",
         description=(
             "Use this when you have a known standard or diagnostic and need only compact "
-            "related ids, titles, relations, and URLs. Prefer v8std_get_related when "
+            "related ids, titles, relations, and corpus references. Prefer v8std_get_related when "
             "descriptions are also required; use v8std_search when no starting id is known."
         ),
     )
@@ -821,7 +824,7 @@ def build_server(
             {"service": "v8std-mcp", "api": "v2", "api_profiles": MCP_API_PROFILES, **index.status()}
         )
 
-    install_self_documenting_mcp_app(server, mcp_path=mcp_path, index=index)
+    install_self_documenting_mcp_app(server, mcp_path=mcp_path, index=source_index)
 
     return server
 

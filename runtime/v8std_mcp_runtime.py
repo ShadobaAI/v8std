@@ -11,6 +11,7 @@ from runtime.v8std_mcp_index import (
     clamp_body_limit, clamp_limit, require_text, trim_body, validate_max_snippet_chars,
 )
 from runtime.v8std_mcp_presentation import LinkCatalog, present_result
+from runtime.v8std_mcp_references import TOOL_REFERENCES, present_mcp_result
 from runtime.v8std_mcp_snapshot_format import DEFAULT_SITE_URL, VerifiedSnapshot, normalize_site_url
 from runtime.v8std_mcp_snapshots import LoaderError, SnapshotCoordinator, SnapshotStore
 from runtime.v8std_mcp_hold import CONTROL_PATH
@@ -77,6 +78,8 @@ class SnapshotIndex:
             raise
 
     def _present(self, generation, result):
+        if TOOL_REFERENCES.get():
+            return present_mcp_result(result, generation.index._pages, limits=TOOL_REFERENCES.get())
         return present_result(result, canonical_site_url=generation.canonical_site_url,
                               site_url=self.site_url, page_paths=generation.page_paths)
 
@@ -131,7 +134,9 @@ class SnapshotIndex:
             # Parse the full link before trimming. A longer local prefix cannot
             # enlarge the inherited body budget or leave a cut public link.
             presented = self._present(generation, page)
-            return {"found": True, "page": trim_body(presented, body_limit), "candidates": []}
+            if not TOOL_REFERENCES.get():
+                presented = trim_body(presented, body_limit)
+            return {"found": True, "page": presented, "candidates": []}
         return self._present(generation, generation.index.page(lookup, body_limit=body_limit))
 
     def related(self, id_or_alias_or_url, *, relations=None, limit=None):

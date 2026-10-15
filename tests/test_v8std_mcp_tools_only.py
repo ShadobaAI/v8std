@@ -156,12 +156,13 @@ class ToolsOnlyWireTests(unittest.TestCase):
         self.assertEqual([item["id"] for item in search["results"]], ["std437"])
         self.assertTrue(page["found"])
         self.assertEqual(page["candidates"], [])
-        self.assertEqual(page["page"]["url"], site_url + "std/437/")
-        self.assertIn("[Стандарт](" + site_url + "std/437/?view=full#query)", page["page"]["body_markdown"])
+        self.assertEqual(page["page"]["ref"], "v8std:std437")
+        self.assertNotIn("url", page["page"])
+        self.assertIn("[Стандарт](v8std:std437)", page["page"]["body_markdown"])
         self.assertIn('Адрес = "https://v8std.ru/std/437/";', page["page"]["body_markdown"])
         self.assertFalse(page["page"]["body_truncated"])
         self.assertEqual(related, {"found": True, "id": "std437", "title": "Запросы",
-                                   "relations": None, "related": []})
+                                   "relations": None, "related": [], "ref": "v8std:std437"})
         self.assertEqual([item["id"] for item in snippet["standards"]], ["std437"])
         self.assertEqual(diagnostics, {"diagnostics": [], "standards": [],
             "unknown_codes": [{"code": "missing", "frequency": 1}], "total_input": 1, "unique_codes": 1})

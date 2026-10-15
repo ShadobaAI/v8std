@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import unittest
 from pathlib import Path
 
@@ -31,6 +32,18 @@ class McpContainerContractTests(unittest.TestCase):
 
         self.assertIn("rm -rf /build/docs/ai", self.dockerfile)
         self.assertIn("rm -f /build/docs/llms.txt /build/docs/llms-full.txt", self.dockerfile)
+
+    def test_build_dependencies_can_be_cached_across_corpus_updates(self):
+        artifacts = self.dockerfile.split("FROM python:3.12-slim AS runtime", 1)[0]
+        instructions = [part for part in re.split(r"(?m)(?=^(?:FROM|WORKDIR|COPY|RUN) )", artifacts) if part.strip()]
+        install = next(i for i, part in enumerate(instructions) if part.startswith("RUN python -m pip install"))
+        requirements = next(i for i, part in enumerate(instructions) if part.startswith("COPY requirements-build.lock "))
+        self.assertLess(requirements, install)
+        for source in ("scripts", "docs"):
+            copied = next(i for i, part in enumerate(instructions) if part.startswith(f"COPY {source} "))
+            self.assertLess(install, copied)
+        self.assertNotIn("generate_ai_artifacts.py", instructions[install])
+        self.assertNotIn("/build/docs", instructions[install])
 
     def test_runtime_image_contains_only_mcp_runtime_and_generated_data(self):
         runtime = self.dockerfile.split("FROM python:3.12-slim AS runtime", 1)[1]

@@ -7,7 +7,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
 
-VALID_COLLECTIONS = {"v8std", "corporate", "yaxunit"}
+VALID_COLLECTIONS = {"v8std", "corporate", "yaxunit", "vanessa"}
 VALID_TYPES = {"standard", "diagnostic", "fix", "pattern", "service", "rule", "reference"}
 VALID_CORPORATE_LEVELS = {"mandatory", "recommended", "reference"}
 SECTION_COLLECTIONS = {"corporate", "yaxunit"}
@@ -44,6 +44,8 @@ def classify_collection(relative: Path) -> str:
         return "corporate"
     if relative.parts[:1] == ("yaxunit",):
         return "yaxunit"
+    if relative.parts[:1] == ("vanessa",):
+        return "vanessa"
     return "v8std"
 
 
@@ -107,6 +109,10 @@ def validate_source_metadata(
             raise ValueError(f"missing explicit YaXUnit pattern id in {relative}")
         if not page_id.startswith("yaxunit:patterns:"):
             raise ValueError(f"invalid YaXUnit pattern id '{page_id}' in {relative}")
+    if collection == "vanessa":
+        prefix = "vanessa:patterns:" if page_type == "pattern" else "vanessa:mcp:"
+        if "id" not in front_matter or not page_id.startswith(prefix):
+            raise ValueError(f"invalid Vanessa stable id '{page_id}' in {relative}")
     if collection != "corporate":
         return
     required = {"id", "collection", "type", "level", "tags"}

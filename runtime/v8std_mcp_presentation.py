@@ -169,9 +169,10 @@ def _block(state):
 
 class _HTMLNodes(HTMLParser):
     """HTML decides attributes; edits retain their original quoting context."""
-    def __init__(self, source, nodes, tags):
+    def __init__(self, source, nodes, tags, text_spans=None):
         super().__init__(convert_charrefs=False)
         self.source, self.nodes, self.tags = source, nodes, tags
+        self.text_spans = text_spans
         self.lines = [0] + [match.end() for match in re.finditer("\n", source)]
 
     def source_offset(self):
@@ -201,6 +202,13 @@ class _HTMLNodes(HTMLParser):
                 value = _HTMLValue(value, raw_value)
             if span:
                 self.nodes.append((*span, value, "html_unquoted" if group == 5 else "html"))
+
+    def handle_data(self, data):
+        if self.text_spans is not None:
+            start = self.source_offset()
+            span = self.source.span(start, start + len(data))
+            if span:
+                self.text_spans.append(span)
 
     def handle_endtag(self, tag):
         start = self.source_offset()
@@ -298,10 +306,23 @@ def _html_inline(state, silent):
     return True
 
 
-def _link_nodes(source, generated_fields):
+def _link_nodes(source, generated_fields, *, unlink=None):
     """Instrument successful parser rules, never error-recovery guesses."""
     md = MarkdownIt("commonmark")
     nodes, tags, text_spans, frames = [], [], [], []
+    removals = []
+
+    def remove(src):
+        offsets = [offset for offset in src.offsets if offset >= 0]
+        if not offsets:
+            return
+        begin = previous = offsets[0]
+        for offset in offsets[1:]:
+            if offset != previous + 1:
+                removals.append((begin, previous + 1))
+                begin = offset
+            previous = offset
+        removals.append((begin, previous + 1))
     md.core.ruler.at("normalize", _normalize)
     md.core.ruler.at("block", _block)
     helpers = md.helpers
@@ -325,6 +346,8 @@ def _link_nodes(source, generated_fields):
         candidates = frames.pop()
         if accepted and not silent:
             nodes.extend(candidates)
+            if unlink and candidates and all(unlink(candidate[2]) for candidate in candidates):
+                remove(state.getLines(begin, state.line, 0, False))
         return accepted
 
     md.block.ruler.at("reference", ref_rule)
@@ -333,13 +356,14 @@ def _link_nodes(source, generated_fields):
         # Image labels are parsed into alt children, not document-level HTML
         # or links. Keep the parser's tokens, but discard their collector side
         # effects before wrap() records the image's own destination.
-        node_count, tag_count, text_count = len(nodes), len(tags), len(text_spans)
+        node_count, tag_count, text_count, removal_count = len(nodes), len(tags), len(text_spans), len(removals)
         try:
             return image(state, silent)
         finally:
             del nodes[node_count:]
             del tags[tag_count:]
             del text_spans[text_count:]
+            del removals[removal_count:]
 
     def wrap(rule, kind):
         def run(state, silent):
@@ -354,6 +378,17 @@ def _link_nodes(source, generated_fields):
             if kind in {"link", "image"}:
                 urls = {token.attrGet("href") or token.attrGet("src") for token in emitted
                         if token.type in {"link_open", "image"}}
+                if unlink and kind == "image":
+                    label_end = helpers.parseLinkLabel(state, start + 1)
+                    offsets = [offset for offset in src[start+2:label_end].offsets if offset >= 0]
+                    if offsets:
+                        text_spans.append((min(offsets), max(offsets)+1))
+                if unlink and urls and all(unlink(url) for url in urls):
+                    label_start = start + (2 if kind == "image" else 1)
+                    label_end = helpers.parseLinkLabel(state, label_start - 1)
+                    if label_end >= label_start:
+                        remove(src[start:label_start])
+                        remove(src[label_end:state.pos])
                 end_offset = src.offsets[state.pos - 1] + 1
                 nodes.extend(candidate for candidate in candidates
                              if candidate[1] <= end_offset and state.md.normalizeLink(candidate[2]) in urls)
@@ -361,9 +396,11 @@ def _link_nodes(source, generated_fields):
                 span = src.span(start + 1, state.pos - 1)
                 if span:
                     nodes.append((*span, str(src[start + 1:state.pos - 1]), "autolink"))
+                if unlink and unlink(str(src[start + 1:state.pos - 1])):
+                    remove(src[start:state.pos])
             elif kind == "html_inline":
-                _HTMLNodes(src[start:state.pos], nodes, tags).feed(str(src[start:state.pos]))
-            elif generated_fields:
+                _HTMLNodes(src[start:state.pos], nodes, tags, text_spans if unlink else None).feed(str(src[start:state.pos]))
+            elif generated_fields or unlink:
                 span = src.span(start, state.pos)
                 if span:
                     text_spans.append(span)
@@ -376,7 +413,7 @@ def _link_nodes(source, generated_fields):
     tokens = md.parse(source)
     for token in tokens:
         if token.type == "html_block":
-            _HTMLNodes(token.content, nodes, tags).feed(str(token.content))
+            _HTMLNodes(token.content, nodes, tags, text_spans if unlink else None).feed(str(token.content))
     protected, opened = [], []
     for start, end, tag, closing in sorted(tags):
         if tag not in _PROTECTED_TAGS:
@@ -400,7 +437,12 @@ def _link_nodes(source, generated_fields):
                 end -= 1
             nodes.append((start, end, source[start:end], "context" if match[0].startswith("URL:") else "field"))
     protected = _merged_spans(protected)
-    return [node for node in sorted(set(nodes)) if not _covered(node[0], protected)], md
+    nodes = [node for node in sorted(set(nodes)) if not _covered(node[0], protected)]
+    if unlink:
+        removals = [span for span in removals if not _covered(span[0], protected)]
+        return nodes, md, removals, _merged_spans(
+            span for span in text_spans if not _covered(span[0], protected))
+    return nodes, md
 
 
 def _escape_destination(value, kind, md):
@@ -477,3 +519,33 @@ def present_result(value, *, canonical_site_url, site_url, page_paths):
         return result
 
     return visit(value)
+
+
+def present_tool_markdown(text, catalog, *, context=None):
+    """Use corpus references for navigation; keep literal code/source unchanged."""
+    nodes, md, removals, text_spans = _link_nodes(
+        text, False, unlink=lambda value: catalog.link(value, context=context) is None)
+    edits = [(start, end, "") for start, end in removals]
+    for start, end, value, kind in nodes:
+        target = catalog.link(value, context=context)
+        if target is None:
+            if kind.startswith("html"):
+                edits.append((start, end, ""))
+            continue
+        if target != value:
+            escaped = _escape_destination(target, kind, md)
+            edits.extend(value.edits(escaped) if isinstance(value, _HTMLValue)
+                         else [(start, end, escaped)])
+    for match in re.finditer(r"https?://[^\s<>\"'`\[\]]+", text, re.I):
+        if _covered(match.start(), text_spans):
+            raw = match[0].rstrip(".,;:!?)")
+            target = catalog.link(raw, context=context)
+            edits.append((match.start(), match.start()+len(raw), target or ""))
+    parts, previous = [], 0
+    for start, end, value in sorted(edits, key=lambda edit: (edit[0], -edit[1])):
+        if start < previous:
+            continue
+        parts.extend((text[previous:start], value))
+        previous = end
+    parts.append(text[previous:])
+    return "".join(parts)

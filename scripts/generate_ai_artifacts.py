@@ -27,6 +27,7 @@ from generate_social_cards import (  # noqa: E402
 from v8std_retrieval_rules import RetrievalRules  # noqa: E402
 from v8std_search_features import generated_aliases_for_page  # noqa: E402
 # BEGIN V8STD-FORK
+from v8std_vanessa_snapshot import validate_vanessa_snapshot
 from v8std_knowledge_collections import (  # noqa: E402
     classify_collection,
     expand_retrieval_records,
@@ -357,6 +358,8 @@ def classify_page(relative: Path, front_matter: dict | None = None) -> str:
     collection = classify_collection(relative)
     if collection == "corporate":
         return str(front_matter.get("type", "")).strip()
+    if collection == "vanessa":
+        return "pattern" if relative.parts[:2] == ("vanessa", "patterns") else "reference"
     if collection == "yaxunit":
         if relative.parts[:2] == ("yaxunit", "patterns"):
             return "pattern"
@@ -405,7 +408,7 @@ def build_page_id(
 ) -> str:
     front_matter = front_matter or {}
     collection = classify_collection(relative)
-    if collection == "corporate":
+    if collection in {"corporate", "vanessa"}:
         return str(front_matter.get("id", "")).strip()
     if collection == "yaxunit":
         explicit_id = str(front_matter.get("id", "")).strip()
@@ -1139,6 +1142,7 @@ def build_site_ai_index(root: Path) -> dict:
     docs_dir = root / project.get("docs_dir", "docs")
     # BEGIN V8STD-FORK
     validate_yaxunit_snapshot(root)
+    validate_vanessa_snapshot(root)
     # END V8STD-FORK
     retrieval_rules = RetrievalRules.load(root / "retrieval-rules.yml")
     pages = sort_pages(

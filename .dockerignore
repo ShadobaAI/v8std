@@ -34,5 +34,7 @@
 !delivery/ci/
 !delivery/ci/Dockerfile
 !scripts/v8std_knowledge_collections.py
+!scripts/v8std_vanessa_snapshot.py
+!scripts/sync_vanessa_docs.py
 !scripts/generate_search_vectors.py
 !scripts/run_v8std_mcp_image.sh
