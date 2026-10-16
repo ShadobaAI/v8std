@@ -40,7 +40,9 @@ class CombinedMcpRuntimeTests(unittest.TestCase):
             assert_resources_disabled(self, rpc)
             result = call_tool(self, rpc, "v8std_get_page", {"id_or_alias_or_url": "std437"})
             self.assertTrue(result["found"])
-            self.assertEqual(result["page"]["body_markdown"], fixture.BODY)
+            expected = fixture.BODY.replace(
+                "(https://v8std.ru/std/437/?view=full#query)", "(v8std:std437)")
+            self.assertEqual(result["page"]["body_markdown"], expected)
             version = rpc.client.get("/version").json()
             self.assertEqual(version["api"], "v2")
             self.assertEqual(version["api_profiles"], ["legacy-tools"])

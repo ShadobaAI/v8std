@@ -652,7 +652,22 @@ class SnapshotFormatTests(unittest.TestCase):
         fmt, producer = self.modules()
         # Snapshots deliver the public corpus. The fork's private section records
         # use fragment URLs and are shipped through local JSONL in Dockerfile.mcp.
-        corpus = ROOT / "site"
+        # Exercise the current public corpus without requiring an HTML site build.
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        corpus = Path(temporary.name)
+        (corpus / "ai").mkdir()
+        source = ROOT / "docs"
+        rows = [json.loads(line) for line in (source / "ai/pages.jsonl").read_bytes().splitlines()]
+        rows = [row for row in rows if row.get("collection", "v8std") == "v8std"]
+        ids = {row["id"] for row in rows}
+        (corpus / "ai/pages.jsonl").write_text(
+            "\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n", encoding="utf-8")
+        vectors = [line for line in (source / "ai/search-vectors.jsonl").read_bytes().splitlines()
+                   if json.loads(line)["id"] in ids]
+        (corpus / "ai/search-vectors.jsonl").write_bytes(b"\n".join(vectors) + b"\n")
+        for name in ("llms.txt", "llms-full.txt"):
+            (corpus / name).write_bytes((source / name).read_bytes())
         original_vectors = (corpus / "ai/search-vectors.jsonl").read_bytes()
         archive, manifest = producer.build_snapshot(corpus, fixture.SOURCE_SHA, fixture.SITE_URL)
         second, _ = producer.build_snapshot(corpus, fixture.SOURCE_SHA, fixture.SITE_URL)

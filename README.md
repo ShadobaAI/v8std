@@ -17,40 +17,25 @@ Windows: `build-v8std-mcp.cmd`, затем `run-v8std-mcp.cmd <namespace>/v8std-
 Сборщик выбирает namespace Docker Hub из `docker login` или `V8STD_MCP_DOCKER_USER`;
 публикация выполняется отдельно. [Подробности](docs/mcp-image.md).
 
-## Разработка сайта
+## Поддержка форка
 
-```bash
-python3.12 -m venv .venv
-.venv/bin/python -m pip install --require-hashes -r requirements-build.lock
-VIRTUAL_ENV="$PWD/.venv" bash scripts/zensical_docs.sh serve --dev-addr=127.0.0.1:8000
-```
+Этот форк [zeegin/v8std](https://github.com/zeegin/v8std) поставляет только MCP.
+Дополнительные коллекции: `corporate`, `yaxunit`, `vanessa`. Общие стандарты,
+диагностики и алгоритмы поиска обновляются из upstream с сохранением исправлений форка.
 
-Контент находится в `docs/`, шаблоны — в `overrides/`. Сборка сайта не требует MCP.
+- [Обновление upstream и сохранённые исправления](spec/fork-maintenance.md).
+- [Сборка, публикация и запуск Docker-образа](docs/mcp-image.md).
+- Локальные проверки: `python -m dev.fork.check` и проверка образа без сети.
+- CI автора сохранён без изменений; GitHub Actions отключены в настройках форка. Выпуск: ручной запуск `build-v8std-mcp.cmd`, затем ручной `docker push`.
 
-## Устройство репозитория
+Исходники сайта и VPS-поставки upstream сохранены для упрощения слияний;
+Эти продукты не входят в ручной сценарий поставки форка. Готовый образ автора
+`ghcr.io/zeegin/v8std-mcp:stable` содержит публичный корпус и не заменяет образ форка.
 
-- `scripts/`, `data/`, конфигурации в корне — сборка сайта и индекса.
-- `runtime/` — MCP-сервис; имя не конфликтует с Python SDK `mcp`.
-- `delivery/` — образы, публикация артефактов и доставка на VPS.
-- `dev/` — подготовка контента и инструменты разработчика.
-- `tests/` — действующие проверки; `spec/` — цель и устройство поставки.
-
-Python-команды из новых каталогов запускаются из корня через `python -m`,
-например `.venv/bin/python -m dev.content.acc_diagnostics generate --check`.
-Тестовые зависимости: `.venv/bin/python -m pip install --require-hashes -r dev/requirements-test.lock`.
-Тесты: `.venv/bin/python -m unittest discover -s tests -t .`.
-
-## Готовые образы
-
-Публичный и локальный MCP используют Streamable HTTP. Отдельный транспорт для локального запуска не требуется.
-
-`delivery/local/compose.mcp.yaml` запускает готовый образ автора только с публичным
-индексом. Он не содержит `corporate`, `yaxunit`, `vanessa` и дополнительных методов fork.
-`delivery/local/compose.yaml` предназначен для сайта и совместного запуска с MCP.
-
-[Целевая поставка](spec/delivery-target.md) · [Файлы сборки сайта](spec/local-site-build-files.md) ·
-[План разделения](spec/repository-layout-plan.md)
-
+Для разработки используйте Python 3.12 и зависимости из `dev/requirements-test.lock`.
+Набор проверок форка запускается через `python -m dev.fork.check`;
+перед ним нужны `python scripts/generate_ai_artifacts.py` и
+`python scripts/generate_search_vectors.py`. Тесты не требуют сборки HTML-сайта.
 
 ## Навигация по знаниям через MCP
 

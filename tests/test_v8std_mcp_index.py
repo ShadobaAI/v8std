@@ -18,8 +18,14 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from runtime.v8std_mcp_index import (  # noqa: E402
     IndexLoadError,
+    MIN_RESULT_SCORE,
+    SEMANTIC_MODE_MAX_RESULTS,
+    SEMANTIC_RRF_WEIGHT,
+    SEMANTIC_SCORE_WEIGHT,
     VECTOR_DIM,
+    VECTOR_MODEL,
     V8StdIndex,
+    embed_query,
     normalize_lookup_key,
     normalize_page_schema,
 )
@@ -55,6 +61,92 @@ class V8StdMcpIndexTests(unittest.TestCase):
         self.assertEqual(bslls_results[0]["id"], "bslls:AssignAliasFieldsInQuery")
         self.assertIn("match_reasons", std_results[0])
         self.assertIn("score_details", std_results[0])
+
+    def test_search_cursor_reads_past_fifty_without_reordering_or_duplication(self):
+        # Hybrid drops results below MIN_RESULT_SCORE; bm25 keeps the long
+        # tail and exercises more than one full page.
+        first = self.index.search("модуль", limit=50, mode="bm25")
+        self.assertGreater(first["total"], 50)
+        self.assertEqual(len(first["results"]), 50)
+        self.assertIsNotNone(first["next_cursor"])
+        second = self.index.search("модуль", limit=50, mode="bm25", cursor=first["next_cursor"])
+        self.assertEqual(second, self.index.search("модуль", limit=50, mode="bm25", cursor=first["next_cursor"]))
+        self.assertFalse({item["id"] for item in first["results"]} &
+                         {item["id"] for item in second["results"]})
+        with self.assertRaisesRegex(ValueError, "stale search cursor"):
+            self.index.search("форма", limit=50, mode="bm25", cursor=first["next_cursor"])
+        with self.assertRaisesRegex(ValueError, "stale search cursor"):
+            self.index.search("модуль", limit=20, mode="bm25", cursor=first["next_cursor"])
+        with self.assertRaisesRegex(ValueError, "stale search cursor"):
+            self.index.search("модуль", limit=50, mode="hybrid", cursor=first["next_cursor"])
+        with self.assertRaisesRegex(ValueError, "stale search cursor"):
+            self.index.search("модуль", limit=50, mode="bm25", types=["standard"], cursor=first["next_cursor"])
+
+        seen = first["results"] + second["results"]
+        page = second
+        while page["next_cursor"] is not None:
+            page = self.index.search("модуль", limit=50, mode="bm25", cursor=page["next_cursor"])
+            seen.extend(page["results"])
+        self.assertEqual(len(seen), first["total"])
+        self.assertEqual(len({item["id"] for item in seen}), first["total"])
+        self.assertLessEqual(len(page["results"]), 50)
+
+    def test_search_cursor_rejects_a_changed_index(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pages_path = Path(temp_dir) / "pages.jsonl"
+            pages_path.write_text(
+                '\n'.join(json.dumps({"id": f"std{number}", "type": "standard", "title": "Page module"})
+                          for number in (1, 2, 3)) + '\n',
+                encoding="utf-8",
+            )
+            index = V8StdIndex(
+                pages_path=pages_path,
+                vectors_path=REPO_ROOT / "docs" / "ai" / "search-vectors.jsonl",
+            )
+            index.load()
+            # A three-page corpus scores below the hybrid MIN_RESULT_SCORE.
+            first = index.search("module", limit=1, mode="bm25")
+            self.assertIsNotNone(first["next_cursor"])
+            pages_path.write_text(
+                '\n'.join(json.dumps({"id": f"std{number}", "type": "standard", "title": "Page module changed"})
+                          for number in (1, 2, 3)) + '\n',
+                encoding="utf-8",
+            )
+            index.load()
+            with self.assertRaisesRegex(ValueError, "stale search cursor"):
+                index.search("module", limit=1, mode="bm25", cursor=first["next_cursor"])
+            with self.assertRaisesRegex(ValueError, "invalid search cursor"):
+                index.search("module", limit=1, mode="bm25", cursor="vs1.invalid.1")
+
+    def test_search_cursor_rejects_changed_rules_with_same_ranked_hits(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pages_path = Path(temp_dir) / "pages.jsonl"
+            rules_path = Path(temp_dir) / "retrieval-rules.yml"
+            pages_path.write_text(
+                '\n'.join(json.dumps({"id": f"std{number}", "type": "standard", "title": "Page module"})
+                          for number in (1, 2, 3)) + '\n',
+                encoding="utf-8",
+            )
+
+            def load_with_standard(standard_id):
+                rules_path.write_text(
+                    f"rules:\n  - id: example\n    primary: std1\n    standards: [{standard_id}]\n",
+                    encoding="utf-8",
+                )
+                index = V8StdIndex(pages_path=pages_path, rules_path=rules_path)
+                index.load()
+                return index
+
+            original = load_with_standard("std2")
+            first = original.search("module", mode="bm25", limit=1)
+            changed = load_with_standard("std3")
+            changed_first = changed.search("module", mode="bm25", limit=1)
+            self.assertEqual(first["results"][0]["id"], changed_first["results"][0]["id"])
+            self.assertEqual(first["results"][0]["score"], changed_first["results"][0]["score"])
+            self.assertNotEqual(first["results"][0]["related_preview"],
+                                changed_first["results"][0]["related_preview"])
+            with self.assertRaisesRegex(ValueError, "stale search cursor"):
+                changed.search("module", mode="bm25", limit=1, cursor=first["next_cursor"])
 
     def test_generated_code_aliases_are_top_ranked(self):
         layout_results = self.index.search("ыев437", limit=3)["results"]
@@ -149,6 +241,109 @@ class V8StdMcpIndexTests(unittest.TestCase):
         self.assertEqual(query_allowed[0]["id"], "std415")
         self.assertEqual(modal[0]["id"], "bslls:UsingModalWindows")
         self.assertEqual(log_event[0]["id"], "std498")
+
+    def test_unmatched_query_is_empty_in_lexical_and_hybrid_modes(self):
+        for query in ("zzzqqqxyz", "абырвалг"):
+            for mode in ("hybrid", "exact", "bm25"):
+                with self.subTest(query=query, mode=mode):
+                    result = self.index.search(query, mode=mode)
+                    self.assertEqual((result["total"], result["results"], result["next_cursor"]),
+                                     (0, [], None))
+
+    def test_semantic_similarity_reranks_but_does_not_add_hybrid_candidates(self):
+        if not self.index.status()["semantic_enabled"]:
+            self.skipTest("search vectors are not generated")
+        query = "GetFormMethod"
+        lexical = self.index.search(query, mode="exact", limit=50)["total"]
+        lexical += self.index.search(query, mode="bm25", limit=50)["total"]
+        hybrid = self.index.search(query, limit=50)
+        self.assertEqual(hybrid["results"][0]["id"], "bslls:GetFormMethod")
+        # Semantic noise used to make every page in the corpus a candidate.
+        self.assertLess(hybrid["total"], len(self.index._pages) // 4)
+        self.assertGreater(hybrid["total"], 0)
+        self.assertGreater(lexical, 0)
+
+    def test_hybrid_keeps_only_results_above_min_result_score(self):
+        query = "обработчик события"
+        hybrid = self.index.search(query, limit=50)
+        scores = [item["score"] for item in hybrid["results"]]
+        self.assertTrue(scores)
+        self.assertTrue(all(score >= MIN_RESULT_SCORE for score in scores))
+        # total is the number of admitted results, not of all candidates.
+        self.assertEqual(hybrid["total"], len(scores))
+        # bm25 has its own score scale and keeps the long tail.
+        bm25 = self.index.search(query, mode="bm25", limit=50)
+        self.assertGreater(bm25["total"], hybrid["total"])
+        self.assertTrue(any(item["score"] < MIN_RESULT_SCORE for item in bm25["results"]))
+
+    def test_off_topic_query_is_empty_in_hybrid_mode(self):
+        for query in ("как сварить борщ", "рецепт пиццы", "football results"):
+            with self.subTest(query=query):
+                # This upstream expectation is calibrated on its own corpus.
+                result = self.index.search(query, collections=["v8std"])
+                self.assertEqual((result["total"], result["results"], result["next_cursor"]),
+                                 (0, [], None))
+
+    def test_type_filtered_hybrid_search_keeps_matches_below_threshold(self):
+        query = "привести несовместимый интерфейс к ожидаемому клиентом"
+        unfiltered = self.index.search(query, limit=50, collections=["v8std"])
+        self.assertNotIn("patterns:gof:adapter", [item["id"] for item in unfiltered["results"]])
+        filtered = self.index.search(query, types=["pattern"], limit=5, collections=["v8std"])
+        self.assertEqual(filtered["results"][0]["id"], "patterns:gof:adapter")
+        self.assertLess(filtered["results"][0]["score"], MIN_RESULT_SCORE)
+        seen = list(filtered["results"])
+        page = filtered
+        while page["next_cursor"] is not None:
+            page = self.index.search(query, types=["pattern"], limit=5, collections=["v8std"], cursor=page["next_cursor"])
+            seen.extend(page["results"])
+        self.assertEqual(len(seen), filtered["total"])
+        self.assertTrue(all(item["type"] == "pattern" for item in seen))
+        # Nothing matched lexically: the filter does not admit vector noise.
+        self.assertEqual(self.index.search("zzzqqqxyz", types=["pattern"])["total"], 0)
+
+    def test_related_boost_strengthens_only_existing_candidates(self):
+        source = next(page for page in self.index._pages if len(page.get("related", [])) >= 2)
+        linked_id, unmatched_id = (item["id"] for item in source["related"][:2])
+        candidates = {}
+        self.index._add_candidate(candidates, source["id"], 1000.0, "bm25_body", "bm25_body", 1.0)
+        self.index._add_candidate(candidates, linked_id, 10.0, "bm25_body", "bm25_body", 1.0)
+        self.index._add_related_boosts(candidates)
+        self.assertNotIn(unmatched_id, candidates)
+        self.assertEqual(candidates[linked_id]["score"], 10.0 + 40.0)
+        self.assertIn(f"related_boost:{source['id']}", candidates[linked_id]["reasons"])
+
+    def test_semantic_contribution_uses_calibrated_weights(self):
+        if not self.index.status()["semantic_enabled"]:
+            self.skipTest("search vectors are not generated")
+        self.assertEqual((SEMANTIC_SCORE_WEIGHT, SEMANTIC_RRF_WEIGHT), (2400.0, 13000.0))
+        candidates = {}
+        self.index._add_candidate(candidates, "bslls:GetFormMethod", 0.0, "exact", "exact", 1.0)
+        self.index._add_semantic_scores(candidates, "GetFormMethod", rerank_only=True)
+        candidate = candidates["bslls:GetFormMethod"]
+        cosine = candidate["details"]["semantic"]
+        self.assertGreater(cosine, 0)
+        self.assertAlmostEqual(candidate["score"], cosine * 2400.0 + 13000.0 / 61)
+        self.assertEqual(set(candidates), {"bslls:GetFormMethod"})
+
+    def test_semantic_mode_returns_bounded_nearest_pages(self):
+        if not self.index.status()["semantic_enabled"]:
+            self.skipTest("search vectors are not generated")
+        result = self.index.search("Separation of Concerns", mode="semantic", types=["pattern"], limit=5)
+        self.assertEqual(result["results"][0]["id"], "patterns:engineering:separation_of_concerns")
+        self.assertLessEqual(result["total"], SEMANTIC_MODE_MAX_RESULTS)
+        self.assertLessEqual(self.index.search("zzzqqqxyz", mode="semantic")["total"],
+                             SEMANTIC_MODE_MAX_RESULTS)
+
+    def test_runtime_query_embedding_matches_vector_generator(self):
+        import generate_search_vectors as generator
+
+        self.assertEqual((generator.DEFAULT_MODEL, generator.DEFAULT_DIM), (VECTOR_MODEL, VECTOR_DIM))
+        text = "Модальные окна OpenFormModal ПроверкаЗаполнения реквизитов"
+        expected = struct.unpack(f"<{VECTOR_DIM}f", struct.pack(
+            f"<{VECTOR_DIM}f", *generator.embed_text(text, dim=VECTOR_DIM)))
+        actual = struct.unpack(f"<{VECTOR_DIM}f", struct.pack(
+            f"<{VECTOR_DIM}f", *embed_query(text, VECTOR_DIM)))
+        self.assertEqual(actual, expected)
 
     def test_search_validates_types_and_modes(self):
         with self.assertRaises(ValueError):
@@ -468,7 +663,7 @@ class V8StdMcpIndexTests(unittest.TestCase):
                 "id": "std111",
                 "field": "body",
                 "chunk_index": 0,
-                "model": "v8std-hash-embeddings-v1",
+                "model": VECTOR_MODEL,
                 "dim": VECTOR_DIM,
                 "vector_base64": good_vector,
             }
@@ -491,6 +686,10 @@ class V8StdMcpIndexTests(unittest.TestCase):
                     vector_row(model="model-a"),
                     vector_row(model="model-b", chunk_index=1),
                 ],
+                # Vectors of another hashing scheme are not comparable
+                # with this runtime's query embedding.
+                vector_row(model="v8std-hash-embeddings-v2"),
+                {key: value for key, value in vector_row().items() if key != "model"},
             ]
             for payload in invalid_payloads:
                 rows = payload if isinstance(payload, list) else [payload]

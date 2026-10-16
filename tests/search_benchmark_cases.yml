@@ -458,12 +458,14 @@ cases:
   required_top: 5
 - scenario: 'pattern phrase: strategy'
   query: выбрать алгоритм во время выполнения без условных операторов
+  collections: [v8std]
   types:
   - pattern
   expected: patterns:gof:strategy
   required_top: 5
 - scenario: 'pattern phrase: observer'
   query: подписчики получают уведомления об изменении состояния
+  collections: [v8std]
   types:
   - pattern
   expected: patterns:gof:observer
@@ -1655,6 +1657,24 @@ cases:
   expected: bslls:UsingModalWindows
   required_top: 1
   limit: 1
+- scenario: nonsense query is empty
+  query: zzzqqqxyz
+  max_total: 0
+- scenario: cyrillic nonsense query is empty
+  query: абырвалг
+  max_total: 0
+- scenario: keyboard mash query is empty
+  query: qwerty asdf zxcv
+  max_total: 0
+- scenario: off-topic question has a small total
+  query: как сварить борщ
+  max_total: 3
+- scenario: off-topic travel question has a small total
+  query: купить билет на самолёт
+  max_total: 3
+- scenario: off-topic english question has a small total
+  query: how to cook pasta
+  max_total: 3
 thresholds:
   mrr: 0.85
   p95_latency_ms: 500

@@ -2,8 +2,9 @@ import unittest
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
+from markdown_it import MarkdownIt
 
-from scripts.publish_license_texts import (check_published_license_links, default_repo_root,
+from scripts.publish_license_texts import (THIRD_PARTY_PAGE, check_published_license_links, default_repo_root,
                                          publish_license_texts, LinkParser)
 
 
@@ -26,8 +27,15 @@ class PublishedLicenseLinkTests(unittest.TestCase):
         with patch.dict("os.environ", {"V8STD_REPO_ROOT": "/docs"}):
             self.assertEqual(default_repo_root(), Path("/docs"))
 
-    def test_strict_build_publishes_every_local_third_party_license_link(self):
-        checked = check_published_license_links(REPO_ROOT, REPO_ROOT / "site")
+    def test_attribution_source_links_every_published_third_party_license(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = Path(directory)
+            publish_license_texts(REPO_ROOT, site)
+            source = (REPO_ROOT / "docs/THIRD_PARTY_DIAGNOSTIC_ARTICLES.md").read_text(encoding="utf-8")
+            target = site / THIRD_PARTY_PAGE
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(MarkdownIt().render(source), encoding="utf-8")
+            checked = check_published_license_links(REPO_ROOT, site)
 
         self.assertEqual(
             checked,

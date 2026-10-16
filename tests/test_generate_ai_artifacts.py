@@ -63,6 +63,11 @@ class GenerateAiArtifactsTests(unittest.TestCase):
         cls.module = load_module()
         cls.index = cls.module.build_site_ai_index(REPO_ROOT)
         cls.pages_by_id = {page["id"]: page for page in cls.index["pages"]}
+        # The source corpus is immutable in this class. Generate its expensive
+        # outputs once; each test still checks the real generator's results.
+        cls.generated_jsonl = cls.module.build_pages_jsonl(cls.index["pages"])
+        cls.generated_llms_txt = cls.module.build_llms_txt(cls.index)
+        cls.generated_llms_full_txt = cls.module.build_llms_full_txt(cls.index)
 
     def test_extracts_expected_standard_and_diagnostic_aliases(self):
         std437 = self.pages_by_id["std437"]
@@ -208,9 +213,9 @@ class GenerateAiArtifactsTests(unittest.TestCase):
             acc_499["body_markdown"],
         )
 
-        jsonl = self.module.build_pages_jsonl(self.index["pages"])
-        llms = self.module.build_llms_txt(self.index)
-        llms_full = self.module.build_llms_full_txt(self.index)
+        jsonl = self.generated_jsonl
+        llms = self.generated_llms_txt
+        llms_full = self.generated_llms_full_txt
         self.assertIn("<ИмяКонстанты>", jsonl)
         self.assertIn("<ИмяМодуля>.<ИмяПроцедуры>(<Параметры>);", jsonl)
         self.assertIn("ИмяКонстанты", llms)
@@ -240,7 +245,7 @@ class GenerateAiArtifactsTests(unittest.TestCase):
         )
 
     def test_pages_jsonl_is_valid_and_urls_are_unique(self):
-        payload = self.module.build_pages_jsonl(self.index["pages"])
+        payload = self.generated_jsonl
         rows = [json.loads(line) for line in payload.splitlines()]
         urls = [row["url"] for row in rows]
 
@@ -264,11 +269,11 @@ class GenerateAiArtifactsTests(unittest.TestCase):
         self.assertFalse((REPO_ROOT / "docs" / "superpowers").exists())
 
     def test_llms_ignore_excludes_service_pages_from_mcp_index(self):
-        llms_txt = self.module.build_llms_txt(self.index)
-        llms_full = self.module.build_llms_full_txt(self.index)
+        llms_txt = self.generated_llms_txt
+        llms_full = self.generated_llms_full_txt
         jsonl_rows = [
             json.loads(line)
-            for line in self.module.build_pages_jsonl(self.index["pages"]).splitlines()
+            for line in self.generated_jsonl.splitlines()
         ]
         jsonl_ids = {row["id"] for row in jsonl_rows}
 
@@ -293,11 +298,11 @@ class GenerateAiArtifactsTests(unittest.TestCase):
         self.assertIn("std437", jsonl_ids)
 
     def test_llms_ignore_excludes_ui_design_standards_from_llms_but_keeps_them_searchable_by_mcp(self):
-        llms_txt = self.module.build_llms_txt(self.index)
-        llms_full = self.module.build_llms_full_txt(self.index)
+        llms_txt = self.generated_llms_txt
+        llms_full = self.generated_llms_full_txt
         jsonl_rows = [
             json.loads(line)
-            for line in self.module.build_pages_jsonl(self.index["pages"]).splitlines()
+            for line in self.generated_jsonl.splitlines()
         ]
         jsonl_ids = {row["id"] for row in jsonl_rows}
         page_ids = collect_ui_design_standard_ids()
@@ -381,7 +386,7 @@ class GenerateAiArtifactsTests(unittest.TestCase):
                     )
 
     def test_llms_full_uses_readable_metadata_and_has_no_relative_links(self):
-        payload = self.module.build_llms_full_txt(self.index)
+        payload = self.generated_llms_full_txt
 
         self.assertIn("Markdown URL: https://v8std.ru/std/437.md", payload)
         self.assertNotIn("#!bsl", payload)
@@ -442,7 +447,7 @@ class GenerateAiArtifactsTests(unittest.TestCase):
         self.assertNotIn('=== ":fontawesome-brands-linux: linux"', support)
 
     def test_llms_txt_contains_required_shape_and_acceptance_relation(self):
-        payload = self.module.build_llms_txt(self.index)
+        payload = self.generated_llms_txt
 
         self.assertTrue(payload.startswith("# Стандарты разработки 1С\n"))
         self.assertIn("\n> Система стандартов", payload)

@@ -54,6 +54,8 @@ COPY scripts/run_v8std_mcp_image.sh \
 COPY LICENSE /opt/v8std/LICENSE
 COPY LICENSES /opt/v8std/LICENSES/
 COPY docs/vanessa/LICENSE /opt/v8std/LICENSES/vanessa-BSD-3-Clause.txt
+COPY docs/yaxunit/LICENSE /opt/v8std/LICENSES/yaxunit-Apache-2.0.txt
+COPY docs/yaxunit/manifest.json /opt/v8std/data/yaxunit-manifest.json
 COPY docs/vanessa/manifest.json /opt/v8std/data/vanessa-manifest.json
 COPY docs/vanessa/source-map.json /opt/v8std/data/vanessa-source-map.json
 COPY retrieval-rules.yml /opt/v8std/retrieval-rules.yml

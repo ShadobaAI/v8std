@@ -38,3 +38,7 @@
 !scripts/sync_vanessa_docs.py
 !scripts/generate_search_vectors.py
 !scripts/run_v8std_mcp_image.sh
+# Rebuilt from Markdown inside the image; local outputs must not bust the cache.
+docs/ai/
+docs/llms.txt
+docs/llms-full.txt

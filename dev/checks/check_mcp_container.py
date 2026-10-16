@@ -166,7 +166,8 @@ def check_tools(request, site_url):
     search = eventually(lambda: call("v8std_search", {"query": "std437", "limit": 3}),
                         seconds=STARTUP_SECONDS)
     assert search["results"][0]["id"] == "std437", search
-    assert search["results"][0]["url"] == site_url + "std/437/", search
+    assert search["results"][0]["ref"] == "v8std:std437", search
+    assert "url" not in search["results"][0], search
     ranking = call("v8std_search", {"query": "модальные окна", "limit": 5})
     assert [row["id"] for row in ranking["results"]] == canonical_ranking(), ranking
     result = call("v8std_explain_snippet", {"snippet": SIGNAL, "limit": 1})
@@ -176,10 +177,11 @@ def check_tools(request, site_url):
     assert any(reason.startswith("snippet_signal:") for reason in row["match_reasons"]), row
     page = call("v8std_get_page", {"id_or_alias_or_url": "std437"})
     assert page["found"] and page["page"]["id"] == "std437" and page["page"]["body_markdown"]
-    assert page["page"]["url"] == site_url + "std/437/"
+    assert page["page"]["ref"] == "v8std:std437" and "url" not in page["page"]
     related = call("v8std_get_related", {"id_or_alias_or_url": "std437"})
     assert related["found"] and related["id"] == "std437" and related["related"], related
-    assert all(row.get("id") and row.get("relation") and row["url"].startswith(site_url)
+    assert all(row.get("id") and row.get("relation") and row["ref"] == "v8std:" + row["id"]
+               and "url" not in row
                for row in related["related"]), related
     diagnostics = call("v8std_explain_diagnostics", {"codes": ["bslls:UsingModalWindows"]})
     assert diagnostics["diagnostics"][0]["id"] == "bslls:UsingModalWindows", diagnostics

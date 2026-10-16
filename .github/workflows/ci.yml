@@ -75,21 +75,13 @@ jobs:
           .venv/bin/python -m dev.content.generate_diagnostic_standard_links --check
           .venv/bin/python -m dev.checks.check_diagnostic_articles
           .venv/bin/python -m dev.checks.search_benchmark
-          .venv/bin/python -m dev.checks.snippet_benchmark --baseline-ref 3df5b40e773d0e7bc146ac2d9214934bb4145f73
+          .venv/bin/python -m dev.checks.snippet_benchmark --baseline-ref 807925201dc711417848d6b4e0fbea26f9d94b7d
       - name: Build identical public and local corpus with selected corpus SHA
-        if: github.repository == 'zeegin/v8std'
         run: |
           CORPUS_SHA=$(.venv/bin/python -m delivery.ci.publish_mcp_artifacts value --directory .ci --field corpus_sha)
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/docs" --entrypoint python v8std-ci:builder -m delivery.index.generate_mcp_snapshot --source-sha "$CORPUS_SHA" --output .ci/snapshot --public-delivery
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/docs" --entrypoint python v8std-ci:builder -m delivery.site.build_local_site --output .ci/local-site --site-url http://localhost:18765/ --source-sha "$CORPUS_SHA"
           .venv/bin/python -m delivery.ci.publish_mcp_artifacts verify-build --directory .ci
-      - name: Build and check standalone fork MCP offline
-        if: github.repository != 'zeegin/v8std'
-        run: |
-          docker build -f Dockerfile.mcp -t v8std-fork:check .
-          trap 'docker rm -f v8std-fork-check' EXIT
-          docker run --name v8std-fork-check --network none -d v8std-fork:check
-          docker exec -i v8std-fork-check python - < tests/mcp_fork_image_smoke.py
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         id: validated
         with:
@@ -275,7 +267,7 @@ jobs:
       needs.validate.result == 'success' && needs.publish.result == 'success' &&
       vars.MCP_RUNTIME_DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     environment: mcp-production
     permissions:
       contents: read
@@ -284,6 +276,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       MCP_RUNTIME_DEPLOY_ENABLED: ${{ vars.MCP_RUNTIME_DEPLOY_ENABLED }}
+      MCP_STOP_START_DEPLOY_ENABLED: ${{ vars.MCP_STOP_START_DEPLOY_ENABLED }}
       MCP_GATES: >-
         {"build":"${{ needs.validate.outputs.build }}","tests":"${{ needs.validate.outputs.tests }}","benchmark":"${{ needs.validate.outputs.benchmark }}"}
     steps:

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 import fcntl
+import grp
 import hashlib
 import json
 import multiprocessing
@@ -18,6 +19,7 @@ import re
 import select
 import shutil
 import signal
+import socket
 import stat
 import subprocess
 import sys
@@ -64,12 +66,15 @@ BOOTSTRAP_TIMER = ("[Unit]\nDescription=Independent first-migration recovery gua
     "OnBootSec=5s\nOnUnitInactiveSec=15s\nUnit=v8std-bootstrap-recover.service\n\n"
     "[Install]\nWantedBy=timers.target\n")
 TRANSACTION = 300
+STOP_START_TRANSACTION = 900
 READINESS = 90
 SMOKE = DRAIN = 30
 STOP = 45
 # Rollback gets a live budget even if preparation uses its entire work allowance.
 # 90 ready + 30 smoke + 45 stop + 15 nginx/control overhead.
 RECOVERY_RESERVE = 180
+STOP_START_RECOVERY_RESERVE = STOP + READINESS + 2 * SMOKE + 15
+STOP_START_ACCEPTANCE_BUDGET = STOP + 2 * READINESS + 3 * SMOKE + DRAIN + 20
 INITIAL_RECOVERY_RESERVE = 60
 TERMINAL = {"FAILED", "ROLLED_BACK", "COMMITTED", "RECOVERY_REQUIRED"}
 ID = re.compile(r"[a-z0-9][a-z0-9-]{0,63}\Z")
@@ -85,16 +90,31 @@ CONFIG_TYPES = {"application/vnd.oci.image.config.v1+json",
 
 
 class ReleaseError(ValueError):
-    """Codes only; raw external errors and command output never enter status."""
+    """Codes only; raw external errors and command output never enter status.
 
-    def __init__(self, code):
+    `detail` is a short controller-chosen locator (a fixed command verb or a
+    host path), never command output, environment, token or request content.
+    """
+
+    def __init__(self, code, detail=None):
         self.code = code
+        self.detail = detail
         super().__init__(code)
 
 
-def require(condition, code):
+def require(condition, code, detail=None):
     if not condition:
-        raise ReleaseError(code)
+        raise ReleaseError(code, detail)
+
+
+def failure(step, error):
+    """Durable, secret-free cause of a failed step for journals and status."""
+    value = {"step": step, "code": error.code if isinstance(error, ReleaseError) else "host_failure"}
+    if isinstance(error, ReleaseError) and error.detail:
+        value["detail"] = str(error.detail)[:128]
+    elif not isinstance(error, ReleaseError):
+        value["detail"] = type(error).__name__[:64]
+    return value
 
 
 def matches(pattern, value):
@@ -133,7 +153,7 @@ def validate_envelope(raw, *, now=None, expired=False):
     require(type(value["deadline"]) is int, "deadline")
     if not expired:
         now = time.time() if now is None else now
-        require(now < value["deadline"] <= now + TRANSACTION, "deadline")
+        require(now < value["deadline"] <= now + STOP_START_TRANSACTION, "deadline")
     return value
 
 
@@ -219,11 +239,13 @@ def run(argv, deadline, *, limit=2 * 1024 * 1024):
             stdout=output, stderr=subprocess.DEVNULL, start_new_session=True,
             env={"PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin", "HOME": "/var/lib/v8std-release"})
         try:
+            # Only the fixed program and verb identify a failed command.
+            verb = " ".join(str(x) for x in argv[:2])
             while process.poll() is None:
-                require(output.tell() <= limit, "command_output")
+                require(output.tell() <= limit, "command_output", verb)
                 time.sleep(min(.025, remaining(deadline)))
-            require(process.returncode == 0, "command_failed")
-            require(output.tell() <= limit, "command_output")
+            require(process.returncode == 0, "command_failed", verb)
+            require(output.tell() <= limit, "command_output", verb)
             output.seek(0)
             return output.read(limit + 1)
         finally:
@@ -243,48 +265,94 @@ def trusted_path(path):
     for entry in (path, *path.parents):
         info = entry.lstat()
         require(not stat.S_ISLNK(info.st_mode) and info.st_uid == 0 and not info.st_mode & 0o022,
-                "policy_permissions")
+                "policy_permissions", str(entry))
+
+
+def log_root_groups():
+    """root and the distribution's log group; absence of `syslog` is fine."""
+    groups = {0}
+    try:
+        groups.add(grp.getgrnam("syslog").gr_gid)
+    except KeyError:
+        pass
+    return groups
+
+
+def trusted_log_root(info):
+    """The distribution owns /var/log, not this controller.
+
+    Ubuntu's tmpfiles rule `z /var/log 0775 root syslog` restores group write
+    on every boot, so requiring 0755 here made each reboot disable start and
+    rollback. Accept exactly that distribution layout: a root-owned directory,
+    mode 0755 or 0775 (no setgid/sticky/world write), group root or syslog.
+    Everything below it is created and verified through file descriptors.
+    """
+    return (stat.S_ISDIR(info.st_mode) and info.st_uid == 0
+            and info.st_mode & 0o7777 in {0o755, 0o775} and info.st_gid in log_root_groups())
 
 
 def prepare_usage_log(*, create=True):
-    """Provision only the fixed private inode; never repair/truncate history."""
+    """Provision only the fixed private inode; never repair/truncate history.
+
+    /var/log is group-writable by the log group, so no path below it is
+    trusted: every step uses dir_fd + O_NOFOLLOW and nothing is chowned by
+    name. Returns (st_dev, st_ino) of the verified file; the caller compares it
+    with the file Docker actually bound into the container.
+    """
     parent = USAGE_LOG.parent
-    trusted_path(parent.parent)
+    trusted_path(parent.parent.parent)
     try:
-        try:
-            parent.mkdir(mode=0o700)
-            os.chown(parent, 0, 0)
-            sync_dir(parent.parent)
-        except FileExistsError:
-            pass
-        directory = os.open(parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
-        try:
-            info = os.fstat(directory)
-            require((info.st_uid, info.st_gid, stat.S_IMODE(info.st_mode)) == (0, 0, 0o700), "usage_log_directory")
-            flags = os.O_NOFOLLOW | os.O_NONBLOCK
-            try:
-                fd = os.open(USAGE_LOG.name, os.O_RDONLY | flags, dir_fd=directory)
-            except FileNotFoundError:
-                require(create, "usage_log_missing")
-                fd = os.open(USAGE_LOG.name, os.O_RDWR | os.O_CREAT | os.O_EXCL | flags, 0o600, dir_fd=directory)
-                try:
-                    os.fchown(fd, 10001, 0)
-                    os.fchmod(fd, 0o640)  # Explicit final mode despite UMask0077.
-                    os.fsync(fd)
-                    os.fsync(directory)
-                except BaseException:
-                    os.close(fd)
-                    raise
-            try:
-                info = os.fstat(fd)
-                require(stat.S_ISREG(info.st_mode) and info.st_nlink == 1
-                        and (info.st_uid, info.st_gid, stat.S_IMODE(info.st_mode)) == (10001, 0, 0o640), "usage_log_file")
-            finally:
-                os.close(fd)
-        finally:
-            os.close(directory)
+        log_root = os.open(parent.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     except OSError:
-        raise ReleaseError("usage_log_file") from None
+        raise ReleaseError("usage_log_root", str(parent.parent)) from None
+    try:
+        require(trusted_log_root(os.fstat(log_root)), "usage_log_root", str(parent.parent))
+        try:
+            try:
+                # root's uid/gid and mode <= 0700 (umask only clears bits); the
+                # fstat check below rejects anything else, including a swap.
+                os.mkdir(parent.name, 0o700, dir_fd=log_root)
+                os.fsync(log_root)
+            except FileExistsError:
+                pass
+            directory = os.open(parent.name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=log_root)
+            try:
+                info = os.fstat(directory)
+                require((info.st_uid, info.st_gid, stat.S_IMODE(info.st_mode)) == (0, 0, 0o700), "usage_log_directory")
+                flags = os.O_NOFOLLOW | os.O_NONBLOCK
+                try:
+                    fd = os.open(USAGE_LOG.name, os.O_RDONLY | flags, dir_fd=directory)
+                except FileNotFoundError:
+                    require(create, "usage_log_missing")
+                    fd = os.open(USAGE_LOG.name, os.O_RDWR | os.O_CREAT | os.O_EXCL | flags, 0o600, dir_fd=directory)
+                    try:
+                        os.fchown(fd, 10001, 0)
+                        os.fchmod(fd, 0o640)  # Explicit final mode despite UMask0077.
+                        os.fsync(fd)
+                        os.fsync(directory)
+                    except BaseException:
+                        os.close(fd)
+                        raise
+                try:
+                    info = os.fstat(fd)
+                    require(stat.S_ISREG(info.st_mode) and info.st_nlink == 1
+                            and (info.st_uid, info.st_gid, stat.S_IMODE(info.st_mode)) == (10001, 0, 0o640), "usage_log_file")
+                    return info.st_dev, info.st_ino
+                finally:
+                    os.close(fd)
+            finally:
+                os.close(directory)
+        except OSError:
+            raise ReleaseError("usage_log_file") from None
+    finally:
+        os.close(log_root)
+
+
+def check_port_binding(info, record):
+    """An adopted or restarted container must publish exactly its slot port."""
+    bindings = (info.get("HostConfig") or {}).get("PortBindings")
+    require(bindings == {"8000/tcp": [{"HostIp": "127.0.0.1", "HostPort": str(record["port"])}]},
+            "port_binding", str(record["port"]))
 
 
 def check_usage_binding(info):
@@ -446,8 +514,9 @@ def backup_inventory(root, window, deadline):
 
 
 def validate_policy(policy):
-    require(set(policy) == {"schema_version", "enabled", "runtime_enabled", "platform", "public_url", "configs",
-            "capacity", "ports", "nginx_include", "static_root"}, "policy_fields")
+    fields = {"schema_version", "enabled", "runtime_enabled", "platform", "public_url", "configs",
+              "capacity", "ports", "nginx_include", "static_root"}
+    require(fields <= set(policy) <= fields | {"stop_start"}, "policy_fields")
     require(type(policy["schema_version"]) is int and policy["schema_version"] == 1
             and policy["enabled"] is True, "not_activated")
     require(type(policy["runtime_enabled"]) is bool, "runtime_activation")
@@ -475,7 +544,30 @@ def validate_policy(policy):
                 "capacity_reserve")
     else:
         require(capacity["network_evidence"] is None or matches(HEX, capacity["network_evidence"]), "capacity_evidence")
+    if "stop_start" in policy:
+        target = policy["stop_start"]
+        keys = {"trigger_sha", "runtime_source_sha", "image_digest", "platform_digest",
+                "configuration_digest", "corpus_id", "archive_sha256", "expires_at"}
+        require(isinstance(target, dict) and set(target) == keys, "stop_start_fields")
+        for key in ("trigger_sha", "runtime_source_sha"):
+            require(matches(SHA, target[key]), "stop_start_target")
+        for key in ("image_digest", "platform_digest"):
+            require(matches(DIGEST, target[key]), "stop_start_target")
+        for key in ("configuration_digest", "corpus_id", "archive_sha256"):
+            require(matches(HEX, target[key]), "stop_start_target")
+        require(type(target["expires_at"]) is int and target["expires_at"] > 0, "stop_start_expiry")
     return policy
+
+
+def rollout_mode(policy, envelope, *, now=None):
+    target = policy.get("stop_start")
+    if target is None:
+        require(envelope["deadline"] - (time.time() if now is None else now) <= TRANSACTION, "deadline")
+        return "overlap"
+    require(all(envelope[key] == value for key, value in target.items() if key != "expires_at"),
+            "stop_start_target")
+    require((time.time() if now is None else now) < target["expires_at"], "stop_start_expired")
+    return "stop-start"
 
 
 def verify_descriptors(index_raw, child_raw, envelope, platform):
@@ -666,9 +758,13 @@ class HostAdapter:
         child = run(["docker", "buildx", "imagetools", "inspect", "--raw", IMAGE + "@" + envelope["platform_digest"]], deadline)
         return verify_descriptors(index, child, envelope, self.policy["platform"])
 
-    def capacity(self, deadline, *, reclaim_bytes=0):
+    def capacity(self, deadline, *, reclaim_bytes=0, pre_stop=False):
         limits = self.policy["capacity"]
-        self._basic_capacity(deadline, limits["available_memory_bytes"], reclaim_bytes=reclaim_bytes)
+        require(not pre_stop or reclaim_bytes == 0, "capacity_mode")
+        # The old container still owns its memory during stop-start preflight.
+        # Check disk, descriptors and real network evidence before disruption;
+        # memory must be checked again after the old container has stopped.
+        self._basic_capacity(deadline, 0 if pre_stop else limits["available_memory_bytes"], reclaim_bytes=reclaim_bytes)
         evidence = read_file(self.root / "capacity" / (limits["network_evidence"] + ".json"))
         require(digest(evidence) == limits["network_evidence"], "network_capacity")
         remaining(deadline)
@@ -788,14 +884,45 @@ class HostAdapter:
         require(labels.get("org.opencontainers.image.revision") == record["runtime_source_sha"], "runtime_revision")
         return info
 
+    @staticmethod
+    def bound_usage_log(info):
+        """(st_dev, st_ino) of the usage log as mounted inside the container."""
+        pid = info["State"].get("Pid")
+        require(type(pid) is int and pid > 0, "usage_log_binding", "pid")
+        try:
+            bound = os.stat(f"/proc/{pid}/root{USAGE_LOG_TARGET}")
+        except OSError:
+            raise ReleaseError("usage_log_binding", "proc") from None
+        return bound.st_dev, bound.st_ino
+
+    def confirm_usage_log(self, record, expected, deadline):
+        """Docker resolves the bind source by path at run/start; the string in
+        inspect proves nothing. Compare the inode actually mounted with the one
+        verified through descriptors, and stop the container on mismatch."""
+        info = self.inspect(record, deadline)
+        try:
+            require(info is not None and info["State"]["Running"], "container_not_running")
+            require(self.bound_usage_log(info) == expected, "usage_log_binding", "inode")
+        except ReleaseError:
+            if info is not None and info["State"]["Running"]:
+                self.stop(record, deadline)
+            raise
+
     def start(self, record, deadline):
         info = self.inspect(record, deadline)
         if info:
             check_usage_binding(info)
-        prepare_usage_log(create=info is None)
+            check_port_binding(info, record)
+        expected = prepare_usage_log(create=info is None)
         if info:
             if not info["State"]["Running"]:
                 run(["docker", "start", record["name"]], deadline)
+            # A running container, also one an operator started by hand with
+            # `docker start`, is adopted only after the same checks as our own
+            # start: owner labels, image and descriptor (inspect), port, and
+            # the mounted log inode. Docker access is root-equivalent; the
+            # hold token is a liveness handshake, not proof of identity.
+            self.confirm_usage_log(record, expected, deadline)
             return
         config = self.config(record)
         directory = self.root / "slots" / record["release_id"]
@@ -819,7 +946,30 @@ class HostAdapter:
              "--site-url", config["site_url"], "--refresh-seconds", str(config["refresh_seconds"]),
              "--max-snippet-chars", str(config["max_snippet_chars"]),
              "--usage-log", USAGE_LOG_TARGET], deadline)
-        self.inspect(record, deadline)
+        self.confirm_usage_log(record, expected, deadline)
+
+    def preflight(self, record, deadline):
+        """Everything a candidate start needs except memory, checked while
+        the predecessor still serves. Refuse before any stop, not after it."""
+        self.config(record)
+        info = self.inspect(record, deadline)
+        require(info is None or not info["State"]["Running"], "candidate_running")
+        if info:
+            check_usage_binding(info)
+            check_port_binding(info, record)
+        # Idempotent: may provision the fixed private directory and log inode
+        # while still RECEIVED; never touches an existing file's history.
+        prepare_usage_log(create=info is None)
+        names = run(["docker", "ps", "--filter", f"publish={record['port']}", "--format", "{{.Names}}"],
+                    deadline).decode().split()
+        require(all(name == record["name"] for name in names), "candidate_port_busy", str(record["port"]))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                probe.bind(("127.0.0.1", record["port"]))
+            except OSError:
+                raise ReleaseError("candidate_port_busy", str(record["port"])) from None
+        remaining(deadline)
 
     def control(self, record, mode, token, manifest=None):
         control_directory = self.root / "slots" / record["release_id"] / "control"
@@ -876,7 +1026,8 @@ class HostAdapter:
         run(["nginx", "-s", "reload"], deadline)
 
     def stop(self, record, deadline):
-        if self.inspect(record, deadline) is not None:
+        info = self.inspect(record, deadline)
+        if info is not None and info["State"]["Running"]:
             # No automatic restart policy; deterministic named objects survive
             # controller death and are reconciled, not replaced by unrelated IDs.
             run(["docker", "stop", "--time", str(max(0, min(DRAIN, int(remaining(deadline)) - 5))), record["name"]], deadline)
@@ -1080,9 +1231,14 @@ class Controller:
     def result(journal):
         if journal["state"] == "REJECTED":
             return dict(journal)  # Durable queued rejection is already a public outcome.
-        return {**journal["envelope"], "state": journal["state"], "intent": journal["intent"],
-                "error_code": journal.get("error_code"), "cleanup_complete": bool(
-                    journal.get("cleanup_complete", False) and not journal.get("active_recovery"))}
+        result = {**journal["envelope"], "state": journal["state"], "intent": journal["intent"],
+                  "error_code": journal.get("error_code"), "cleanup_complete": bool(
+                      journal.get("cleanup_complete", False) and not journal.get("active_recovery"))}
+        # Failed step and short cause; codes and fixed locators only.
+        for key in ("failure", "rollback_failure", "recovery_failure"):
+            if journal.get(key):
+                result[key] = journal[key]
+        return result
 
     def save(self, journal, state=None, intent=None):
         if state:
@@ -1115,35 +1271,63 @@ class Controller:
             if existing:
                 return self.result(existing)
             require(self.adapter.policy.get("runtime_enabled") is True, "runtime_not_activated")
+            mode = rollout_mode(self.adapter.policy, envelope)
             self.adapter.config(envelope)
             validate_envelope(raw)
-            require(envelope["deadline"] - time.time() > RECOVERY_RESERVE, "insufficient_transaction_budget")
+            reserve = STOP_START_RECOVERY_RESERVE if mode == "stop-start" else RECOVERY_RESERVE
+            require(envelope["deadline"] - time.time() > reserve, "insufficient_transaction_budget")
             require((self.root / "active.json").is_file(), "predecessor_required")
             previous = parse(read_file(self.root / "active.json"), 65536)
             self.adapter.config(previous)
-            deadline = time.monotonic() + min(TRANSACTION, envelope["deadline"] - time.time())
-            work = deadline - RECOVERY_RESERVE
+            transaction = STOP_START_TRANSACTION if mode == "stop-start" else TRANSACTION
+            deadline = time.monotonic() + min(transaction, envelope["deadline"] - time.time())
+            work = deadline - reserve
             journal = {"envelope": envelope, "state": "RECEIVED", "intent": "verify", "predecessor": previous,
-                       "candidate": None, "cleanup_complete": False}
+                       "candidate": None, "cleanup_complete": False, "rollout_mode": mode}
             self.save(journal)
             try:
                 descriptors = self.adapter.verify(envelope, work)
-                self.adapter.capacity(work)
+                self.save(journal, intent="capacity")
+                if mode == "stop-start":
+                    self.adapter.capacity(work, pre_stop=True)
+                else:
+                    self.adapter.capacity(work)
                 manifest = self.adapter.manifest(envelope)
-                self.save(journal, "VERIFIED", "hold_predecessor")
                 token = digest(canonical_json(envelope))[:32]
+                candidate = {**envelope, "name": "v8std-release-" + envelope["release_id"],
+                    "envelope_hash": digest(canonical_json(envelope)), "descriptors": descriptors,
+                    "port": next(p for p in self.adapter.policy["ports"] if p != previous["port"]),
+                    "hold_token": token}
+                # Host prerequisites of the candidate start are checked while
+                # still RECEIVED: a refusal here never touches the predecessor.
+                self.save(journal, intent="candidate_preflight")
+                # A predecessor an operator restarted by hand is the same owned
+                # container: inspect checks owner labels, image and descriptor,
+                # and Docker access itself is root-equivalent. A stopped one is
+                # not silently replaced: the recover pass must restart it first.
+                info = self.adapter.inspect(previous, work)
+                require(info is not None and info["State"]["Running"], "predecessor_not_running")
+                self.adapter.preflight(candidate, work)
+                self.save(journal, "VERIFIED", "hold_predecessor")
                 previous = self.adapter.hold(previous, token, min(work, time.monotonic() + READINESS))
                 journal["predecessor"] = previous
                 self.adapter.manifest(previous)  # Published record of observed, not disk-pointer, corpus.
                 self.save(journal, intent="pin_predecessor")
                 self.pins(journal)
-                candidate = {**envelope, "name": "v8std-release-" + envelope["release_id"],
-                    "envelope_hash": digest(canonical_json(envelope)), "descriptors": descriptors,
-                    "port": next(p for p in self.adapter.policy["ports"] if p != previous["port"]),
-                    "hold_token": token}
                 journal["candidate"] = candidate
                 self.save(journal, intent="pull_candidate")
                 self.adapter.pull(candidate, work)
+                if mode == "stop-start":
+                    require(remaining(work) >= STOP_START_ACCEPTANCE_BUDGET,
+                            "insufficient_stop_start_budget")
+                    # Repeat just before the irreversible stop: the pull may
+                    # have taken minutes and the host may have changed.
+                    self.save(journal, intent="candidate_preflight_before_stop")
+                    self.adapter.preflight(candidate, work)
+                    self.save(journal, intent="stop_predecessor")
+                    self.adapter.stop(previous, min(work, time.monotonic() + STOP))
+                    self.save(journal, intent="capacity_after_stop")
+                    self.adapter.capacity(work)
                 self.save(journal, intent="start_candidate")
                 candidate = self.adapter.hold(candidate, token, min(work, time.monotonic() + READINESS), manifest)
                 journal["candidate"] = candidate
@@ -1154,10 +1338,14 @@ class Controller:
                 self.adapter.switch(candidate, work)
                 self.save(journal, "SWITCHED", "public_smoke")
                 self.adapter.check(candidate, min(work, time.monotonic() + SMOKE), public=True)
-                self.save(journal, "COMMITTED", "accept_pointer")
-                self.cleanup(journal, deadline)
+                # In stop-start the predecessor is already down. Keep rollback
+                # possible through the second public check and candidate resume.
+                if mode != "stop-start":
+                    self.save(journal, "COMMITTED", "accept_pointer")
+                self.cleanup(journal, work if mode == "stop-start" else deadline)
             except Exception as error:
                 journal["error_code"] = error.code if isinstance(error, ReleaseError) else "host_failure"
+                journal["failure"] = failure(journal["intent"], error)
                 self.save(journal)
                 if journal["state"] == "RECEIVED":
                     # Rejected authority cannot trigger runtime mutation.
@@ -1197,12 +1385,21 @@ class Controller:
         self.adapter.resume(candidate, min(deadline, time.monotonic() + SMOKE))
         journal["cleanup_complete"] = True
         journal.pop("error_code", None)
-        self.save(journal, intent="complete")
+        # Accepted and fully cleaned up: an earlier cleanup failure is resolved.
+        journal.pop("failure", None)
+        journal.pop("recovery_failure", None)
+        self.save(journal, "COMMITTED" if journal.get("rollout_mode") == "stop-start" else None, "complete")
 
     def rollback(self, journal, deadline):
         switched = journal.get("switch_attempted", False)
         try:
             previous = journal["predecessor"]
+            if journal.get("rollout_mode") == "stop-start" and journal["candidate"]:
+                # A stopped predecessor cannot be restarted alongside the
+                # candidate on a small host. Persist before stopping it, also
+                # when recovery is replaying a crash after candidate start.
+                self.save(journal, intent="stop_candidate")
+                self.adapter.stop(journal["candidate"], min(deadline, time.monotonic() + STOP))
             self.save(journal, intent="restore_predecessor")
             # A crash during capture might leave no acknowledged identity. Select
             # the persisted previously accepted generation, never a newer cache pointer.
@@ -1214,14 +1411,21 @@ class Controller:
             self.adapter.switch(previous, deadline - STOP - SMOKE)
             self.adapter.check(previous, min(deadline - STOP, time.monotonic() + SMOKE), public=True)
             write_json(self.root / "active.json", previous)
-            if journal["candidate"]:
+            if journal["candidate"] and journal.get("rollout_mode") != "stop-start":
                 self.save(journal, intent="stop_candidate")
                 self.adapter.stop(journal["candidate"], min(deadline, time.monotonic() + STOP))
             self.adapter.resume(previous, deadline)
             journal["cleanup_complete"] = True
+            journal.pop("rollback_failure", None)
+            if journal.get("error_code") == "rollback_failed":
+                # A retried rollback restores the deploy's own cause.
+                journal["error_code"] = (journal.get("failure") or {}).get("code", "rollback_failed")
             self.save(journal, "ROLLED_BACK" if switched else "FAILED", "complete")
-        except Exception:
+        except Exception as error:
             journal["error_code"] = "rollback_failed"
+            journal["rollback_failure"] = failure(journal["intent"], error)
+            # The recover timer retries this rollback; the intent names the
+            # state an operator sees if retries keep failing.
             self.save(journal, "RECOVERY_REQUIRED", "operator_recovery")
 
     def recover(self):
@@ -1245,8 +1449,12 @@ class Controller:
                             # This is a new recovery transaction, not the old
                             # release's completed drain. Persist before start;
                             # Running alone never discharges switch/smoke/resume.
-                            active = journal.get("active_recovery", {}).get("record", active)
-                            journal["active_recovery"] = {"record": active}
+                            prior = journal.get("active_recovery", {})
+                            active = prior.get("record", active)
+                            # Keep the finished release's own outcome while
+                            # the restart transaction borrows error_code.
+                            journal["active_recovery"] = {"record": active, "prior_error_code": prior.get(
+                                "prior_error_code", journal.get("error_code"))}
                             self.save(journal, intent="recover_active_hold")
                             token = digest((active["release_id"] + ":restart").encode())[:32]
                             active = self.adapter.hold(active, token,
@@ -1261,12 +1469,18 @@ class Controller:
                             write_json(active_path, active)
                             self.save(journal, intent="recover_active_resume")
                             self.adapter.resume(active, min(deadline, time.monotonic() + SMOKE))
-                            journal.pop("active_recovery")
+                            prior = journal.pop("active_recovery").get("prior_error_code")
+                            journal.pop("recovery_failure", None)
+                            journal["error_code"] = prior
                             journal["intent"] = "complete"
-                        journal.pop("error_code", None)
+                        if journal.get("error_code") in {None, "active_recovery_failed"}:
+                            journal.pop("error_code", None)
+                            journal.pop("recovery_failure", None)
                         self.save(journal)
-                    except Exception:
+                    except Exception as error:
                         journal["error_code"] = "active_recovery_failed"
+                        journal["recovery_failure"] = failure(journal["intent"] if journal.get(
+                            "active_recovery") else "recover_active_inspect", error)
                         self.save(journal)
                 return self.status()
             if journal["state"] == "RECEIVED":
@@ -1280,8 +1494,9 @@ class Controller:
             if journal["state"] == "COMMITTED":
                 try:
                     self.cleanup(journal, deadline)
-                except Exception:
+                except Exception as error:
                     journal["error_code"] = "cleanup_failed"
+                    journal["recovery_failure"] = failure(journal["intent"], error)
                     self.save(journal, intent="cleanup_pending")
             else:
                 self.rollback(journal, deadline)
@@ -2037,14 +2252,17 @@ class Publisher:
             return removed
 
 
-def schedule(kind):
+def schedule(kind, *, runtime_max=None):
     require(kind in {"deploy", "index", "recover", "bootstrap", "initial-install"}, "job_kind")
+    runtime_max = TRANSACTION if runtime_max is None else runtime_max
+    require(runtime_max in {TRANSACTION, STOP_START_TRANSACTION}
+            and (runtime_max == TRANSACTION or kind == "deploy"), "job_budget")
     if kind == "initial-install":
         require(os.geteuid() == 0, "host_privilege")
     # Shared unit name and controller lock serialize all host effects. No --pipe,
     # --wait or inherited SSH stdin; timer recovers a crash before enqueue.
     return run(["systemd-run", "--unit=v8std-release-job", "--collect", "--no-block",
-                "--property=Type=exec", "--property=RuntimeMaxSec=300s", "--property=TimeoutStopSec=5s",
+                "--property=Type=exec", f"--property=RuntimeMaxSec={runtime_max}s", "--property=TimeoutStopSec=5s",
                 "--property=KillMode=control-group", "/usr/bin/python3", "-I", INSTALL, "_" + kind],
                time.monotonic() + 10)
 
@@ -2057,17 +2275,19 @@ def submit(root, adapter, raw):
         if existing:
             return controller.result(existing)
         require(adapter.policy.get("runtime_enabled") is True, "runtime_not_activated")
+        mode = rollout_mode(adapter.policy, envelope)
         adapter.config(envelope)
         require((Path(root) / "active.json").is_file(), "predecessor_required")
         validate_envelope(raw)
-        require(envelope["deadline"] - time.time() > RECOVERY_RESERVE, "insufficient_transaction_budget")
+        reserve = STOP_START_RECOVERY_RESERVE if mode == "stop-start" else RECOVERY_RESERVE
+        require(envelope["deadline"] - time.time() > reserve, "insufficient_transaction_budget")
         pending = Path(root) / "pending-deploy.json"
         if pending.exists():
             previous = parse(read_file(pending))
             require(previous == envelope or any(item["envelope"] == previous and item.get("cleanup_complete")
                                                for item in controller.journals()), "busy")
         write_json(pending, envelope)
-    schedule("deploy")
+    schedule("deploy", runtime_max=STOP_START_TRANSACTION if mode == "stop-start" else TRANSACTION)
     return {"state": "QUEUED", "release_id": envelope["release_id"]}
 
 
@@ -2135,7 +2355,8 @@ def main():
                             pending.unlink()
                             sync_dir(ROOT)
             except ReleaseError as error:
-                if error.code not in {"deadline", "insufficient_transaction_budget", "runtime_not_activated", "predecessor_required", "stale_sequence"}:
+                if error.code not in {"deadline", "insufficient_transaction_budget", "runtime_not_activated", "predecessor_required",
+                                      "stale_sequence", "stop_start_target", "stop_start_expired"}:
                     raise
                 with locked(ROOT):
                     write_json(ROOT / "rejected" / (envelope["release_id"] + ".json"),
@@ -2143,7 +2364,12 @@ def main():
                     if parse(read_file(pending)) == envelope:
                         pending.unlink()
                         sync_dir(ROOT)
-    if command in {"_recover", "_index"}:
+    if command == "_recover":
+        # The timer's journald line must show the release outcome too; the
+        # index inbox result alone ({"state": "EMPTY"}) hid failed recovery.
+        index = Publisher(ROOT, policy["static_root"]).recover()
+        return {"release": controller.status(), "index": index}
+    if command == "_index":
         return Publisher(ROOT, policy["static_root"]).recover()
     return controller.status()
 
